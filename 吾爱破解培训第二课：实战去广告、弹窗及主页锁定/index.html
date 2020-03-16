@@ -1,0 +1,377 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>吾爱破解培训第二课：实战去广告、弹窗及主页锁定 | K's House</title><meta name="description" content="吾爱破解培训第二课：实战去广告、弹窗及主页锁定"><meta name="keywords" content="逆向,脱壳，去广告及弹窗"><meta name="author" content="kabeor"><meta name="copyright" content="kabeor"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="吾爱破解培训第二课：实战去广告、弹窗及主页锁定"><meta name="twitter:description" content="吾爱破解培训第二课：实战去广告、弹窗及主页锁定"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><meta property="og:type" content="article"><meta property="og:title" content="吾爱破解培训第二课：实战去广告、弹窗及主页锁定"><meta property="og:url" content="https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%8C%E8%AF%BE%EF%BC%9A%E5%AE%9E%E6%88%98%E5%8E%BB%E5%B9%BF%E5%91%8A%E3%80%81%E5%BC%B9%E7%AA%97%E5%8F%8A%E4%B8%BB%E9%A1%B5%E9%94%81%E5%AE%9A/"><meta property="og:site_name" content="K's House"><meta property="og:description" content="吾爱破解培训第二课：实战去广告、弹窗及主页锁定"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%8C%E8%AF%BE%EF%BC%9A%E5%AE%9E%E6%88%98%E5%8E%BB%E5%B9%BF%E5%91%8A%E3%80%81%E5%BC%B9%E7%AA%97%E5%8F%8A%E4%B8%BB%E9%A1%B5%E9%94%81%E5%AE%9A/"><link rel="prev" title="吾爱破解培训第九课：短兵相接--深入浅出探讨脱壳细节（下）" href="https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B9%9D%E8%AF%BE%EF%BC%9A%E7%9F%AD%E5%85%B5%E7%9B%B8%E6%8E%A5--%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E6%8E%A2%E8%AE%A8%E8%84%B1%E5%A3%B3%E7%BB%86%E8%8A%82%EF%BC%88%E4%B8%8B%EF%BC%89/"><link rel="next" title="吾爱破解培训第五课：反击作者的挑衅--实战解除程序重启验证" href="https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E8%AF%BE%EF%BC%9A%E5%8F%8D%E5%87%BB%E4%BD%9C%E8%80%85%E7%9A%84%E6%8C%91%E8%A1%85--%E5%AE%9E%E6%88%98%E8%A7%A3%E9%99%A4%E7%A8%8B%E5%BA%8F%E9%87%8D%E5%90%AF%E9%AA%8C%E8%AF%81/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113413523-1', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">K's House</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">118</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">62</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">28</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#吾爱破解培训第二课：实战去广告、弹窗及主页锁定"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">吾爱破解培训第二课：实战去广告、弹窗及主页锁定</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#DLL"><span class="toc_mobile_items-number">1.0.1.</span> <span class="toc_mobile_items-text">DLL</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#线程"><span class="toc_mobile_items-number">1.0.2.</span> <span class="toc_mobile_items-text">线程</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#基础汇编指令"><span class="toc_mobile_items-number">1.0.3.</span> <span class="toc_mobile_items-text">基础汇编指令</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Windows-API"><span class="toc_mobile_items-number">1.0.4.</span> <span class="toc_mobile_items-text">Windows API</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#破解实例"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">破解实例</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1"><span class="toc_mobile_items-number">1.1.1.</span> <span class="toc_mobile_items-text">1</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2"><span class="toc_mobile_items-number">1.1.2.</span> <span class="toc_mobile_items-text">2</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#吾爱破解培训第二课：实战去广告、弹窗及主页锁定"><span class="toc-number">1.</span> <span class="toc-text">吾爱破解培训第二课：实战去广告、弹窗及主页锁定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DLL"><span class="toc-number">1.0.1.</span> <span class="toc-text">DLL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程"><span class="toc-number">1.0.2.</span> <span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基础汇编指令"><span class="toc-number">1.0.3.</span> <span class="toc-text">基础汇编指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-API"><span class="toc-number">1.0.4.</span> <span class="toc-text">Windows API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#破解实例"><span class="toc-number">1.1.</span> <span class="toc-text">破解实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1"><span class="toc-number">1.1.1.</span> <span class="toc-text">1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">1.1.2.</span> <span class="toc-text">2</span></a></li></ol></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png)"><div id="post-info"><div id="post-title"><div class="posttitle">吾爱破解培训第二课：实战去广告、弹窗及主页锁定</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2018-07-14<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-03-16</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%80%86%E5%90%91/">逆向</a><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%80%86%E5%90%91/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD/">吾爱破解培训</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">5k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 16 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="吾爱破解培训第二课：实战去广告、弹窗及主页锁定"><a href="#吾爱破解培训第二课：实战去广告、弹窗及主页锁定" class="headerlink" title="吾爱破解培训第二课：实战去广告、弹窗及主页锁定"></a>吾爱破解培训第二课：实战去广告、弹窗及主页锁定</h1><h3 id="DLL"><a href="#DLL" class="headerlink" title="DLL"></a>DLL</h3><p>DLL(Dynamic Link Library)文件为动态链接库文件，又称“应用程序拓展”，是软件文件类型。在Windows中，许多应用程序并不是一个完整的可执行文件，它们被分割成一些相对独立的动态链接库，即DLL文件，放置于系统中。当我们执行某一个程序时，相应的DLL文件就会被调用。一个应用程序可使用多个DLL文件，一个DLL文件也可能被不同的应用程序使用，这样的DLL文件被称为共享DLL文件。</p>
+<p>DLL文件中存放的是各类程序的函数(子过程)实现过程，当程序需要调用函数时需要先载入DLL，然后取得函数的地址，最后进行调用。使用DLL文件的好处是程序不需要在运行之初加载所有代码，只有在程序需要某个函数的时候才从DLL中取出。另外，使用DLL文件还可以减小程序的体积。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>线程，有时被称为轻量级进程(Lightweight Process，LWP），是程序执行流的最小单元。一个标准的线程由线程ID，当前指令指针(PC），寄存器集合和堆栈组成。另外，线程是进程中的一个实体，是被系统独立调度和分派的基本单位，线程自己不拥有系统资源，只拥有一点儿在运行中必不可少的资源，但它可与同属一个进程的其它线程共享进程所拥有的全部资源。一个线程可以创建和撤消另一个线程，同一进程中的多个线程之间可以并发执行。由于线程之间的相互制约，致使线程在运行中呈现出间断性。线程也有就绪、阻塞和运行三种基本状态。就绪状态是指线程具备运行的所有条件，逻辑上可以运行，在等待处理机；运行状态是指线程占有处理机正在运行；阻塞状态是指线程在等待一个事件（如某个信号量），逻辑上不可执行。每一个程序都至少有一个线程，若程序只有一个线程，那就是程序本身。</p>
+<p>线程是程序中一个单一的顺序控制流程。进程内有一个相对独立的、可调度的执行单元，是系统独立调度和分派CPU的基本单位指令运行时的程序的调度单位。在单个程序中同时运行多个线程完成不同的工作，称为多线程。</p>
+<h3 id="基础汇编指令"><a href="#基础汇编指令" class="headerlink" title="基础汇编指令"></a>基础汇编指令</h3><blockquote>
+<p>ret和retf</p>
+</blockquote>
+<p>ret指令用栈中的数据，修改IP的内容，从而实现近转移</p>
+<p>(IP)=((ss)*16+(sp))<br>(sp)=(sp)+2<br>等于 pop IP<br>retf指令用栈中的数据，修改CS和IP的内容，从而实现远转移</p>
+<p>(IP)=((ss)<em>16+(sp))<br>(sp)=(sp)+2<br>(IP)=((ss)</em>16+(sp))<br>(sp)=(sp)+2<br>等于 pop IP，pop CS</p>
+<blockquote>
+<p>call指令<br>CPU执行call指令时，进行两步操作：</p>
+</blockquote>
+<p>将当前的IP或CS和IP压入栈中<br>转移<br>call指令不能实现短转移，除此之外,call与jmp类似。</p>
+<p><a href="https://www.cnblogs.com/findumars/p/4121980.html" target="_blank" rel="noopener">汇编语言转移指令规则汇总
+</a></p>
+<h3 id="Windows-API"><a href="#Windows-API" class="headerlink" title="Windows API"></a>Windows API</h3><blockquote>
+<p>MessageBox函数</p>
+</blockquote>
+<p> MessageBox 函数用于创建、显示并操作一个消息对话框。该对话框包含由调用程序定义的信息和标题，以及预先定义的图标和按钮。</p>
+<pre><code>int MessageBoxA( HWND hWnd, LPCSTR lpText, LPCSTR lpCaption,   
+UINT uType);  
+
+int MessageBoxW( HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption,   
+UINT uType); 
+
+int MessageBox( HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption,   
+UINT uType); </code></pre><p>参数</p>
+<p>　　●hWnd：<br>此参数代表消息框拥有的窗口。如果为NULL，则消息框没有拥有窗口。</p>
+<p>　　●lpText：<br>消息框的内容。如果使用了Unicode库，则把文本变成：</p>
+<pre><code>TEXT(/*sometext*/)</code></pre><p>lpCaption：<br>消息框的标题。如果使用了Unicode库，则把文本变成：</p>
+<pre><code>TEXT(/*sometext*/)</code></pre><p>　　●uType：<br>指定一个决定对话框的内容和行为的位标志集。此参数可以为下列标志组中标志的组合。指定下列标志中的一个来显示消息框中的按钮以及图标。</p>
+<p>MessageBox是在库里声明了一个宏 当你使用宽字符的时候,也就是unicode的时候,自动帮你转换使用 MessageBoxW 而当你使用窄字符的时候,会自动帮你转换到 MEssageBoxA </p>
+<blockquote>
+<p>ShellExecute</p>
+</blockquote>
+<p>ShellExecute的功能是运行一个外部程序（或者是打开一个已注册的文件、打开一个目录、打印一个文件等等），并对外部程序有一定的控制。有几个API函数都可以实现这些功能，但是在大多数情况下ShellExecute是更多的被使用的，同时它并不是太复杂。</p>
+<pre><code>HINSTANCE ShellExecute(HWND hwnd, LPCTSTR lpOperation, LPCTSTR lpFile, LPCTSTR lpParameters, LPCTSTR lpDirectory, INT nShowCmd); </code></pre><p>标准用法 </p>
+<p>　　ShellExecute函数原型及参数含义如下： </p>
+<p>　　function ShellExecute(hWnd: HWND; Operation, FileName, Parameters,Directory: PChar; ShowCmd: Integer): HINST; stdcall; </p>
+<p>　　●hWnd：用于指定父窗口句柄。当函数调用过程出现错误时，它将作为Windows消息窗口的父窗口。例如，可以将其设置为应用程序主窗口句柄，即Application.Handle，也可以将其设置为桌面窗口句柄（用GetDesktopWindow函数获得）。 </p>
+<p>　　●Operation：用于指定要进行的操作。其中“open”操作表示执行由FileName参数指定的程序，或打开由FileName参数指定的文件或文件夹；“print”操作表示打印由FileName参数指定的文件；“explore”操作表示浏览由FileName参数指定的文件夹。当参数设为nil时，表示执行默认操作“open”。 </p>
+<p>　　●FileName：用于指定要打开的文件名、要执行的程序文件名或要浏览的文件夹名。 </p>
+<p>　　●Parameters：若FileName参数是一个可执行程序，则此参数指定命令行参数，否则此参数应为nil或PChar(0)。 </p>
+<p>　　●Directory：用于指定默认目录。 </p>
+<p>　　●ShowCmd：若FileName参数是一个可执行程序，则此参数指定程序窗口的初始显示方式，否则此参数应设置为0。 </p>
+<p>　　若ShellExecute函数调用成功，则返回值为被执行程序的实例句柄。若返回值小于32，则表示出现错误。 
+　　</p>
+<blockquote>
+<p>WinExec</p>
+</blockquote>
+<p>运行指定的应用程序。</p>
+<pre><code>UINT WINAPI WinExec（_In_ LPCSTR lpCmdLine，_In_ UINT uCmdShow）;</code></pre><p>参数</p>
+<p>　　●lpCmdLine [in]<br>要执行的应用程序的命令行（文件名加可选参数）。如果lpCmdLine参数中的可执行文件的名称不包含目录路径，则系统将按以下顺序搜索可执行文件：</p>
+<ol>
+<li><p>加载应用程序的目录。</p>
+</li>
+<li><p>当前目录。</p>
+</li>
+<li><p>Windows系统目录。该 GetSystemDirectory函数检索此目录的路径。</p>
+</li>
+<li><p>Windows目录。该GetWindowsDirectory函数检索此目录的路径。</p>
+</li>
+<li><p>PATH环境变量中列出的目录。</p>
+</li>
+</ol>
+<p>　　●uCmdShow [in]<br>显示选项。有关可接受值的列表，请参阅ShowWindow函数的nCmdShow参数 的说明。</p>
+<blockquote>
+<p>CreateProcess</p>
+</blockquote>
+<p>WIN32API函数CreateProcess用来创建一个新的进程和它的主线程，这个新进程运行指定的可执行文件。</p>
+<pre><code>BOOL WINAPI CreateProcess（
+  _In_opt_ LPCTSTR lpApplicationName，
+  _Inout_opt_ LPTSTR lpCommandLine，
+  _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes，
+  _In_opt_ LPSECURITY_ATTRIBUTES lpThreadAttributes，
+  _In_ BOOL bInheritHandles，
+  _In_ DWORD dwCreationFlags，
+  _In_opt_ LPVOID lpEnvironment，
+  _In_opt_ LPCTSTR lpCurrentDirectory，
+  _In_ LPSTARTUPINFO lpStartupInfo，
+  _Out_ LPPROCESS_INFORMATION lpProcessInformation
+）;</code></pre><p>第 1 个参数 lpApplicationName 是输入参数，指向启动进程的 exe 文件。</p>
+<p>第 2 个参数 lpCommandLine 是输入参数，是启动进程的命令行中的参数。</p>
+<p>当这两个参数都不为 NULL 时，第 1 个参数指定要启动的进程 exe 文件(不带参数)，第 2 个参数指定启动进程所需参数。第 1 个参数也可以为 NULL，此时第 2 个参数就不能为 NULL，在 lpCommandLine 需要指定出要启动的程序名以及所接参数，彼此间以空格隔开，其中第 1 个参数即是程序名。</p>
+<p>第 3 个参数 lpProcessAttributes 是输入参数，指向 SECURITY_ATTRIBUTES 结构变量，是进程的安全属性，可以为 NULL 则使用默认的安全属性。</p>
+<p>第 4 个参数 lpThreadAttributes 是输入参数，同第 3 个参数一样，指向 SECURITY_ATTRIBUTES 结构变量。</p>
+<p>第 5个参数 bInheritHandles 是输入参数，表示新进程是否从调用进程处继承了句柄。如果参数的值为 TRUE，调用进程中的每一个可继承的打开句柄都将被子进程继承。被继承的句柄与原进程拥有完全相同的值和访问权限；如果设为 FALSE，那么不继承。</p>
+<p>第 6 个参数 dwCreationFlags 是输入参数，表示进程的创建标志以及优先级控制。如 ：CREATE_NEW_CONSOLE 会使新建的控制台程序拥有一个新的控制台；DEBUG_PROCESS 调用进程将被当作一个调试程序，并且新进程会被当作被调试的进程。系统把被调试程序发生的所有调试事件通知给调试器。</p>
+<p>第 7 个参数 lpEnvironment 是输入参数，指向新进程的环境变量块，如果设置为 NULL，那么使用父进程的环境变量。</p>
+<p>第 8 个参数 lpCurrentDirectory 是输入参数，指定创建后新进程的当前目录，如果设置为 NULL，那么就在父进程所在的当前目录。</p>
+<p>第 9 个参数 lpStartupInfo 是输入参数，指向一个 STARTUPINFO 结构，该结构里可以设定启动信息，可以设置为 NULL 。</p>
+<p>第 10 个参数 lpProcessInformation 是输出参数，指向一个 PROCESS_INFORMATION 结构，返回被创建进程的信息。</p>
+<p><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms682425(v=vs.85).aspx" target="_blank" rel="noopener">CreateProcess函数参数</a></p>
+<blockquote>
+<p>CreateThread</p>
+</blockquote>
+<p>CreateThread是一种微软在Windows API中提供了建立新的线程的函数，该函数在主线程的基础上创建一个新线程。线程终止运行后，线程对象仍然在系统中，必须通过CloseHandle函数来关闭该线程对象。</p>
+<p>需要调用到CRT库时，不要用CreateThread 创建线程、并用CloseHandle来关闭这个线程，而应该用_beginthread来创建线程，_endthread来销毁线程。因为没有对子线程为CRT库分配堆，会导致低内存错误而崩溃。</p>
+<p>CreateThread 不会判断lpStartAddr是数据还是代码，甚至不会判断是否有足够的访问权限。lpStartAddr可以未必是个函数，也可以是类成员，只要将函数指针强制转换，并且不产生栈溢出和没有访问权限的问题就以及类如未定义的指令之类的错误可以顺利执行线程。创建类成员函数的对象时，this指针是调用CreateThread时所处的类对象的指针。在类对象外调用，其this指针将是未知的。</p>
+<p>CreateThread将在主线程的基础上创建一个新线程，大致做如下步骤：</p>
+<p>  1.在内核对象中分配一个线程标识/句柄，可供管理，由CreateThread返回</p>
+<p>  2.把线程退出码置为STILL_ACTIVE，把线程挂起计数置1</p>
+<p>  3.分配context结构</p>
+<p>  4.分配两页的物理存储以准备栈，保护页设置为PAGE_READWRITE，第2页设为PAGE_GUARD</p>
+<p>  5.lpStartAddr和lpvThread值被放在栈顶，使它们成为传送给StartOfThread的参数</p>
+<p>  6.把context结构的栈指针指向栈顶（第5步）指令指针指向startOfThread函数</p>
+<pre><code>MSDN中CreateThread原型：
+HANDLE CreateThread(
+LPSECURITY_ATTRIBUTES lpThreadAttributes,//SD
+SIZE_T dwStackSize,//initialstacksize
+LPTHREAD_START_ROUTINE lpStartAddress,//threadfunction
+LPVOID lpParameter,//threadargument
+DWORD dwCreationFlags,//creationoption
+LPDWORD lpThreadId//threadidentifier
+)</code></pre><p>参数说明</p>
+<p>lpThreadAttributes：指向SECURITY_ATTRIBUTES型态的结构的指针。在Windows 98中忽略该参数。在Windows NT中，NULL使用默认安全性，不可以被子线程继承，否则需要定义一个结构体将它的bInheritHandle<br>成员初始化为TRUE<br>dwStackSize，设置初始栈的大小，以字节为单位，如果为0，那么默认将使用与调用该函数的线程相同的栈空间大小。任何情况下，Windows根据需要动态延长堆栈的大小。</p>
+<p>lpStartAddress，指向线程函数的指针，形式：@函数名，函数名称没有限制，但是必须以下列形式声明：</p>
+<p>DWORD WINAPI 函数名 (LPVOID lpParam) ，格式不正确将无法调用成功。</p>
+<p>//也可以直接调用void类型</p>
+<p>//但lpStartAddress要这样通过LPTHREAD_START_ROUTINE转换如：<br>(LPTHREAD_START_ROUTINE)MyVoid<br>//然后在线程声明为：</p>
+<pre><code>void MyVoid()
+{
+return;
+}</code></pre><p>lpParameter：向线程函数传递的参数，是一个指向结构的指针，不需传递参数时，为NULL。</p>
+<p>dwCreationFlags ：线程标志,可取值如下<br> （1）CREATE_SUSPENDED(0x00000004)：创建一个挂起的线程，<br> （2）0：表示创建后立即激活。<br> （3）STACK_SIZE_PARAM_IS_A_RESERVATION(0x00010000)：dwStackSize参数指定初始的保留堆栈 的大小，否则,dwStackSize指定提交的大小。该标记值在Windows 2000/NT and Windows Me/98/95上不支持。</p>
+<p>lpThreadId:保存新线程的id。</p>
+<p>返回值：函数成功，返回线程句柄；函数失败返回false。若不想返回线程ID,设置值为NULL。</p>
+<p>函数说明：<br>创建一个线程。</p>
+<p>语法：</p>
+<pre><code>hThread = CreateThread (&amp;security_attributes, dwStackSize, ThreadProc,pParam, dwFlags, &amp;idThread) ;</code></pre><p>一般并不推荐使用 CreateThread函数，而推荐使用RTL库里的System单元中定义的 BeginThread函数，因为这除了能创建一个线程和一个入口函数以外，还增加了几项保护措施。</p>
+<p>在MFC程序中，应该调用AfxBeginThread函数，在Visual C++程序中应调用_beginthreadex函数。</p>
+<blockquote>
+<p>RegCreateKeyEx</p>
+</blockquote>
+<p>用于创建指定的注册键。</p>
+<pre><code>LONG WINAPI RegCreateKeyEx(
+_in HKEY hKey,
+_in LPCTSTR lpSubKey,
+DWORD Reserved,
+_in LPTSTR lpClass,
+_in DWORD dwOptions,
+_in REGSAM samDesired,
+_in LPSECURITY_ATTRIBUTES lpSecurityAttributes,
+_out PHKEY phkResult,
+_out LPDWORD lpdwDisposition);</code></pre><p>参数 类型及说明</p>
+<p>hKey Long，一个打开项的句柄，或者一个标准项名</p>
+<p>lpSubKey String，欲创建的新子项的名字</p>
+<p>Reserved Long，设为零</p>
+<p>lpClass String，项的类名</p>
+<p>dwOptions Long，下述常数为零：REG_OPTION_VOL<br>ATILE——这个项不正式保存下来，系统重新启动后会消失</p>
+<p>samDesired Long，带有前缀KEY_??的一个或多个常数。它们组合起来描述了允许对这个项进行哪些操作</p>
+<p>lpSecurityAttributes SECURITY_ATTRIBUTES，对这个项的安全特性进行描述的一个结构（用ByVal As Long传递空值）。不适用于windows 95</p>
+<p>phkResult Long，指定用于装载新子项句柄的一个<br>变量</p>
+<p>lpdwDisposition Long，用于装载下列某个常数的一个变量：</p>
+<p>REG_CREATED_NEW_KEY——新建的一个子项</p>
+<p>REG_OPENED_EXISTING_KEY——打开一个现有的项</p>
+<blockquote>
+<p>RegOpenKeyEx</p>
+</blockquote>
+<p>用于打开一个指定的注册表键。</p>
+<pre><code>LONG RegOpenKeyEx(
+HKEY hKey, // 需要打开的主键的名称
+LPCTSTR lpSubKey, //需要打开的子键的名称
+DWORD ulOptions, // 保留，设为0
+REGSAM samDesired, // 安全访问标记，也就是权限
+PHKEY phkResult // 得到的将要打开键的句柄
+);</code></pre><p>hKey</p>
+<p>[输入] 当前打开或者以下预定义的键。</p>
+<pre><code>HKEY_CLASSES_ROOT
+HKEY_CURRENT_USER
+HKEY_LOCAL_MACHINE 
+HKEY_USERS
+HKEY_CURRENT_CONFIG
+Windows NT/2000/XP: HKEY_PERFORMANCE_DATAWindows 95/98/Me: HKEY_DYN_DATA</code></pre><p>lpSubKey</p>
+<p>[输入] 指向一个非中断字符串包含将要打开键的名称。如果参数设置为NULL 或者指向一个空字符串，过程将打开一个新的句柄由hKey参数确定的值。这种情况下，过程不会关闭先前已经打开的句柄。</p>
+<p>ulOptions </p>
+<p>保留，必须设置为 0</p>
+<p>samDesired</p>
+<p>[输入] 对指定键希望得到的访问权限的访问标记。 这个参数可以使下列值的联合。<br>值 Meaning</p>
+<p>备注</p>
+<p>不像 RegCreateKeyEx 函数，当指定键不存在 RegOpenKeyEx函数不创建新键。</p>
+<blockquote>
+<p>RegDeleteKeyEx</p>
+</blockquote>
+<p>从指定的特定于平台的注册表视图中删除子项及其值。请注意，键名不区分大小写。</p>
+<p>要将子项作为事务操作删除，请调用RegDeleteKeyTransacted函数。</p>
+<pre><code>LONG WINAPI RegDeleteKeyEx（
+_In_ HKEY hKey，
+_In_ LPCTSTR lpSubKey，
+_In_ REGSAM samDesired，
+_Reserved_ DWORD保留 
+）;</code></pre><p>RegDeleteKeyEx函数<br>从指定的特定于平台的注册表视图中删除子项及其值。请注意，键名不区分大小写。</p>
+<p>要将子项作为事务操作删除，请调用RegDeleteKeyTransacted函数。</p>
+<p>句法<br>C ++</p>
+<p>LONG WINAPI RegDeleteKeyEx（<br>  <em>In</em> HKEY hKey，<br>  <em>In</em> LPCTSTR lpSubKey，<br>  <em>In</em> REGSAM samDesired，<br>  <em>Reserved</em> DWORD保留<br>）;</p>
+<p>参数</p>
+<p>hKey[输入]</p>
+<p>一个打开注册表项的句柄。该密钥的访问权限不影响删除操作。有关访问权限的更多信息，请参阅 注册表项安全和访问权限。</p>
+<p>该句柄由RegCreateKeyEx或 RegOpenKeyEx函数返回 ，也可以是以下 预定义键之一：</p>
+<pre><code>HKEY_CLASSES_ROOT
+HKEY_CURRENT_CONFIG
+HKEY_CURRENT_USER
+HKEY_LOCAL_MACHINE
+HKEY_USERS</code></pre><p>lpSubKey [in]</p>
+<p>要删除的密钥的名称。该密钥必须是由hKey参数的值指定的密钥的子密钥。</p>
+<p>该函数用DELETE访问权限打开子项。</p>
+<p>密钥名称不区分大小写。</p>
+<p>该参数的值不能为NULL。</p>
+<p>samDesired [in]</p>
+<p>访问掩码指定了注册表的特定于平台的视图。</p>
+<h2 id="破解实例"><a href="#破解实例" class="headerlink" title="破解实例"></a>破解实例</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p><a href="https://i.loli.net/2018/01/08/5a5368a947d48.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/01/08/5a5368a947d48.png" class="lazyload"></a></p>
+<p>程序共三个弹窗和一个主页锁定</p>
+<blockquote>
+<p>脱壳</p>
+</blockquote>
+<p>PEID查壳为UPX</p>
+<p>od打开<br><a href="https://i.loli.net/2018/07/14/5b49f4352ea41.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="1" class="fancybox"><img alt="1" title="1" data-src="https://i.loli.net/2018/07/14/5b49f4352ea41.jpg" class="lazyload"></a></p>
+<p><strong>UPX的特殊方法</strong><br>ctrl+B搜索字符串，输入多个0，查找</p>
+<p><a href="https://i.loli.net/2018/07/14/5b49f44e0a2e9.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f44e0a2e9.jpg" class="lazyload"></a><br>就可快速查找到大跳转位置，jmp下断点，F8即可到达OEP</p>
+<p><strong>ESP定律法</strong></p>
+<p>F8单步运行一次<br><a href="https://i.loli.net/2018/07/14/5b49f44e2cce7.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="http://p29uh0ff3l9B.png" class="fancybox"><img alt="http://p29uh0ff3l9B.png" title="http://p29uh0ff3l9B.png" data-src="https://i.loli.net/2018/07/14/5b49f44e2cce7.jpg" class="lazyload"></a></p>
+<p>可以看到只有ESP为红色，记下此时ESP寄存器中的值0045f804</p>
+<p>在下面命令行输入dd 0045f804（或hr esp），回车<br><a href="https://i.loli.net/2018/07/14/5b49f44e517b0.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f44e517b0.jpg" class="lazyload"></a><br>选中要下断点的0045f804那行，依次选择断点 -&gt; 硬件访问 -&gt; Word</p>
+<p>在菜单栏调试（D）下的硬件断点（H）下选项下可以看到我们设置的硬件断点<br><a href="https://i.loli.net/2018/07/14/5b49f44e65b7f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f44e65b7f.jpg" class="lazyload"></a></p>
+<p>按下F9运行程序，运行到程序停止<br><a href="https://i.loli.net/2018/07/14/5b49f44e8ae18.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f44e8ae18.jpg" class="lazyload"></a></p>
+<p>删除前面下的硬件断点，选择调试（D）下的硬件断点（H），弹出如下对话框，点击删除1按钮删除前面下的硬件断点<a href="https://i.loli.net/2018/07/14/5b49f44e9de3a.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f44e9de3a.jpg" class="lazyload"></a></p>
+<p>下面的jmp跳转的数值非常大，基本判定将要到达OEP。在jmp处F2下断点，F9运行到这一步，F8单步运行一次<br><a href="https://i.loli.net/2018/07/14/5b49f44ec0a6f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f44ec0a6f.jpg" class="lazyload"></a><br>这里就是程序真正的入口点，非常明显是VS2008/2010编译的</p>
+<p>复制call这行的地址，可用快捷键ctrl+x</p>
+<p>打开scylla，<br><a href="https://i.loli.net/2018/07/14/5b49f44ee2a29.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f44ee2a29.jpg" class="lazyload"></a></p>
+<p>选择要调试的进程，将刚刚复制的地址填进OEP框，点击  自动查找IAT – 获取输入表</p>
+<p>点击 转储文件–修复转储文件<br>得到名为dump和dump_SCY的文件</p>
+<p>SCY的就是已经脱壳的<br><a href="https://i.loli.net/2018/07/14/5b49f44f00e1a.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f44f00e1a.jpg" class="lazyload"></a></p>
+<p><strong>注意！！！</strong></p>
+<p>win7及以上系统具有ASLR保护功能</p>
+<p>ASLR（Address space layout randomization）是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，通过增加攻击者预测目的地址的难度，防止攻击者直接定位攻击代码位置，达到阻止溢出攻击的目的。据研究表明ASLR可以有效的降低缓冲区溢出攻击的成功率，如今Linux、FreeBSD、Windows等主流操作系统都已采用了该技术。</p>
+<p>需要在dump并修复后使用ASLR disabler工具关闭ASLR功能，否则会出现<a href="https://i.loli.net/2018/07/14/5b49f44f1461d.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f44f1461d.jpg" class="lazyload"></a></p>
+<blockquote>
+<p>去除主页锁定</p>
+</blockquote>
+<p>搜索字符串，找到如下<br><a href="https://i.loli.net/2018/07/14/5b49f4735cd9f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f4735cd9f.jpg" class="lazyload"></a></p>
+<pre><code>SOFTWARE\microsoft\Internet Explorer\Main</code></pre><p>是对注册表的修改，这里也就是通过修改注册表来修改主页</p>
+<p>双击跟随<a href="https://i.loli.net/2018/07/14/5b49f4787a660.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f4787a660.jpg" class="lazyload"></a><br><a href="https://i.loli.net/2018/07/14/5b49f4cf9a4aa.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f4cf9a4aa.jpg" class="lazyload"></a><br>这里因为脱壳不够完美，OD没有分析，需要PE地址修正</p>
+<p>找到段尾，有retn，为不让它修改主页，我们可以把段首也改为retn，也就是改为与段尾相同。（retn法）</p>
+<p>保存到可执行文件</p>
+<blockquote>
+<p>去内部网页</p>
+</blockquote>
+<p>可使用Restorator修改窗口为不可视</p>
+<p>或</p>
+<p>OD内找到API</p>
+<pre><code>CreateWindowExA/W</code></pre><p>F2断点<br><a href="https://i.loli.net/2018/07/14/5b49f4cfbf476.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f4cfbf476.jpg" class="lazyload"></a></p>
+<p>把   <strong>每一处</strong>    宽和高都改为0即可</p>
+<blockquote>
+<p>右下角弹窗去除</p>
+</blockquote>
+<p>使用ProcExp或Procmon来查找窗口进程<br><a href="https://i.loli.net/2018/07/14/5b49f4cfe4002.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f4cfe4002.jpg" class="lazyload"></a></p>
+<p>窗口创建也可用DialogBox</p>
+<p>ctrl+G搜索</p>
+<pre><code>DialogBoxParamA/W</code></pre><p>下断点</p>
+<p>断下后nop即可</p>
+<blockquote>
+<p>相关工具</p>
+</blockquote>
+<p>procmon和API monitor可检测程序所有行为</p>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p><a href="https://i.loli.net/2018/07/14/5b49f4d0190a6.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f4d0190a6.jpg" class="lazyload"></a></p>
+<p>程序打开后有一个弹窗，软件下面有广告链接</p>
+<p>PEID查壳发现没加壳，VC++6.0编译</p>
+<p>用OD打开，搜索字符串http<br><a href="https://i.loli.net/2018/07/14/5b49f4a750429.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f4a750429.jpg" class="lazyload"></a></p>
+<p>发现广告网址2345，搜索2345,发现<br><a href="https://i.loli.net/2018/07/14/5b49f4a775191.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f4a775191.jpg" class="lazyload"></a></p>
+<p>点击跟随<br><a href="https://i.loli.net/2018/07/14/5b49f4a79a50a.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f4a79a50a.jpg" class="lazyload"></a></p>
+<p>发现一个控制台和一个消息框API，把函数和参数（相应push和call）选中，nop填充复制到可执行文件。</p>
+<p>打开仍有广告，于是继续</p>
+<p>ctrl+G分别搜索下面的API，并下断点<br><a href="https://i.loli.net/2018/07/14/5b49f397ce204.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f397ce204.jpg" class="lazyload"></a></p>
+<p>F9运行将断下的API全部nop</p>
+<p>打开Restorator，载入文件，打开对话框<br><a href="https://i.loli.net/2018/07/14/5b49f397f28c9.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f397f28c9.jpg" class="lazyload"></a></p>
+<p>点上面的编辑，<br><a href="https://i.loli.net/2018/07/14/5b49f39822033.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="image" class="fancybox"><img alt="image" title="image" data-src="https://i.loli.net/2018/07/14/5b49f39822033.jpg" class="lazyload"></a><br>选择相应按钮进行编辑即可。</p>
+<p>至此软件去广告完毕。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%8C%E8%AF%BE%EF%BC%9A%E5%AE%9E%E6%88%98%E5%8E%BB%E5%B9%BF%E5%91%8A%E3%80%81%E5%BC%B9%E7%AA%97%E5%8F%8A%E4%B8%BB%E9%A1%B5%E9%94%81%E5%AE%9A/">https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%8C%E8%AF%BE%EF%BC%9A%E5%AE%9E%E6%88%98%E5%8E%BB%E5%B9%BF%E5%91%8A%E3%80%81%E5%BC%B9%E7%AA%97%E5%8F%8A%E4%B8%BB%E9%A1%B5%E9%94%81%E5%AE%9A/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%80%86%E5%90%91/">逆向    </a><a class="post-meta__tags" href="/tags/%E8%84%B1%E5%A3%B3%EF%BC%8C%E5%8E%BB%E5%B9%BF%E5%91%8A%E5%8F%8A%E5%BC%B9%E7%AA%97/">脱壳，去广告及弹窗    </a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B9%9D%E8%AF%BE%EF%BC%9A%E7%9F%AD%E5%85%B5%E7%9B%B8%E6%8E%A5--%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E6%8E%A2%E8%AE%A8%E8%84%B1%E5%A3%B3%E7%BB%86%E8%8A%82%EF%BC%88%E4%B8%8B%EF%BC%89/"><img class="prev_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>吾爱破解培训第九课：短兵相接--深入浅出探讨脱壳细节（下）</span></div></a></div><div class="next-post pull_right"><a href="/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E8%AF%BE%EF%BC%9A%E5%8F%8D%E5%87%BB%E4%BD%9C%E8%80%85%E7%9A%84%E6%8C%91%E8%A1%85--%E5%AE%9E%E6%88%98%E8%A7%A3%E9%99%A4%E7%A8%8B%E5%BA%8F%E9%87%8D%E5%90%AF%E9%AA%8C%E8%AF%81/"><img class="next_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>吾爱破解培训第五课：反击作者的挑衅--实战解除程序重启验证</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018.2 MOCTFcrackme2 WriteUp/" title="2018.2 MOCTFcrackme2 WriteUp"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">2018.2 MOCTFcrackme2 WriteUp</div></div></a></div><div class="relatedPosts_item"><a href="/Base-N算法及逆向初探/" title="Base-N算法及逆向初探"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c6273a0250.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-07</div><div class="relatedPosts_title">Base-N算法及逆向初探</div></div></a></div><div class="relatedPosts_item"><a href="/JCTF2014    RE200/" title="JCTF2014    RE200"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">JCTF2014    RE200</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
+var verify = true == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz',
+  appKey:'pSNnuMbRDkWAE7j44yChrEce',
+  placeholder:'都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By kabeor</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>

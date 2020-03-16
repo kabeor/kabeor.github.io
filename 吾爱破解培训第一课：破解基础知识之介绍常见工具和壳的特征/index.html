@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征 | K's House</title><meta name="description" content="吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征"><meta name="keywords" content="逆向,脱壳，破解"><meta name="author" content="kabeor"><meta name="copyright" content="kabeor"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征"><meta name="twitter:description" content="吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><meta property="og:type" content="article"><meta property="og:title" content="吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征"><meta property="og:url" content="https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%80%E8%AF%BE%EF%BC%9A%E7%A0%B4%E8%A7%A3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E4%BB%8B%E7%BB%8D%E5%B8%B8%E8%A7%81%E5%B7%A5%E5%85%B7%E5%92%8C%E5%A3%B3%E7%9A%84%E7%89%B9%E5%BE%81/"><meta property="og:site_name" content="K's House"><meta property="og:description" content="吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%80%E8%AF%BE%EF%BC%9A%E7%A0%B4%E8%A7%A3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E4%BB%8B%E7%BB%8D%E5%B8%B8%E8%A7%81%E5%B7%A5%E5%85%B7%E5%92%8C%E5%A3%B3%E7%9A%84%E7%89%B9%E5%BE%81/"><link rel="prev" title="You" href="https://kabeor.github.io/You/"><link rel="next" title="吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证" href="https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%83%E8%AF%BE%EF%BC%9A%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E4%BB%8E%E5%AE%9E%E4%BE%8B%E7%9C%8B%E5%A6%82%E4%BD%95%E6%94%BB%E7%A0%B4%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E7%BB%9C%E9%AA%8C%E8%AF%81/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113413523-1', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">K's House</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">118</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">62</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">28</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-不同编译器反汇编入口点特点"><span class="toc_mobile_items-number">1.0.1.</span> <span class="toc_mobile_items-text">1.不同编译器反汇编入口点特点</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-如何识别加壳"><span class="toc_mobile_items-number">1.0.2.</span> <span class="toc_mobile_items-text">2.如何识别加壳</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#3-程序加的是什么壳"><span class="toc_mobile_items-number">1.0.3.</span> <span class="toc_mobile_items-text">3.程序加的是什么壳</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#手脱UPX，AsPack"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">手脱UPX，AsPack</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征"><span class="toc-number">1.</span> <span class="toc-text">吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-不同编译器反汇编入口点特点"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.不同编译器反汇编入口点特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-如何识别加壳"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.如何识别加壳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-程序加的是什么壳"><span class="toc-number">1.0.3.</span> <span class="toc-text">3.程序加的是什么壳</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手脱UPX，AsPack"><span class="toc-number">1.1.</span> <span class="toc-text">手脱UPX，AsPack</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png)"><div id="post-info"><div id="post-title"><div class="posttitle">吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2018-07-14<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-03-16</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%80%86%E5%90%91/">逆向</a><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%80%86%E5%90%91/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD/">吾爱破解培训</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.4k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 4 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征"><a href="#吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征" class="headerlink" title="吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征"></a>吾爱破解培训第一课：破解基础知识之介绍常见工具和壳的特征</h1><h3 id="1-不同编译器反汇编入口点特点"><a href="#1-不同编译器反汇编入口点特点" class="headerlink" title="1.不同编译器反汇编入口点特点"></a>1.不同编译器反汇编入口点特点</h3><p>1.VC6编译无壳程序</p>
+<blockquote>
+<p>   VC6特点：入口点代码是固定的代码，入口调用的API也是相同的，其中有的push地址不同程序可能不同；区段有四个也是固定的.text、.rdata、.data和.rsrc。<a href="https://i.loli.net/2018/07/14/5b49c1f1042d4.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f1042d4.jpg" class="lazyload"></a><br>   <a href="https://i.loli.net/2018/07/14/5b49c2418da8e.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c2418da8e.jpg" class="lazyload"></a></p>
+</blockquote>
+<p>2.VS2008和VS2013编译无壳程序</p>
+<blockquote>
+<p>VS特点：入口点只有两行代码，一个CALL后直接JMP，第一个CALL进去后调用的API也是相同的；区段相对于VC6多了一个.reloc。<br><a href="https://i.loli.net/2018/07/14/5b49c241a00d9.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c241a00d9.jpg" class="lazyload"></a><br><a href="https://i.loli.net/2018/07/14/5b49c241b185a.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c241b185a.jpg" class="lazyload"></a><br><a href="https://i.loli.net/2018/07/14/5b49c241e4e8c.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c241e4e8c.jpg" class="lazyload"></a></p>
+</blockquote>
+<p>3.易语言编译无壳程序（独立编译和非独立编译）（由于易语言独立编译是调用VC的链接程序编译的，所以从区段和入口代码特征和VC相同）<br><a href="https://i.loli.net/2018/07/14/5b49c24202933.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c24202933.jpg" class="lazyload"></a></p>
+<blockquote>
+<p>易语言特点：可以从程序里找一些call的调用最终都会走到上面核心代码图位置（文字不太好表达），这个方法可以区分和VC的区别，非独立编译比较容易识别，入口特征和模块特征都有krnln.fnr。<a href="https://i.loli.net/2018/07/14/5b49c242162ee.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c242162ee.jpg" class="lazyload"></a></p>
+</blockquote>
+<p>查看模块<a href="https://i.loli.net/2018/07/14/5b49c2422a136.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c2422a136.jpg" class="lazyload"></a></p>
+<p>查看核心代码<br><a href="https://i.loli.net/2018/07/14/5b49c2423aee3.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c2423aee3.jpg" class="lazyload"></a></p>
+<p>4.Delhpi编译无壳程序</p>
+<h3 id="2-如何识别加壳"><a href="#2-如何识别加壳" class="headerlink" title="2.如何识别加壳"></a>2.如何识别加壳</h3><p>1.通过PEiD、Exeinfo PE等查壳工具内置各种壳的十六进制特征码进行对比查壳</p>
+<p>2.通过入口特征和区段特征来识别</p>
+<blockquote>
+<p>区段信息可以通过PEiD的EP处点击获取到。</p>
+</blockquote>
+<blockquote>
+<p>入口特征可以通过OllyDBG载入获得，载入后可以按一下“Ctrl+A”，让OD分析一下代码，就可以把入口点一些特征字符串分析出来</p>
+</blockquote>
+<h3 id="3-程序加的是什么壳"><a href="#3-程序加的是什么壳" class="headerlink" title="3.程序加的是什么壳"></a>3.程序加的是什么壳</h3><p>windows程序状态大体可以分为以下几种类型：未加壳、压缩壳、传统加密壳、代码虚拟化保护、.Net程序加密</p>
+<blockquote>
+<p>==OD快捷键== </p>
+</blockquote>
+<ol>
+<li>l：日志信息</li>
+<li>e：模块加载</li>
+<li>m：内存窗口</li>
+<li>t：线程</li>
+<li>w：窗口</li>
+<li>h：句柄</li>
+<li>c：CPU</li>
+<li>p：补丁</li>
+<li>k：调用堆栈</li>
+<li>b：断点窗口</li>
+<li>r：参考</li>
+<li>…：run跟踪</li>
+<li>s：源码</li>
+</ol>
+<blockquote>
+<p>API函数</p>
+</blockquote>
+<p>API（Application Programming Interface,应用程序编程接口）是一些预先定义的函数，目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问源码，或理解内部工作机制的细节。</p>
+<h2 id="手脱UPX，AsPack"><a href="#手脱UPX，AsPack" class="headerlink" title="手脱UPX，AsPack"></a>手脱UPX，AsPack</h2><p>UPS、AsPack压缩壳介绍：</p>
+<p>　　　UPX 、AsPack是一款先进的可执行程序文件压缩器。压缩过的可执行文件体积缩小50%-70% ，这样减少了磁盘占用空间、网络上传下载的时间和其它分布以及存储费用。 通过压缩过的程序和程序库完全没有功能损失，和压缩之前一样可正常地运行。对于支持的大多数格式没有运行时间或内存的不利后果。</p>
+<p>　　1、单步跟踪法</p>
+<p>　　　　　此方法是将向上跳转设置断点让它不能实现，向下跳转不执行动作让它实现。<br><a href="https://i.loli.net/2018/07/14/5b49c2425c093.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c2425c093.jpg" class="lazyload"></a>
+　　</p>
+<p>　　　　将程序拖入OP，可以看到Pushad是这个程序的入口点。接下来按F8（单步步过）或者点击此按钮即可。<br><a href="https://i.loli.net/2018/07/14/5b49c1f118e2f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f118e2f.jpg" class="lazyload"></a><br>　　　　单步跟踪法是将向上跳转设置断点，所以我们就用F8逐一的找向上跳转。<br><a href="https://i.loli.net/2018/07/14/5b49c1f12c039.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f12c039.jpg" class="lazyload"></a></p>
+<p>　　　　红色椭圆框住的就是向上跳转，每当遇见的时候通常我们都在下一句设置断点，所以我们可以直接在下一句（即红色矩形框框住部分）按F4，逐步向下寻找。<br><a href="https://i.loli.net/2018/07/14/5b49c1f1400ec.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f1400ec.jpg" class="lazyload"></a></p>
+<p>　　　　这个跳转因为下一句是一个“CALL”所以我们在CALL下面的一句设置断点。这里注意一下popad。这个是“出站口”，注意到前面pushad是“入站口”，有入站口就会有出站口即popad。再看popad下面的语句，98E1EFFF，0047738C，这个跨度比较大，典型的Delphi程序，一般再单步步进一次就可以进入到程序的真正程序段。<br><a href="https://i.loli.net/2018/07/14/5b49c1f154509.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f154509.jpg" class="lazyload"></a>
+　　</p>
+<p>　　接下来我们进行脱壳，可以直接用OD脱壳插件脱壳，右键用OllyDump脱壳调试进程。</p>
+<p><a href="https://i.loli.net/2018/07/14/5b49c1f167b76.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f167b76.jpg" class="lazyload"></a></p>
+<p> 　　可以用方式1，也可以用方式2，都可以进行脱壳。</p>
+<p>　　</p>
+<p>　　　2、ESP大法</p>
+<p> 　　　　ESP大法相比于单步跟踪法来说简便，利用寄存器ESP的值来进行脱壳。</p>
+<p>　　　　 首先来看程序入口点，关键语句Pushad。<br><a href="https://i.loli.net/2018/07/14/5b49c1f179b12.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f179b12.jpg" class="lazyload"></a></p>
+<p>　　　　 ESP大法是在关键语句的下一句如果ESP颜色突变进行操作，我们来看一下下一语句的ESP。<br><a href="https://i.loli.net/2018/07/14/5b49c1f18ba66.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f18ba66.jpg" class="lazyload"></a></p>
+<p>　　　　 这里我们看到寄存器里只有ESP是红色的，那我们就可以操作了。右键数据窗口中跟随。<br><a href="https://i.loli.net/2018/07/14/5b49c1f19d60f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f19d60f.jpg" class="lazyload"></a></p>
+<p>　　　　 在数据窗口中进行如下操作，word Dword都可以。<br><a href="https://i.loli.net/2018/07/14/5b49c1f1af0c1.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f1af0c1.jpg" class="lazyload"></a></p>
+<p>　　　　 然后我们F9运行，来到了我们刚才熟悉的界面，单步步进，来到了主程序程序段，脱壳即可。<br><a href="https://i.loli.net/2018/07/14/5b49c1f9785df.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f9785df.jpg" class="lazyload"></a></p>
+<p> 　　　　 3、内存2次镜像法<br><a href="https://i.loli.net/2018/07/14/5b49c1f98bce3.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f98bce3.jpg" class="lazyload"></a>　　　　</p>
+<p>　　　　　　点击m进入内存界面，接下来我们找在内存中的本程序段的.rsrc，F2设置断点，运行。<br><a href="https://i.loli.net/2018/07/14/5b49c1f99ef0e.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f99ef0e.jpg" class="lazyload"></a><br><a href="https://i.loli.net/2018/07/14/5b49c1f9b2f2c.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f9b2f2c.jpg" class="lazyload"></a></p>
+<p>　　　　 　</p>
+<p>　　　　　　所谓2次镜像法就是要进行2次内存操作，接下来我们再点m进入内存信息界面，找到地址00401000，F2设置断点，运行。又来到了我们熟悉的语句popad，设置断点，单步步进，脱壳。</p>
+<p><a href="https://i.loli.net/2018/07/14/5b49c1f9c699f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/14/5b49c1f9c699f.jpg" class="lazyload"></a></p>
+<p>　　　　　　4、一步直达法</p>
+<p> 　　　　　　此方法适用于UPX,Aspack壳，前面说过pushad为入口点，那么它必定有一个出口点popad，所以我们只需要Ctrl+f查找popad即可。 </p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%80%E8%AF%BE%EF%BC%9A%E7%A0%B4%E8%A7%A3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E4%BB%8B%E7%BB%8D%E5%B8%B8%E8%A7%81%E5%B7%A5%E5%85%B7%E5%92%8C%E5%A3%B3%E7%9A%84%E7%89%B9%E5%BE%81/">https://kabeor.github.io/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%80%E8%AF%BE%EF%BC%9A%E7%A0%B4%E8%A7%A3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E4%BB%8B%E7%BB%8D%E5%B8%B8%E8%A7%81%E5%B7%A5%E5%85%B7%E5%92%8C%E5%A3%B3%E7%9A%84%E7%89%B9%E5%BE%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%80%86%E5%90%91/">逆向    </a><a class="post-meta__tags" href="/tags/%E8%84%B1%E5%A3%B3%EF%BC%8C%E7%A0%B4%E8%A7%A3/">脱壳，破解    </a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/You/"><img class="prev_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>You</span></div></a></div><div class="next-post pull_right"><a href="/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%83%E8%AF%BE%EF%BC%9A%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E4%BB%8E%E5%AE%9E%E4%BE%8B%E7%9C%8B%E5%A6%82%E4%BD%95%E6%94%BB%E7%A0%B4%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E7%BB%9C%E9%AA%8C%E8%AF%81/"><img class="next_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018.2 MOCTFcrackme2 WriteUp/" title="2018.2 MOCTFcrackme2 WriteUp"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">2018.2 MOCTFcrackme2 WriteUp</div></div></a></div><div class="relatedPosts_item"><a href="/Base-N算法及逆向初探/" title="Base-N算法及逆向初探"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c6273a0250.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-07</div><div class="relatedPosts_title">Base-N算法及逆向初探</div></div></a></div><div class="relatedPosts_item"><a href="/JCTF2014    RE200/" title="JCTF2014    RE200"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">JCTF2014    RE200</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
+var verify = true == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz',
+  appKey:'pSNnuMbRDkWAE7j44yChrEce',
+  placeholder:'都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By kabeor</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>

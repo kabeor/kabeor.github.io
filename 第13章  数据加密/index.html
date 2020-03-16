@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>第13章  数据加密 | K's House</title><meta name="description" content="第13章  数据加密"><meta name="keywords" content="病毒分析"><meta name="author" content="kabeor"><meta name="copyright" content="kabeor"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="第13章  数据加密"><meta name="twitter:description" content="第13章  数据加密"><meta name="twitter:image" content="https://i.loli.net/2018/07/16/5b4c62738adf4.png"><meta property="og:type" content="article"><meta property="og:title" content="第13章  数据加密"><meta property="og:url" content="https://kabeor.github.io/%E7%AC%AC13%E7%AB%A0%20%20%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/"><meta property="og:site_name" content="K's House"><meta property="og:description" content="第13章  数据加密"><meta property="og:image" content="https://i.loli.net/2018/07/16/5b4c62738adf4.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/%E7%AC%AC13%E7%AB%A0%20%20%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/"><link rel="prev" title="第12章  隐蔽的恶意代码启动" href="https://kabeor.github.io/%E7%AC%AC12%E7%AB%A0%20%20%E9%9A%90%E8%94%BD%E7%9A%84%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%90%AF%E5%8A%A8/"><link rel="next" title="第8章 动态调试" href="https://kabeor.github.io/%E7%AC%AC8%E7%AB%A0%20%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113413523-1', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">K's House</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">118</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">62</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">28</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#第13章-数据加密"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">第13章  数据加密</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#13x1-分析加密算法的目的"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">13x1 分析加密算法的目的</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#13x2-简单的加密算法"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">13x2 简单的加密算法</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-凯撒密码"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text">1. 凯撒密码</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-XOR"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text">2. XOR</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#用IDA-Pro识别XOR循环"><span class="toc_mobile_items-number">1.2.2.1.</span> <span class="toc_mobile_items-text">用IDA Pro识别XOR循环</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#3-其他一些简单的加密策略"><span class="toc_mobile_items-number">1.2.3.</span> <span class="toc_mobile_items-text">3. 其他一些简单的加密策略</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#4-Base64"><span class="toc_mobile_items-number">1.2.4.</span> <span class="toc_mobile_items-text">4. Base64</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#13x3-常见的加密算法"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">13x3 常见的加密算法</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-识别字符串和导入"><span class="toc_mobile_items-number">1.3.1.</span> <span class="toc_mobile_items-text">1. 识别字符串和导入</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-查找加密常量"><span class="toc_mobile_items-number">1.3.2.</span> <span class="toc_mobile_items-text">2. 查找加密常量</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#3-查找高熵值内容"><span class="toc_mobile_items-number">1.3.3.</span> <span class="toc_mobile_items-text">3. 查找高熵值内容</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#13x4-自定义加密"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">13x4 自定义加密</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-识别自定义加密"><span class="toc_mobile_items-number">1.4.1.</span> <span class="toc_mobile_items-text">1. 识别自定义加密</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-攻击者使用自定义加密的优势"><span class="toc_mobile_items-number">1.4.2.</span> <span class="toc_mobile_items-text">2. 攻击者使用自定义加密的优势</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#13x5-解密"><span class="toc_mobile_items-number">1.5.</span> <span class="toc_mobile_items-text">13x5 解密</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-自解密"><span class="toc_mobile_items-number">1.5.1.</span> <span class="toc_mobile_items-text">1. 自解密</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-手动执行解密函数"><span class="toc_mobile_items-number">1.5.2.</span> <span class="toc_mobile_items-text">2. 手动执行解密函数</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#3-使用通用的解密规范"><span class="toc_mobile_items-number">1.5.3.</span> <span class="toc_mobile_items-text">3. 使用通用的解密规范</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第13章-数据加密"><span class="toc-number">1.</span> <span class="toc-text">第13章  数据加密</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#13x1-分析加密算法的目的"><span class="toc-number">1.1.</span> <span class="toc-text">13x1 分析加密算法的目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13x2-简单的加密算法"><span class="toc-number">1.2.</span> <span class="toc-text">13x2 简单的加密算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-凯撒密码"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 凯撒密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-XOR"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. XOR</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用IDA-Pro识别XOR循环"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">用IDA Pro识别XOR循环</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-其他一些简单的加密策略"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 其他一些简单的加密策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Base64"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. Base64</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13x3-常见的加密算法"><span class="toc-number">1.3.</span> <span class="toc-text">13x3 常见的加密算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-识别字符串和导入"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 识别字符串和导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-查找加密常量"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 查找加密常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-查找高熵值内容"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 查找高熵值内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13x4-自定义加密"><span class="toc-number">1.4.</span> <span class="toc-text">13x4 自定义加密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-识别自定义加密"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 识别自定义加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-攻击者使用自定义加密的优势"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 攻击者使用自定义加密的优势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13x5-解密"><span class="toc-number">1.5.</span> <span class="toc-text">13x5 解密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-自解密"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. 自解密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-手动执行解密函数"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. 手动执行解密函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-使用通用的解密规范"><span class="toc-number">1.5.3.</span> <span class="toc-text">3. 使用通用的解密规范</span></a></li></ol></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2018/07/16/5b4c62738adf4.png)"><div id="post-info"><div id="post-title"><div class="posttitle">第13章  数据加密</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2018-09-02<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-03-16</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/">病毒分析</a><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/%E3%80%8A%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%94%E8%AE%B0/">《恶意代码分析实战》笔记</a><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/%E3%80%8A%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%94%E8%AE%B0/%E7%AC%AC%E5%9B%9B%E7%AF%87-%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E7%AF%87/">第四篇 恶意代码功能篇</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">4.8k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 14 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="第13章-数据加密"><a href="#第13章-数据加密" class="headerlink" title="第13章  数据加密"></a>第13章  数据加密</h1><h2 id="13x1-分析加密算法的目的"><a href="#13x1-分析加密算法的目的" class="headerlink" title="13x1 分析加密算法的目的"></a>13x1 分析加密算法的目的</h2><p>恶意代码用加密来达到各种各样的目的。最常见的是加密网络通信，同时，恶意代码也会用加密来隐藏它的内部工作。例如，恶意代码编写者可能因为如下目的而使用加密：</p>
+<blockquote>
+<p>·隐藏配置信息。例如，命令和控制服务器域名。<br>·窃取信息之前将它保存到一个临时文件。<br>·存储需要使用的字符串，并在使用前对其解密。<br>·将恶意代码伪装成一个合法的工具，隐藏恶意代码活动中使用的字符串。</p>
+</blockquote>
+<p>分析加密算法时，我们的目标由两部分组成:识别加密算法，然后根据识别的加密算法解密攻击者的秘密。</p>
+<h2 id="13x2-简单的加密算法"><a href="#13x2-简单的加密算法" class="headerlink" title="13x2 简单的加密算法"></a>13x2 简单的加密算法</h2><h3 id="1-凯撒密码"><a href="#1-凯撒密码" class="headerlink" title="1. 凯撒密码"></a>1. 凯撒密码</h3><h3 id="2-XOR"><a href="#2-XOR" class="headerlink" title="2. XOR"></a>2. XOR</h3><p>XOR加密使用一个静态字节值，通过与该值执行逻辑异或运算来修改明文中的每个字节。</p>
+<blockquote>
+<p>暴力破解XOR加密</p>
+</blockquote>
+<p>由于文件中的每个字符只有256种可能的值，对于一个计算机来说很容易并且能够足够快地使用255个单字节密钥来异或文件头部，然后将输出与期望的可执行文件头部进行比较。可以使用一个脚本来执行用255个密钥的XOR加密。</p>
+<blockquote>
+<p>保留NULL的单字节XOR加密</p>
+</blockquote>
+<p>单字节加密的一个漏洞：它对使用十六进制编辑器手动扫描加密内容的用户缺乏有效的隐蔽性。如果加密内容中有大量的NULL字节，那么单字节密钥变得十分明显。</p>
+<p>与标准的XOR加密策略不同，保留NULL的单字节XOR加密策略有两个例外。</p>
+<ol>
+<li>如果明文中字符是NULL或者密钥本身，则被跳过。</li>
+<li>如果明文中字符既不是NULL也不是密码本身，则将被使用XOR密钥加密。</li>
+</ol>
+<p><a href="https://i.loli.net/2018/08/31/5b88f4d7dc022.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2018/08/31/5b88f4d7dc022.jpg" class="lazyload"></a></p>
+<h4 id="用IDA-Pro识别XOR循环"><a href="#用IDA-Pro识别XOR循环" class="headerlink" title="用IDA Pro识别XOR循环"></a>用IDA Pro识别XOR循环</h4><p>在反汇编中，通过循环语句中间使用XOR指令的小循环语句找到了XOR循环。用IDA Pro找到XOR循环的一个最简单方法是搜索指令中XOR指令，如下：<br>1.确保你正在查看代码（窗口的标题应该包含“IDAView”）。<br>2.选择Search→Text。<br>3.在文本搜索对话框中输入xor，选中Find all occurrences复选框，然后单击OK按钮。</p>
+<p>搜索到XOR指令并不意味着它一定用于加密。XOR指令可以用于不同的目的，其用途之一就是清空寄存器的内容。XOR指令以三种形式存在。</p>
+<ol>
+<li>用寄存器自身XOR。</li>
+<li>用一个常量（或一个内存引用）XOR。</li>
+<li>使用一个不同寄存器（或一个内存引用）XOR。</li>
+</ol>
+<p>最常见的是第一种形式，因为寄存器与自身异或是清零寄存器的一种有效方式。幸运的是，清零寄存器与数据加密无关，所以可以忽略它。</p>
+<p>XOR加密循环可能使用另外两种形式中的一种：用一个常量异或一个寄存器，或者用一个不同的寄存器异或一个寄存器。如果你幸运，XOR加密是一个常量异或寄存器的XOR，因为通过它，可以确认你可能发现了加密，并且也可以知道密钥。</p>
+<p>加密的迹象之一就是含有一个包含XOR函数的嵌套循环。</p>
+<h3 id="3-其他一些简单的加密策略"><a href="#3-其他一些简单的加密策略" class="headerlink" title="3. 其他一些简单的加密策略"></a>3. 其他一些简单的加密策略</h3><p><a href="https://i.loli.net/2018/08/31/5b88f66b1a17f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2018/08/31/5b88f66b1a17f.jpg" class="lazyload"></a></p>
+<h3 id="4-Base64"><a href="#4-Base64" class="headerlink" title="4. Base64"></a>4. Base64</h3><p>术语Base64来自于多用途Internet邮件扩展（MIME）标准。虽然Base64最初用于加密传输的邮件附件，但是现在它却广泛用于HTTP和XML。</p>
+<p>Base64编码将二进制数据转换成64个字符的有限字符集。对于不同类型的Base64加密，有多种不同的策略或字母表。但是它们都使用64个主要的字符，另外，它们通常用一个额外字符表示填充，通常是“=”。</p>
+<p>最常用的字符集是MIME Base64，它使用A<del>Z、a</del>z和0~9作为前62个值，+和/作为最后两个值。由于需要将数据压缩成一个较小字符集，给Base64加密后的数据会比原始的数据长。对于3个字节的二进制文件，加密后是至少4个字节的Base64加密数据。</p>
+<blockquote>
+<p>数据转化成Base64</p>
+</blockquote>
+<p>原始数据转换成Base64的过程相当标准。它使用24位（3个字节）的块。第一个字符被放到最重要的位置，第二个字符放在中间的8位，第三个字符放在最不重要的后8位。接下来，从最重要位置的开始，位被读入到6个块中。</p>
+<p><a href="https://i.loli.net/2018/08/31/5b88f7ca698a5.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2018/08/31/5b88f7ca698a5.jpg" class="lazyload"></a></p>
+<p>上图展示转换发生的过程，最上面一行是原始的字符串（ATT）。第二行是ATT的半字节表示（半字节等于4位）。中间一行用来表示ATT的实际位。第四行以6位段十进制表示位值。最后，最终的字符串通过十进制索引参考字符串得出字符。</p>
+<p>由上图可见，字母A相应的比特位是01000001。A字母的前6位被转换成Base64加密的单字符Q。字母A的最后两位（01）和字母T前四位（0101）被转化成Base64加密的第二个字符V（010101）。</p>
+<p>将Base64解密成原始的数据遵循相同的过程，但是过程是相反的。首先将每个Base64字符转换成6个比特位，将所有比特位按顺序存放。然后，以八位一组读取比特位，每组8个比特位表示原始数据的字节。</p>
+<blockquote>
+<p>识别和解密Base64</p>
+</blockquote>
+<p>在技术上，填充字符是可选的，并且它们对解密的准确性不是必须的。恶意代码知道避免使用这种填充字符，想必是为了使它们看起来不像Base64编码并避免网络特征。</p>
+<p>因为Base64加密的实现通常使用索引字符串，含有Base64加密的代码经常会存在这个64字符组成的加密字符串。通常情况下，索引Base64的字符串由可打印字符组成（或者它会破坏该算法的意图），因此可以很容易用眼睛察觉字符串输出。</p>
+<p>第二个可以被用来确认使用Base64加密算法的证据是存在一个单独填充字符（常为“=”），这个单独的填充字符常被硬编码到执行加密的函数中。</p>
+<h2 id="13x3-常见的加密算法"><a href="#13x3-常见的加密算法" class="headerlink" title="13x3 常见的加密算法"></a>13x3 常见的加密算法</h2><p>简单的加密算法与现代的加密算法不同，它们等同于替换算法。现代的加密算法考虑了增加指数级的计算能力，并且确保设计的算法需要大量的计算能力，从而使破解它们不切实际。</p>
+<p>先前我们讨论的简单加密策略并不试图对暴力破解方法加以保护，它们的主要目的是隐藏。随着时间的推移，加密算法逐渐改进和发展，并且它们已经深入到计算机应用的各个方面，例如网页浏览器中的SSL，无线接入点使用的加密等等。那么，为什么恶意代码不使用这种加密算法来隐藏敏感信息呢？恶意代码使用简单的加密策略是因为它们容易且足够使用。此外，使用标准的加密存在一些潜在的漏洞，特别是对于恶意代码来说：</p>
+<ol>
+<li>加密库很大，所以恶意代码需要静态的集成或者链接到已有的代码中。</li>
+<li>链接主机上现有的代码可能降低可移植性。</li>
+<li>标准加密库比较容易探测（通过函数导入，函数匹配或者加密常量标识）。</li>
+<li>对称加密算法需要考虑如何隐藏密钥。</li>
+</ol>
+<p>很多标准加密算法都依赖于一个强大的密钥来存储它们的秘密。算法本身是公开的，但是如果没有密钥，几乎不可能（也就说它需要大量工作）破解加密的密文。要确保解密费时费力，通常情况下，密钥必须足够长从而使得测试所有可能的密钥不那么容易。对于恶意代码可能使用的标准加密算法，关键是不仅要识别加密算法，而且还要识别密钥。</p>
+<p>有一些简单方法可以识别标准加密。它们包括查找字符串和引用加密函数的导入，使用一些工具寻找特定的内容。</p>
+<h3 id="1-识别字符串和导入"><a href="#1-识别字符串和导入" class="headerlink" title="1. 识别字符串和导入"></a>1. 识别字符串和导入</h3><p>一种识别标准加密算法的方法是识别涉及加密算法使用的字符串。当加密库（如OpenSSL）被静态地编译到恶意代码时，这种情况便会发生。</p>
+<p>另外一种查找标准加密算法的方法是识别引用导入的加密函数。</p>
+<h3 id="2-查找加密常量"><a href="#2-查找加密常量" class="headerlink" title="2. 查找加密常量"></a>2. 查找加密常量</h3><p>第三种检测加密的基本方法是使用可以搜索常见加密常量的工具，这里，我们使用IDA Pro的FindCrypt2和Krypto ANALyzer插件。</p>
+<blockquote>
+<p>使用FindCrypt2</p>
+</blockquote>
+<p>IDAPro有一个叫做FindCrypt2插件，包含在IDAPro的SDK中，它搜索程序中任何与加密算法相关的已知常量。这样做效果很好，因为多数加密算法会使用一些神秘的常量类型。所谓神秘常量则是与基本加密算法结构相关的一些固定位串。</p>
+<p><strong><em>注意：一些加密算法并不使用神秘常量，值得注意的是，国际数据加密（IDEA）算法和RC4算法动态地创建它们的结构，因此它们不在可识别的算法之中。恶意代码常使用RC4算法，因为它体积小，在软件中易于实现，并且没有明显的加密常量。</em></strong></p>
+<p>与IDAPRO的插件FindCrypt2原理相同的一个工具是Krypto ANALyzer（KANAL）。KANAL是PEiD的一个插件，它拥有一个范围更广的常量集合（作为结果可能更加容易产生误报）。除此之外，KANAL还能够识别Base64编码表以及加密相关的导入函数。</p>
+<h3 id="3-查找高熵值内容"><a href="#3-查找高熵值内容" class="headerlink" title="3. 查找高熵值内容"></a>3. 查找高熵值内容</h3><p>识别加密算法的另一方法是查找高熵值的内容。除了识别潜在的明显的加密常量或者加密密钥外，这种技术也可以识别加密内容本身。由于这种技术的影响广泛，可以适用于没有找到加密常量的地方（如RC4）。</p>
+<p><strong><em>警告：高嫡内容技术相当迟钝，最好作为最后一种使用手段。多种类型的内容，如图片、电影、音频文件以及其他压缩数据等，也会显示高篇值，除了它们的头部特征之外，很难与加密内容进行区分。</em></strong></p>
+<p>IDA的熵值插件(<a href="http://www.smokedchicken.org/2010/06/idaentropy-plugin.html" target="_blank" rel="noopener">http://www.smokedchicken.org/2010/06/idaentropy-plugin.html</a> )是针对PE文件使用这种技术的一个工具。将ida-entplw文件放置到IDAPro的插件目录，就可以将这个插件载入到IDA Pro。</p>
+<p>包含64个不同字节值的64字节字符串拥有最高可能的熵值，这64个值与熵值6相关（指6比特位的熵），因为6比特位表示的数字是64。</p>
+<p>另外一种可能有用的设置是大小为256的块，其熵值大于7.9。这也意味一个256个连续字节的字符串几乎反应出所有256个可能的字节值。</p>
+<p>IDAPro的熵值插件还有一个提供图形化概览感兴趣区域的工具，可以用它来引导你选择最大熵评分值，同时也帮助你确定关注范围。绘图按钮产生一个图，它将高熵值区域显示为亮条，将低熵值区域显示为暗条。在图上移动鼠标光标，可以看到图中某些点的原始熵值。因为熵的地图在打印格式下很难准确表达。</p>
+<h2 id="13x4-自定义加密"><a href="#13x4-自定义加密" class="headerlink" title="13x4 自定义加密"></a>13x4 自定义加密</h2><p>恶意代码常使用自创的加密方案，一种方案是将多个简单加密方法组装到一起。例如，恶意代码可以先执行一次XOR加密，然后在XOR加密基础上执行Base64加密。另外一种方案就是开发一种与标准加密算法相似的自定义加密算法。</p>
+<h3 id="1-识别自定义加密"><a href="#1-识别自定义加密" class="headerlink" title="1. 识别自定义加密"></a>1. 识别自定义加密</h3><p>发现加密算法的艰难历程是从可疑的输入或者输出开始跟踪运行的线程。输入和输出是一个通用分类，无论恶意代码是发送网络数据包，写入文件或者写入标准输出，这都是输出。如果怀疑输出中包含加密数据，那么加密函数应该出现在输出之前。</p>
+<p>相反，解密则出现在输入之后。例如，假设你确认了一个输入函数，则你首先应该识别出跟输入有关的数据元素，然后向后跟踪执行路径，找到访问相关数据元素的新函数。如果你到达一个函数的末尾，你应该在调用函数发生的地方继续，并且再次注意数据的位置。多数情况下，加密函数离输入函数不远。除了反向跟踪执行路径外，输出函数也是类似的。</p>
+<h3 id="2-攻击者使用自定义加密的优势"><a href="#2-攻击者使用自定义加密的优势" class="headerlink" title="2. 攻击者使用自定义加密的优势"></a>2. 攻击者使用自定义加密的优势</h3><p>对于攻击者，自定义加密方法拥有它自身的优势，主要是因为它们保留了简单加密策略的特点（体积小和加密不明显），同时使逆向工作变得十分困难。逆向这种类型的加密（也就是识别加密过程并且开发解密器）比标准加密方法是否更加困难存在一些争议。</p>
+<p>对于多种标准加密来说，如果识别了加密算法并且发现了密钥，则很容易使用标准的函数库来编写解密器。对于自定义加密，攻击者可以根据自己的需要创建任意的加密方案，它们可能使用也可能不使用一个明显的密钥。正如前面的例子中介绍的，密钥嵌入到代码中，甚至攻击者使用了一个密钥并且被我们发现，但是，不可能存在一个免费的函数库供我们实现解密。</p>
+<h2 id="13x5-解密"><a href="#13x5-解密" class="headerlink" title="13x5 解密"></a>13x5 解密</h2><p>重现恶意代码中的加密或解密函数的两种基本方法</p>
+<ol>
+<li>重新编写函数</li>
+<li>使用恶意代码中存在的函数</li>
+</ol>
+<h3 id="1-自解密"><a href="#1-自解密" class="headerlink" title="1. 自解密"></a>1. 自解密</h3><p>最经济的解密方法是:无论算法是否已知,让程序正常活动期间自己完成解密。我们称这种方法为自解密。如果你在调试器中暂停了恶意程序,并且注意到内存中的一个字符串,在你运行字符函数时你没有看到它,那么你已经使用自解密技术。无论先前被隐藏的信息在何处被解密,中断解密过程并做进一步分析,比尝试着确定使用了何种加密机制和尝试构造解密器更加容易虽然自解密是一种廉价且有效的解密方式,但是它也有缺点。首先,为了确认执行的每一个解密实例,你都必须要分离解密函数,并且在解密例程之后直接设置断点。更重要的是,如果恶意代码没有解密你感兴趣的信息(或你不知道如何欺骗恶意代码让其这么做),那你就会很倒霉。由于这些原因,使用这种技术的关键是提供更多控制。</p>
+<h3 id="2-手动执行解密函数"><a href="#2-手动执行解密函数" class="headerlink" title="2. 手动执行解密函数"></a>2. 手动执行解密函数</h3><p>对于简单的加密和编码方法，通常你可以使用编程语言提供的标准函数。</p>
+<p>对于缺少标准解密函数的简单加密方法，如XOR加密或使用修改字母表的的Base64加密，最简单的方法是使用你选择语言中的程序或脚本的加密函数。</p>
+<p><strong>Base64脚本</strong></p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import string</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line">example_string&#x3D;&#39; VChpcyBpcyBhIHR1c3Qgc3RyawSn&#39;</span><br><span class="line">print base64. decodestring(example_string)</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>保留NULL字节的XOR加密算法的Python脚本</strong></p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def null_preserving_xor(input_char,key_char):</span><br><span class="line">    if(input_char s&#x3D; key_char or input_char &#x3D;&#x3D; chr(0x00)): </span><br><span class="line">        return input_char </span><br><span class="line">	else: </span><br><span class="line">        return chr(ord(input_char)^ord(key_char))</span><br></pre></td></tr></table></figure></div>
+<p>这个函数需要两个字符：一个输入字符，一个密钥字符，并且输出一个转换后的字符。为了使用保留NULL的单字节XOR加密算法来转换一个字符串或者一个更长的内容，将它们的每一个输入字符和一个相同密钥一起传给这个子例程（函数）。</p>
+<p><strong>自定义Base64编码的脚本</strong></p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import string</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line">s &#x3D; &quot;&quot;</span><br><span class="line">custom&#x3D;&quot;9ZABCDEFGHIJKLMNOPQRSTUVWXYabcdefghijklmnopqrstuvwxyz012345678+&#x2F;&quot;</span><br><span class="line">Base64&#x3D;&quot;ABCDEFCHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">ciphertext&#x3D;&#39;TEgobxZobxZgCFPkb20&#39;</span><br><span class="line"></span><br><span class="line">for ch in ciphertext: </span><br><span class="line">    if(ch in Base64): </span><br><span class="line">	    s &#x3D; s + Base64[string.find(custom, str(ch))]</span><br><span class="line">    elif(ch &#x3D;&#x3D; &#39;&#x3D;&#39;):</span><br><span class="line">        s +&#x3D; &#39;&#x3D;&#39;</span><br><span class="line">result &#x3D; base64.decodestring(s)</span><br></pre></td></tr></table></figure></div>
+
+<p>对于标准的加密算法，最好是使用代码库中提供的现有实现。一个基于Python的加密库叫做PyCrypto（hup://<a href="http://www.dlitz.net/software/pycrypto/" target="_blank" rel="noopener">www.dlitz.net/software/pycrypto/</a> ），它提供了各种各样的加密函数。类似的库也存在于其他不同的语言中</p>
+<p><strong>DES脚本</strong></p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from Crypto.Cipher import DES </span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">obj &#x3D; DES.new(&quot;password&quot;, DES. MODE_ECB)</span><br><span class="line">cfile&#x3D;open(&#39;encrypted_file&#39;,&#39;r&#39;)</span><br><span class="line">cbuf&#x3D;f.read()</span><br><span class="line">print obj.decrypt(cbuf)</span><br></pre></td></tr></table></figure></div>
+
+<p>利用导入的PyCrypto库，脚本打开一个名为encrypted_file的加密文件，并且使用密码pas sword，用电子密码本（ECB）模式进行了DES破解。</p>
+<p>分组加密与DES加密类似，它使用不同的加密模式将一个单密钥应用到任意长度的明文流中，并且在库调用时指定模式。最简单的模式是ECB，它将分组密码应用到每个单独的明文块上。</p>
+<p>脚本加密算法有多种可用的变种。前面的例子为编写自己的解密器提供了一个有效的选项类型。</p>
+<p>攻击者编写自己版本的加密算法，通常要保留加密算法的简单性与良好的定义（以标准加密算法为例）。在处理非常复杂而且不标准的加密算法时，由于很难模拟算法，因此会成为更艰巨的挑战。</p>
+<h3 id="3-使用通用的解密规范"><a href="#3-使用通用的解密规范" class="headerlink" title="3. 使用通用的解密规范"></a>3. 使用通用的解密规范</h3><p>在自解密中，试图让恶意代码自己解密时，你应该让恶意代码以正常方式运行，并且让其在合适的时间停止。但是，当你能够控制它的时候便没有了让其按照正常方式运行的理由。</p>
+<p>一旦分离了加密或者解密例程，并且知道了它们的参数，则完全有可能使用规范让恶意代码解密任意内容，因此应该有效利用恶意代码本身来对付恶意代码。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/%E7%AC%AC13%E7%AB%A0%20%20%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/">https://kabeor.github.io/%E7%AC%AC13%E7%AB%A0%20%20%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/">病毒分析    </a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2018/07/16/5b4c62738adf4.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/%E7%AC%AC12%E7%AB%A0%20%20%E9%9A%90%E8%94%BD%E7%9A%84%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%90%AF%E5%8A%A8/"><img class="prev_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c62738929d.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>第12章  隐蔽的恶意代码启动</span></div></a></div><div class="next-post pull_right"><a href="/%E7%AC%AC8%E7%AB%A0%20%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/"><img class="next_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c6341be359.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>第8章 动态调试</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/第0章 恶意代码分析技术入门/" title="第0章 恶意代码分析技术入门"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">第0章 恶意代码分析技术入门</div></div></a></div><div class="relatedPosts_item"><a href="/第10章  使用WinDbg调试内核/" title="第10章  使用WinDbg调试内核"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c62735d971.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-02</div><div class="relatedPosts_title">第10章  使用WinDbg调试内核</div></div></a></div><div class="relatedPosts_item"><a href="/第11章  恶意代码行为/" title="第11章  恶意代码行为"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c6273790c1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-02</div><div class="relatedPosts_title">第11章  恶意代码行为</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
+var verify = true == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz',
+  appKey:'pSNnuMbRDkWAE7j44yChrEce',
+  placeholder:'都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By kabeor</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>

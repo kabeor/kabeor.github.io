@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>MATLAB图像处理常用函数 | K's House</title><meta name="description" content="MATLAB图像处理常用函数"><meta name="keywords" content="matlab, 图像处理"><meta name="author" content="kabeor"><meta name="copyright" content="kabeor"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="MATLAB图像处理常用函数"><meta name="twitter:description" content="MATLAB图像处理常用函数"><meta name="twitter:image" content="https://i.loli.net/2018/07/16/5b4c62f905db3.png"><meta property="og:type" content="article"><meta property="og:title" content="MATLAB图像处理常用函数"><meta property="og:url" content="https://kabeor.github.io/MATLAB%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"><meta property="og:site_name" content="K's House"><meta property="og:description" content="MATLAB图像处理常用函数"><meta property="og:image" content="https://i.loli.net/2018/07/16/5b4c62f905db3.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/MATLAB%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"><link rel="prev" title="第15章  对抗反汇编" href="https://kabeor.github.io/%E7%AC%AC15%E7%AB%A0%20%20%E5%AF%B9%E6%8A%97%E5%8F%8D%E6%B1%87%E7%BC%96/"><link rel="next" title="SUS十一欢乐赛 re200 maze" href="https://kabeor.github.io/SUS%E5%8D%81%E4%B8%80%E6%AC%A2%E4%B9%90%E8%B5%9B%20re200%20maze/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113413523-1', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">K's House</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">118</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">62</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">28</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#MATLAB图像处理常用函数"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">MATLAB图像处理常用函数</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#数字图像的读取"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">数字图像的读取</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#数字图像显示"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">数字图像显示</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#图像保存"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">图像保存</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#图像类型转换"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">图像类型转换</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#图像的几何操作"><span class="toc_mobile_items-number">1.5.</span> <span class="toc_mobile_items-text">图像的几何操作</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#亮度变换"><span class="toc_mobile_items-number">1.6.</span> <span class="toc_mobile_items-text">亮度变换</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#图像直方图函数"><span class="toc_mobile_items-number">1.7.</span> <span class="toc_mobile_items-text">图像直方图函数</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#滤波函数"><span class="toc_mobile_items-number">1.8.</span> <span class="toc_mobile_items-text">滤波函数</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MATLAB图像处理常用函数"><span class="toc-number">1.</span> <span class="toc-text">MATLAB图像处理常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数字图像的读取"><span class="toc-number">1.1.</span> <span class="toc-text">数字图像的读取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数字图像显示"><span class="toc-number">1.2.</span> <span class="toc-text">数字图像显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图像保存"><span class="toc-number">1.3.</span> <span class="toc-text">图像保存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图像类型转换"><span class="toc-number">1.4.</span> <span class="toc-text">图像类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图像的几何操作"><span class="toc-number">1.5.</span> <span class="toc-text">图像的几何操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#亮度变换"><span class="toc-number">1.6.</span> <span class="toc-text">亮度变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图像直方图函数"><span class="toc-number">1.7.</span> <span class="toc-text">图像直方图函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#滤波函数"><span class="toc-number">1.8.</span> <span class="toc-text">滤波函数</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2018/07/16/5b4c62f905db3.png)"><div id="post-info"><div id="post-title"><div class="posttitle">MATLAB图像处理常用函数</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2019-01-28<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-03-16</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Code/">Code</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">669</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 2 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="MATLAB图像处理常用函数"><a href="#MATLAB图像处理常用函数" class="headerlink" title="MATLAB图像处理常用函数"></a>MATLAB图像处理常用函数</h1><p>期末考完一直在忙着写机器学习图像识别的项目，简单记录一下</p>
+<h2 id="数字图像的读取"><a href="#数字图像的读取" class="headerlink" title="数字图像的读取"></a>数字图像的读取</h2><blockquote>
+<p>imread</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">imread( ‘filename’ );</span><br><span class="line">其中，filename是一个含有图像文件全名的字符串,包括文件的扩展名。单引号‘’来界定filename字符串。结尾处用分号在MATLAB中用于取消输出。</span><br><span class="line"></span><br><span class="line">size(I);</span><br><span class="line">函数size可以给出图像的行数和列数。如果size前面没有变量，则存在ans变量里。如果有变量，比如[M，N]&#x3D;size(I);则该命令将返回函数的行数M和列数N。</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="数字图像显示"><a href="#数字图像显示" class="headerlink" title="数字图像显示"></a>数字图像显示</h2><blockquote>
+<p>imshow(I, G)</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">G是显示该图像的灰度级数，若将G省略，则默认的灰度级数为256</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>imshow(I, [low high])</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">会将所有小于或等于low的值都显示为黑色，所有大于或等于high的值都显示为白色。界于low和high之间的值将以默认的级数显示为中等亮度值。</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>imshow(I,[])</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">可以将变量low设置为数组f的最小值，将变量high设置为数组f的最大值。该函数用来显示动态范围较小的图像时非常有用。</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="图像保存"><a href="#图像保存" class="headerlink" title="图像保存"></a>图像保存</h2><blockquote>
+<p>imwrite(f, ’filename’)</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">该函数的功能是使用函数imwrite可以将图像写到磁盘上的filename命令的文件中。Filename必须包含文件的扩展名。</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="图像类型转换"><a href="#图像类型转换" class="headerlink" title="图像类型转换"></a>图像类型转换</h2><blockquote>
+<p>G=im2bw(I,T)</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">该函数的功能就是将亮度图像I转换为一幅二值图像G。在亮度图像中，亮度值小于T的像素点全部转换为二值图像中值为0的像素点；在亮度图像中，亮度值大于T的像素点全部转换为二值图像中值为1的像素点。</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>G=rgb2gray(I)<br><code>该函数将彩色图像数组I转换为灰度图像G。</code></p>
+</blockquote>
+<h2 id="图像的几何操作"><a href="#图像的几何操作" class="headerlink" title="图像的几何操作"></a>图像的几何操作</h2><blockquote>
+<p>imread 加<br>imsubtract 减</p>
+</blockquote>
+<blockquote>
+<p>imresize 缩放</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">imresize(A,scale,method)</span><br><span class="line">imresize(A,[mrows ncols],method)</span><br><span class="line">method</span><br><span class="line">Nearest:最近邻插值</span><br><span class="line">Bilinear:双线性插值</span><br><span class="line">Bicubic:双三次插值，系统默认值</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>imrotate(A,angle,method) 旋转<br>逆时针为正，顺时针为负。</p>
+</blockquote>
+<h2 id="亮度变换"><a href="#亮度变换" class="headerlink" title="亮度变换"></a>亮度变换</h2><blockquote>
+<p>imadjust</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">g&#x3D;imadjust(f,[low_in high_in],[low_out high_out], gamma)</span><br><span class="line"></span><br><span class="line">将图像f中的亮度值映像到g中的新值，即将low_in至high_in之间的值映射到low_out至high_out之间的值。</span><br><span class="line">low_in以下的值映射为low_out, high_in以上的值映射为high_out.</span><br></pre></td></tr></table></figure></div>
+<h2 id="图像直方图函数"><a href="#图像直方图函数" class="headerlink" title="图像直方图函数"></a>图像直方图函数</h2><blockquote>
+<p>imhist</p>
+</blockquote>
+<h2 id="滤波函数"><a href="#滤波函数" class="headerlink" title="滤波函数"></a>滤波函数</h2><blockquote>
+<p>线性空间滤波函数</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">B&#x3D;imfilter(A,H)</span><br><span class="line">A是输入图像，B是滤波后的输出图像，H是滤波模板</span><br><span class="line"></span><br><span class="line">imfilter(I,fspecial(&#39;average&#39;,[3 3]));</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>高斯滤波</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">imfilter(I,fspecial(&#39;gaussian&#39;,[3 3]));</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>中值滤波</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">medfilt2(I,[3,3]);</span><br></pre></td></tr></table></figure></div>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/MATLAB%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">https://kabeor.github.io/MATLAB%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/matlab-%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">matlab, 图像处理    </a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2018/07/16/5b4c62f905db3.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/%E7%AC%AC15%E7%AB%A0%20%20%E5%AF%B9%E6%8A%97%E5%8F%8D%E6%B1%87%E7%BC%96/"><img class="prev_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c62f903175.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>第15章  对抗反汇编</span></div></a></div><div class="next-post pull_right"><a href="/SUS%E5%8D%81%E4%B8%80%E6%AC%A2%E4%B9%90%E8%B5%9B%20re200%20maze/"><img class="next_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c62f901955.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>SUS十一欢乐赛 re200 maze</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
+var verify = true == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz',
+  appKey:'pSNnuMbRDkWAE7j44yChrEce',
+  placeholder:'都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By kabeor</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>

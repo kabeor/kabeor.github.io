@@ -1,0 +1,153 @@
+<p align="right"><a title="New «NexT» 6.0.0 version [Reloaded]" href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">NexT v6.0.0 here :triangular_flag_on_post:</a></p>
+
+<h1 align="center">NexT</h1>
+
+<p align="center">NexT 是一个高质量并且优雅的<a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> 主题。这是精心制作做出来的 hexo 主题。</p>
+
+<p><a href="https://gitter.im/iissnan/hexo-theme-next?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge" target="_blank" rel="noopener"><img alt="Join the chat at https://gitter.im/iissnan/hexo-theme-next" data-src="https://badges.gitter.im/Join%20Chat.svg" class="lazyload"></a><br><a href="https://github.com/iissnan/hexo-theme-next/commits/master" target="_blank" rel="noopener"><img alt="mnt-image" data-src="https://img.shields.io/maintenance/yes/2017.svg" class="lazyload"></a><br><a href="https://travis-ci.org/iissnan/hexo-theme-next?branch=master" target="_blank" rel="noopener" title="Travis CI"><img alt="travis-image" data-src="https://travis-ci.org/iissnan/hexo-theme-next.svg?branch=master" class="lazyload"></a><br><a href="https://github.com/iissnan/hexo-theme-next/releases" target="_blank" rel="noopener"><img alt="rel-image" data-src="https://img.shields.io/github/release/iissnan/hexo-theme-next.svg" class="lazyload"></a><br><a href="http://hexo.io" target="_blank" rel="noopener"><img alt="hexo-image" data-src="https://img.shields.io/badge/hexo-%3E%3D%203.0-blue.svg" class="lazyload"></a><br><a href="LICENSE"><img alt="lic-image" data-src="https://img.shields.io/dub/l/vibe-d.svg" class="lazyload"></a></p>
+<ul>
+<li><a href="http://theme-next.iissnan.com" target="_blank">NexT 使用文档</a> |  <a href="README.md">English Documentation</a></li>
+</ul>
+<h2 id="实时预览-Live-Preview"><a href="#实时预览-Live-Preview" class="headerlink" title="实时预览 Live Preview"></a>实时预览 Live Preview</h2><ul>
+<li>:heart_decoration: Muse 方案: <a href="https://leaferx.online" target="_blank" rel="noopener">LEAFERx</a> | <a href="https://notes.wanghao.work" target="_blank" rel="noopener">XiaMo</a> | <a href="https://oawan.me" target="_blank" rel="noopener">OAwan</a></li>
+<li>:six_pointed_star: Mist 方案: <a href="https://blog.zzbd.org" target="_blank" rel="noopener">Jeff</a> | <a href="http://uchuhimo.me" target="_blank" rel="noopener">uchuhimo</a> | <a href="http://www.ixirong.com" target="_blank" rel="noopener">xirong</a></li>
+<li>:pisces: Pisces 方案: <a href="http://notes.iissnan.com" target="_blank" rel="noopener">Vi</a> | <a href="https://acris.me" target="_blank" rel="noopener">Acris</a> | <a href="https://rainylog.com" target="_blank" rel="noopener">Rainy</a></li>
+<li>:gemini: Gemini 方案: <a href="https://almostover.ru" target="_blank" rel="noopener">Ivan.Nginx</a> | <a href="http://sh.alynx.xyz" target="_blank" rel="noopener">Alynx</a> | <a href="https://raincal.top" target="_blank" rel="noopener">Raincal</a></li>
+</ul>
+<p>更多 NexT 例子点击 <a href="https://github.com/iissnan/hexo-theme-next/issues/119" target="_blank" rel="noopener">这里</a>.</p>
+<h2 id="安装-Installation"><a href="#安装-Installation" class="headerlink" title="安装 Installation"></a>安装 Installation</h2><p><strong>1.</strong> 在终端切换到<strong>hexo 根</strong>目录. 在hexo目录下一定有 <code>node_modules</code>, <code>source</code>, <code>themes</code> 和其他文件夹:<br>   <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> hexo</span><br><span class="line">$ ls</span><br><span class="line">_config.yml  node_modules  package.json  public  scaffolds  <span class="built_in">source</span>  themes</span><br></pre></td></tr></table></figure></div></p>
+<p><strong>2.</strong> 从 github 上获取主题 。这里有几种方式来获取主题:</p>
+<h3 id="下载最新发布的版本-Download-tagged-release-version"><a href="#下载最新发布的版本-Download-tagged-release-version" class="headerlink" title="下载最新发布的版本  Download tagged release version"></a>下载<a href="https://github.com/iissnan/hexo-theme-next/releases/latest" target="_blank" rel="noopener">最新发布的版本</a>  Download tagged release version</h3><p>   在大多数情况下 <strong>稳定</strong>。 推荐用户下载这个。</p>
+<p>   <a href="http://lmgtfy.com/?q=linux+curl+tar+wget+install" target="_blank" rel="noopener"><img alt="curl-tar-wget-image" data-src="https://img.shields.io/badge/install%20with%20-curl%20%7C%20tar%20%7C%20wget-blue.svg" class="lazyload"></a></p>
+   <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ mkdir themes/next</span><br><span class="line">$ curl -s https://api.github.com/repos/iissnan/hexo-theme-next/releases/latest | grep tarball_url | cut -d <span class="string">'"'</span> -f 4 | wget -i - -O- | tar -zx -C themes/next --strip-components=1</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="下载标签发布版本-Download-tagged-release-version"><a href="#下载标签发布版本-Download-tagged-release-version" class="headerlink" title="下载标签发布版本  Download tagged release version"></a>下载<a href="https://github.com/iissnan/hexo-theme-next/releases" target="_blank" rel="noopener">标签发布版本</a>  Download tagged release version</h3><p>   您必须定义版本。从<a href="https://github.com/iissnan/hexo-theme-next/tags" target="_blank" rel="noopener">标签列表</a>里选择版本替换<code>v5.1.2</code>。</p>
+<p>   <a href="http://lmgtfy.com/?q=linux+curl+tar+install" target="_blank" rel="noopener"><img alt="curl-tar-image" data-src="https://img.shields.io/badge/install%20with%20-curl%20%7C%20tar-blue.svg" class="lazyload"></a></p>
+   <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ mkdir themes/next</span><br><span class="line">$ curl -L https://api.github.com/repos/iissnan/hexo-theme-next/tarball/v5.1.2 | tar -zxv -C themes/next --strip-components=1</span><br></pre></td></tr></table></figure></div>
+
+<p>   <a href="http://lmgtfy.com/?q=linux+git+install" target="_blank" rel="noopener"><img alt="git-image" data-src="https://img.shields.io/badge/install%20with%20-git-blue.svg" class="lazyload"></a></p>
+   <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> --branch v5.1.2 https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="下载最新的-master-分支-Download-latest-master-branch"><a href="#下载最新的-master-分支-Download-latest-master-branch" class="headerlink" title="下载最新的 master 分支  Download latest master branch"></a>下载<a href="https://github.com/iissnan/hexo-theme-next/archive/master.zip" target="_blank" rel="noopener">最新的 master 分支</a>  Download latest master branch</h3><p>  可能会 <strong>不稳定</strong>, 但是包含最新的特色，推荐开发者下载.</p>
+<p>   <a href="http://lmgtfy.com/?q=linux+curl+tar+install" target="_blank" rel="noopener"><img alt="curl-tar-image" data-src="https://img.shields.io/badge/install%20with%20-curl%20%7C%20tar-blue.svg" class="lazyload"></a></p>
+   <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ mkdir themes/next</span><br><span class="line">$ curl -L https://api.github.com/repos/iissnan/hexo-theme-next/tarball | tar -zxv -C themes/next --strip-components=1</span><br></pre></td></tr></table></figure></div>
+
+<p>   <a href="http://lmgtfy.com/?q=linux+git+install" target="_blank" rel="noopener"><img alt="git-image" data-src="https://img.shields.io/badge/install%20with%20-git-blue.svg" class="lazyload"></a></p>
+   <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></div>
+
+<p>  使用克隆命令，你将得到<strong>整个存储库</strong>。而且在任何时候你都可以切换到任何标签发布版本。<br>  获取标签列表：</p>
+   <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next</span><br><span class="line">$ git tag -l</span><br><span class="line">…</span><br><span class="line">v5.0.0</span><br><span class="line">v5.0.1</span><br><span class="line">v5.1.0</span><br><span class="line">v5.1.1</span><br><span class="line">v5.1.2</span><br></pre></td></tr></table></figure></div>
+
+<p>   例如, 你想要切换到<code>v5.1.0</code> <a href="https://github.com/iissnan/hexo-theme-next/tags" target="_blank" rel="noopener">标签发布版本</a>. 输入以下命令:</p>
+   <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ git checkout tags/v5.1.0</span><br><span class="line">Note: checking out <span class="string">'tags/v5.1.0'</span>.</span><br><span class="line">…</span><br><span class="line">HEAD now on 1f72f68... CSS: Remove global list-style setting of ul</span><br></pre></td></tr></table></figure></div>
+
+<p>   如果你想切换回 <a href="https://github.com/iissnan/hexo-theme-next/commits/master" target="_blank" rel="noopener">master 分支</a>的话, 输入这个命令:</p>
+   <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>3.</strong> 在 <strong>hexo 根目录下</strong> 的配置文件<code>_config.yml</code>里设置主题:</p>
+<pre><code>theme: next</code></pre><h3 id="Bugs"><a href="#Bugs" class="headerlink" title="Bugs"></a>Bugs</h3><p>对于那些遇到 <strong>Error: Cannot find module ‘hexo-util’</strong> <a href="https://github.com/iissnan/hexo-theme-next/issues/1490" target="_blank" rel="noopener">问题</a>的人, 请检查你的NPM 版本.</p>
+<ul>
+<li><code>版本 &gt; 3</code>: 如果仍然不行的话，请移除 <code>node_modules</code> 文件 然后重新安装，使用 <code>npm install</code>命令。</li>
+<li><code>版本 &lt; 3</code>: 请通过<code>npm install --save-dev hexo-util</code>命令添加<code>hexo-util</code>到你的站点包依赖里</li>
+</ul>
+<h2 id="更新-Update"><a href="#更新-Update" class="headerlink" title="更新 Update"></a>更新 Update</h2><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">sh</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next</span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Bugs-1"><a href="#Bugs-1" class="headerlink" title="Bugs"></a>Bugs</h3><blockquote>
+<p>提交您的更改或存储它们，然后才能合并。</p>
+</blockquote>
+<p>您必须提交，存储或放弃本地更改. 看 <a href="https://stackoverflow.com/a/15745424/5861495" target="_blank" rel="noopener">here</a> 是如何做的。</p>
+<h3 id="使用Hexo-data-files-328-配置主题-Theme-configurations-using-Hexo-data-files-328"><a href="#使用Hexo-data-files-328-配置主题-Theme-configurations-using-Hexo-data-files-328" class="headerlink" title="使用Hexo data files(#328)配置主题  Theme configurations using Hexo data files #328"></a>使用Hexo data files(<a href="https://github.com/iissnan/hexo-theme-next/issues/328" target="_blank" rel="noopener">#328</a>)配置主题  Theme configurations using Hexo data files #328</h3><p>目前升级 NexT 主题的时候并不是非常的流畅。若使用 <code>git pull</code> 的方式，很多时候可能会产生冲突；而下载新版本覆盖安装的方式又需要手动合并主题的 <code>_config.yml</code> 文件。</p>
+<p>在此修改之前， NexT 建议将配置分离，一部分在 站点的配置文件中，另外一部分在主题的配置文件中。将需要自定的选项放置在 站点配置文件中，从而脱离避免更新主题时可能遇到的麻烦。这种方式是可行，但是有一些缺点：</p>
+<ol>
+<li>配置分离成了两个部分</li>
+<li>用户可能会疑惑一些选项该放置在哪里比较合适</li>
+</ol>
+<p>为了解决这个问题， NexT 将会使用 Hexo 的 <a href="https://hexo.io/docs/data-files.html" target="_blank" rel="noopener">Data Files</a> 。然而由于 Data Files 是在 Hexo 3 版本时引进的，所以要使用这个特性，需要 Hexo 的版本不低于 3。</p>
+<p>若你比较喜欢 Hexo 2.x 版本，可以继续使用原先的配置方式。 NexT 保持着向下兼容。</p>
+<h4 id="特性-Benefits"><a href="#特性-Benefits" class="headerlink" title="特性 Benefits"></a>特性 Benefits</h4><p>通过这个特性，你可以将所有的主题配置放置在站点的 <code>source/_data/next.yml</code> 文件中。原先放置在 站点配置文件 中的选项可以迁移到新的位置，同时，主题配置文件可以不用做任何修改。若后续版本有配置相关的改动时，你仅需在 <code>next.yml</code> 中做相应调整即可</p>
+<h4 id="如何使用这个特性-How-to-use-this-feature"><a href="#如何使用这个特性-How-to-use-this-feature" class="headerlink" title="如何使用这个特性 How to use this feature"></a>如何使用这个特性 How to use this feature</h4><ol>
+<li>请先确保你所使用的 Hexo 版本在 3 以上</li>
+<li>在站点的 <code>source/_data</code> 目录下新建 <code>next.yml</code> 文件（<code>_data</code>目录可能需要新建）</li>
+<li>迁移站点配置文件和主题配置文件中的配置到 <code>next.yml</code> 中</li>
+<li>使用 <code>--config source/_data/next.yml</code> 参数启动服务器, 生成或者部署。<br>例如: <code>hexo clean --config source/_data/next.yml &amp;&amp; hexo g --config source/_data/next.yml</code>。</li>
+</ol>
+<h2 id="特色-Features"><a href="#特色-Features" class="headerlink" title="特色 Features"></a>特色 Features</h2><h3 id="支持多国语言-包括"><a href="#支持多国语言-包括" class="headerlink" title="支持多国语言, 包括:"></a>支持多国语言, 包括:</h3><p>:cn: 简体中文 &amp; 繁体中文<br><br>:us: 英语<br><br>:ru: 俄语<br><br>:fr: 法语<br><br>:de: 德语<br><br>:jp: 日语<br><br>:indonesia: 印度尼西亚语<br><br>:portugal: 葡萄牙语 (巴西)<br><br>:kr: 朝鲜语<br><br>:it: 意大利语<br><br>:netherlands: 荷兰语</p>
+<p>默认语言是英语。</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">yml</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">en</span></span><br><span class="line"><span class="comment"># language: zh-Hans</span></span><br><span class="line"><span class="comment"># language: zh-hk</span></span><br><span class="line"><span class="comment"># language: zh-tw</span></span><br><span class="line"><span class="comment"># language: ru</span></span><br><span class="line"><span class="comment"># language: fr-FR</span></span><br><span class="line"><span class="comment"># language: de</span></span><br><span class="line"><span class="comment"># language: ja</span></span><br><span class="line"><span class="comment"># language: id</span></span><br><span class="line"><span class="comment"># language: pt</span></span><br><span class="line"><span class="comment"># language: pt-BR</span></span><br><span class="line"><span class="comment"># language: ko</span></span><br><span class="line"><span class="comment"># language: it</span></span><br><span class="line"><span class="comment"># language: nl-NL</span></span><br></pre></td></tr></table></figure></div>
+
+<p>在站点配置文件<code>_config.yml</code>中可以将语言切换成中文</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">yml</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="评论支持-Comment-support"><a href="#评论支持-Comment-support" class="headerlink" title="评论支持 Comment support"></a>评论支持 Comment support</h3><p>NexT 已经原生支持 <code>多说</code> and <code>Disqus</code> 评论系统。</p>
+<p>添加以下代码到你的主题配置文件 <code>_config.yml</code>:</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">yml</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">duoshuo:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">shortname:</span> <span class="string">your-duoshuo-shortname</span></span><br></pre></td></tr></table></figure></div>
+
+<p>或者</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">yml</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">disqus_shortname:</span> <span class="string">your-disqus-shortname</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="标签页-Tags-page"><a href="#标签页-Tags-page" class="headerlink" title="标签页 Tags page"></a>标签页 Tags page</h3><blockquote>
+<p>添加一个标签页面，里面包含您网站中的所有标签。</p>
+</blockquote>
+<ul>
+<li><p>创建一个名为 <code>tags</code> 页面</p>
+<pre><code>hexo new page &quot;tags&quot;</code></pre></li>
+<li><p>编辑标签页, 设置页面类型为<code>tags</code>.</p>
+<pre><code>title: All tags
+date: 2014-12-22 12:39:04
+type: &quot;tags&quot;</code></pre></li>
+<li><p>添加 <code>tags</code> 到主题配置文件 <code>_config.yml</code> 里:</p>
+<pre><code>menu:
+  home: /
+  archives: /archives
+  tags: /tags</code></pre></li>
+</ul>
+<h3 id="分类页-Categories-page"><a href="#分类页-Categories-page" class="headerlink" title="分类页 Categories page"></a>分类页 Categories page</h3><blockquote>
+<p>添加一个分类页面，里面包含您网站中的所有分类。</p>
+</blockquote>
+<ul>
+<li><p>创建一个名为 <code>categories</code> 页面</p>
+<pre><code>hexo new page &quot;categories&quot;</code></pre></li>
+<li><p>编辑分类页, 设置页面类型为 <code>categories</code>.</p>
+<pre><code>title: All categories
+date: 2014-12-22 12:39:04
+type: &quot;categories&quot;</code></pre></li>
+<li><p>添加 <code>categories</code> 到主题配置文件 <code>_config.yml</code> 里:</p>
+<pre><code>menu:
+  home: /
+  archives: /archives
+  categories: /categories</code></pre></li>
+</ul>
+<h3 id="社交媒体-Social-Media"><a href="#社交媒体-Social-Media" class="headerlink" title="社交媒体 Social Media"></a>社交媒体 Social Media</h3><p>NexT 可以自动添加链接到您的社交媒体帐户里:</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">yml</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">social:</span></span><br><span class="line">  <span class="attr">GitHub:</span> <span class="string">your-github-url</span></span><br><span class="line">  <span class="attr">Twitter:</span> <span class="string">your-twitter-url</span></span><br><span class="line">  <span class="attr">Weibo:</span> <span class="string">your-weibo-url</span></span><br><span class="line">  <span class="attr">DouBan:</span> <span class="string">your-douban-url</span></span><br><span class="line">  <span class="attr">ZhiHu:</span> <span class="string">your-zhihu-url</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Feed-链接-Feed-link"><a href="#Feed-链接-Feed-link" class="headerlink" title="Feed 链接 Feed link"></a>Feed 链接 Feed link</h3><blockquote>
+<p>显示 feed 链接。</p>
+</blockquote>
+<p>在主题配置文件<code>_config.yml</code>里设置<code>rss</code> , 如下所示:</p>
+<ol>
+<li><p><code>rss: false</code> 会禁用 feed 链接。</p>
+</li>
+<li><p><code>rss:</code> 使用站点 feed 链接。这是默认的选项。</p>
+<p> 按照插件<a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="noopener">hexo-generator-feed</a>的README中的安装说明进行操作。在完成这个插件的配置后，Feed链接也生成好了</p>
+</li>
+<li><p><code>rss: http://your-feed-url</code> 设置你的 feed 链接.</p>
+</li>
+</ol>
+<h3 id="内置5种代码高亮主题-Up-to-5-code-highlight-themes-built-in"><a href="#内置5种代码高亮主题-Up-to-5-code-highlight-themes-built-in" class="headerlink" title="内置5种代码高亮主题 Up to 5 code highlight themes built-in"></a>内置5种代码高亮主题 Up to 5 code highlight themes built-in</h3><p>NexT 使用的是 <a href="https://github.com/chriskempson/tomorrow-theme" target="_blank" rel="noopener">Tomorrow 主题</a> ，一共有5种主题供你选择。<br>Next 默认使用 <code>normal</code>. 下面是 <code>normal</code> 和 <code>night</code> 主题的预览:</p>
+<p><a href="http://iissnan.com/nexus/next/tomorrow-normal.png" data-fancybox="group" data-caption="Tomorrow Normal Preview" class="fancybox"><img alt="Tomorrow Normal Preview" title="Tomorrow Normal Preview" data-src="http://iissnan.com/nexus/next/tomorrow-normal.png" class="lazyload"></a><br><a href="http://iissnan.com/nexus/next/tomorrow-night.png" data-fancybox="group" data-caption="Tomorrow Night Preview" class="fancybox"><img alt="Tomorrow Night Preview" title="Tomorrow Night Preview" data-src="http://iissnan.com/nexus/next/tomorrow-night.png" class="lazyload"></a></p>
+<p>查看更多信息点击<a href="https://github.com/chriskempson/tomorrow-theme" target="_blank" rel="noopener">Tomorrow 主题</a>。</p>
+<h2 id="配置-Configuration"><a href="#配置-Configuration" class="headerlink" title="配置 Configuration"></a>配置 Configuration</h2><p>NexT 的配置很少</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">yml</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Menu configuration.</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Favicon</span></span><br><span class="line"><span class="attr">favicon:</span> <span class="string">/favicon.ico</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Avatar (put the image into next/source/images/)</span></span><br><span class="line"><span class="comment"># can be any image format supported by web browsers (JPEG,PNG,GIF,SVG,..)</span></span><br><span class="line"><span class="attr">avatar:</span> <span class="string">/default_avatar.png</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Code highlight theme</span></span><br><span class="line"><span class="comment"># available: normal | night | night eighties | night blue | night bright</span></span><br><span class="line"><span class="attr">highlight_theme:</span> <span class="string">normal</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Fancybox for image gallery</span></span><br><span class="line"><span class="attr">fancybox:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Specify the date when the site was setup</span></span><br><span class="line"><span class="attr">since:</span> <span class="number">2013</span></span><br></pre></td></tr></table></figure></div>
+
+
+<h2 id="浏览器支持-Browser-support"><a href="#浏览器支持-Browser-support" class="headerlink" title="浏览器支持 Browser support"></a>浏览器支持 Browser support</h2><p><a href="http://iissnan.com/nexus/next/browser-support.png" data-fancybox="group" data-caption="Browser support" class="fancybox"><img alt="Browser support" title="Browser support" data-src="http://iissnan.com/nexus/next/browser-support.png" class="lazyload"></a></p>
+<p><a href="https://www.browserstack.com/" target="_blank" rel="noopener"><img alt="Browser Stack" data-src=".github/browserstack_logo.png" class="lazyload"></a></p>
+<blockquote>
+<p><strong>BrowserStack</strong> is a cloud-based cross-browser testing tool that enables developers to test their websites across various browsers on different operating systems and mobile devices, without requiring users to install virtual machines, devices or emulators.</p>
+</blockquote>
+<h2 id="贡献-Contributing"><a href="#贡献-Contributing" class="headerlink" title="贡献 Contributing"></a>贡献 Contributing</h2><p>接受各种形式的贡献，包括不限于提交问题与需求，修复代码。等待您的<code>Pull Request</code>。</p>
+<p>Any types of contribution are welcome. Thanks.</p>
+<p><strong>ATTENTION! Contributors on Chinese docs needed!</strong><br>Need to translate from <a href="README.md">English docs</a> to Chinese docs.<br>Any help wanted!<br>Thank’s a lot!</p>
+<h2 id="开发-Development"><a href="#开发-Development" class="headerlink" title="开发 Development"></a>开发 Development</h2><p>NexT 主旨在于简洁优雅且易于使用，所以首先要尽量确保 NexT 的简洁易用性。</p>
+<p>NexT is built for easily use with elegant appearance. First things first, always keep things simple.</p>
+<h2 id="开发历史-Changelog"><a href="#开发历史-Changelog" class="headerlink" title="开发历史 Changelog"></a><a href="https://github.com/iissnan/hexo-theme-next/wiki/Changelog" target="_blank" rel="noopener">开发历史 Changelog</a></h2><!--[lic-image]: https://img.shields.io/npm/l/hexo-theme-next.svg-->

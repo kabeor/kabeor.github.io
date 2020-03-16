@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>x86汇编-从实模式到保护模式 | K's House</title><meta name="description" content="x86汇编-从实模式到保护模式"><meta name="keywords" content="逆向"><meta name="author" content="kabeor"><meta name="copyright" content="kabeor"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="x86汇编-从实模式到保护模式"><meta name="twitter:description" content="x86汇编-从实模式到保护模式"><meta name="twitter:image" content="https://i.loli.net/2018/07/16/5b4c62738308c.png"><meta property="og:type" content="article"><meta property="og:title" content="x86汇编-从实模式到保护模式"><meta property="og:url" content="https://kabeor.github.io/x86%E6%B1%87%E7%BC%96%E4%BB%8E%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/"><meta property="og:site_name" content="K's House"><meta property="og:description" content="x86汇编-从实模式到保护模式"><meta property="og:image" content="https://i.loli.net/2018/07/16/5b4c62738308c.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/x86%E6%B1%87%E7%BC%96%E4%BB%8E%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/"><link rel="prev" title="CVE-2012-0003 MIDI 文件堆溢出分析" href="https://kabeor.github.io/CVE-2012-0003%20MIDI%20%E6%96%87%E4%BB%B6%E5%A0%86%E6%BA%A2%E5%87%BA%E5%88%86%E6%9E%90/"><link rel="next" title="2019湖湘杯线上 RE WriteUp" href="https://kabeor.github.io/2019%E6%B9%96%E6%B9%98%E6%9D%AF%E7%BA%BF%E4%B8%8ARE%20WriteUp/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113413523-1', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">K's House</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">118</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">62</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">28</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#x86汇编-从实模式到保护模式"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">x86汇编-从实模式到保护模式</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#32位保护模式"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">32位保护模式</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#x86汇编-从实模式到保护模式"><span class="toc-number">1.</span> <span class="toc-text">x86汇编-从实模式到保护模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#32位保护模式"><span class="toc-number">1.1.</span> <span class="toc-text">32位保护模式</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2018/07/16/5b4c62738308c.png)"><div id="post-info"><div id="post-title"><div class="posttitle">x86汇编-从实模式到保护模式</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2019-12-31<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-03-16</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%80%86%E5%90%91/">逆向</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">4.6k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 14 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="x86汇编-从实模式到保护模式"><a href="#x86汇编-从实模式到保护模式" class="headerlink" title="x86汇编-从实模式到保护模式"></a>x86汇编-从实模式到保护模式</h1><blockquote>
+<p>注释</p>
+</blockquote>
+<p>注释必须以分号“;”开始。</p>
+<blockquote>
+<p>在屏幕上显示文字</p>
+</blockquote>
+<p>文本模式和图形模式是显卡的两种基本工作模式，可以用指令访问显卡，设置它的显示模式。在不同的工作模式下，显卡对显存内容的解释是不同的。</p>
+<p>为了访问显存，也需要使用逻辑地址，也就是采用“段地址：偏移地址”的形式</p>
+<p>Intel的处理器不允许将一个立即数传送到段寄存器，它只允许这样的指令：</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mov 段寄存器，通用寄存器 </span><br><span class="line">mov 段寄存器，内存单元</span><br><span class="line"></span><br><span class="line">         mov ax,0xb800                 ;指向文本模式的显示缓冲区</span><br><span class="line">         mov es,ax</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>显示字符</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mov byte [es:0x00],&#39;L&#39;</span><br><span class="line">mov byte [es:0x01],0x07          ;将属性值0x07传送到下一个内存单元</span><br><span class="line">mov byte [es:0x02],&#39;a&#39;</span><br><span class="line">mov byte [es:0x03],0x07</span><br><span class="line">mov byte [es:0x04],&#39;b&#39;</span><br><span class="line">mov byte [es:0x05],0x07</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>显示标号的汇编地址</p>
+</blockquote>
+<p>asm编译后，除了生成一个以“.bin”为扩展名的二进制文件，还会生成一个以“.lst”为扩展名的列表文件。这张表列出编译后生成的列表文件内容。</p>
+<p>在编译阶段，每条指令都被计算并赋予了一个汇编地址，就像它们已经被加载到内存中的某个段里一样。实际上，当编译好的程序加载到物理内存后，它在段内的偏移地址和它在编译阶段的汇编地址是相等的。</p>
+<p>源程序的编译是从上往下的，而内存地址的增长是从下往上的（从低地址往高地址方向增长）。</p>
+<blockquote>
+<p>loop</p>
+</blockquote>
+<p>loop指令的功能是重复执行一段相同的代码，处理器在执行它的时候会顺序做两件事： <strong>将寄存器CX的内容减一； 如果CX的内容不为零，转移到指定的位置处执行，否则顺序执行后面的指令。</strong></p>
+<blockquote>
+<p>计算1到100的和</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    xor ax,ax</span><br><span class="line">    mov cx,1</span><br><span class="line">@f:</span><br><span class="line">    add ax,cx</span><br><span class="line">    inc cx</span><br><span class="line">    cmp cx,100</span><br><span class="line">    jle @f</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>分段、段的汇编地址和段内汇编地址</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Intel处理器要求段在内存中的起始物理地址起码是16字节对齐的。这句话的意思是，必须是16的倍数，或者说该物理地址必须能被16整除。</span><br><span class="line">相应地，汇编语言源程序中定义的各个段，也有对齐方面的要求。具体做法是，在段定义中使用“align&#x3D;”子句，用于指定某个SECTION的汇编地址对齐方式。比如说，“align&#x3D;16”就表示段是16字节对齐的，“align&#x3D;32”就表示段是32字节对齐的。</span><br><span class="line">段的重定位是加载器的工作，它需要知道每个段在用户程序内的位置，即它们分别位于用户程序内的多少字节处。为此，需要在用户程序头部建立一张段重定位表。</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>实模式下的中断向量表</p>
+</blockquote>
+<p>在实模式下，处理器要求将与该中断有关的程序（指令）的入口点集中存放到内存中从物理地址0x00000开始，到0x003ff结束，共1KB的空间内，这就是所谓的中断向量表（Interrupt Vector Table，IVT）。</p>
+<blockquote>
+<p>初始化8259、RTC和中断向量表</p>
+</blockquote>
+<p>当处理器执行任何一条改变堆栈段寄存器SS的指令时，它会在下一条指令执行完期间禁止中断。</p>
+<p>绝大多数时候，对堆栈的改变是分两步进行的：先改变段寄存器SS的内容，接着又修改堆栈指针寄存器SP的内容。</p>
+<blockquote>
+<p>软 中 断</p>
+</blockquote>
+<p>int3和int 3不是一回事。前者的机器码为CC，后者则是CD 03，这就是通常所说的int n，其操作码为0xCD，第2字节的操作数给出了中断号。</p>
+<p>into是溢出中断指令，机器码为0xCE，也是单字节指令。当处理器执行这条指令时，如果标志寄存器的OF位是1，那么，将产生4号中断。否则，这条指令什么也不做。</p>
+<h2 id="32位保护模式"><a href="#32位保护模式" class="headerlink" title="32位保护模式"></a>32位保护模式</h2><blockquote>
+<p>32位Intel微处理器编程架构</p>
+</blockquote>
+<p>80286和8086不一样的地方在于，它第一次提出了保护模式的概念。在保护模式下，段寄存器中保存的不再是段地址，而是段选择子，真正的段地址位于段寄存器的描述符高速缓存中，是24位的。因此，运行在保护模式下的80286处理器可以访问全部16MB内存。</p>
+<p>在保护模式下，所有的32位处理器都可以访问多达4GB的内存，它们可以工作在分段模型下，每个段的基地址是32位的，段内偏移量也是32位的，因此，段的长度不受限制。在最典型的情况下，可以将整个4GB内存定义成一个段来处理，这就是所谓的平坦模式。在平坦模式下，可以执行4GB范围内的控制转移，也可以使用32位的偏移量访问任何4GB范围内的任何位置。32位保护模式兼容80286的16位保护模式。</p>
+<p>在实模式下，用户程序对内存的访问非常自由，没有任何限制，随随便便就可以修改任何一个内存单元。</p>
+<blockquote>
+<p>全局描述符表</p>
+</blockquote>
+<p>为了让程序在内存中能自由浮动而又不影响它的正常执行，处理器将内存划分成逻辑上的段，并在指令中使用段内偏移地址。在保护模式下，对内存的访问仍然使用段地址和偏移地址，但是，在每个段能够访问之前，必须先进行登记。</p>
+<p>和一个段有关的信息需要8个字节来描述，所以称为段描述符（Segment Descriptor），每个段都需要一个描述符。为了存放这些描述符，需要在内存中开辟出一段空间。在这段空间里，所有的描述符都是挨在一起，集中存放的，这就构成一个描述符表。<br>       最主要的描述符表是全局描述符表（Global Descriptor Table，GDT），所谓全局，意味着该表是为整个软硬件系统服务的。在进入保护模式前，必须要定义全局描述符表。</p>
+<p>描述符不是由用户程序自己建立的，而是在加载时，由操作系统根据你的程序结构而建立的，而用户程序通常是无法建立和修改GDT的。</p>
+<blockquote>
+<p>存储器的段描述符</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">段基地址可以是0～4GB范围内的任意地址，不过，还是建议应当选取那些16字节对齐的地址。尽管对于Intel处理器来说，允许不对齐的地址，但是，对齐能够使程序在访问代码和数据时的性能最大化。这一点，对于那些学过计算机原理，特别是了解内存芯片组织的人来说，是最清楚不过的。</span><br><span class="line">20位的段界限用来限制段的扩展范围。因为访问内存的方法是用段基地址加上偏移量，所以，对于向上扩展的段，如代码段和数据段来说，偏移量是从0开始递增，段界限决定了偏移量的最大值；对于向下扩展的段，如堆栈段来说，段界限决定了偏移量的最小值。</span><br><span class="line">G位是粒度（Granularity）位，用于解释段界限的含义。当G位是“0”时，段界限以字节为单位。此时，段的扩展范围是从1字节到1兆字节（1B～1MB），因为描述符中的界限值是20位的。相反，如果该位是“1”，那么，段界限是以4KB为单位的。这样，段的扩展范围是从4KB到4GB。</span><br><span class="line">S位用于指定描述符的类型（Descriptor Type）。当该位是“0”时，表示是一个系统段；为“1”时，表示是一个代码段或者数据段（堆栈段也是特殊的数据段）。系统段将在以后介绍。</span><br><span class="line">DPL表示描述符的特权级（Descriptor Privilege Level，DPL）。这两位用于指定段的特权级。共有4种处理器支持的特权级别，分别是0、1、2、3，其中0是最高特权级别，3是最低特权级别。刚进入保护模式时执行的代码具有最高特权级0（可以看成是从处理器那里继承来的），这些代码通常都是操作系统代码，因此它的特权级别最高。每当操作系统加载一个用户程序时，它通常都会指定一个稍低的特权级，比如3特权级。不同特权级别的程序是互相隔离的，其互访是严格限制的，而且有些处理器指令（特权指令）只能由0特权级的程序来执行，为的就是安全。</span><br><span class="line">P是段存在位（Segment Present）。P位用于指示描述符所对应的段是否存在。一般来说，描述符所指示的段都位于内存中。但是，当内存空间紧张时，有可能只是建立了描述符，对应的内存空间并不存在，这时，就应当把描述符的P位清零，表示段并不存在。另外，同样是在内存空间紧张的情况下，会把很少用到的段换出到硬盘中，腾出空间给当前急需内存的程序使用（当前正在执行的），这时，同样要把段描述符的P位清零。当再次轮到它执行时，再装入内存，然后将P位置1。</span><br><span class="line">P位是由处理器负责检查的。每当通过描述符访问内存中的段时，如果P位是“0”，处理器就会产生一个异常中断。通常，该中断处理过程是由操作系统提供的，该处理过程的任务是负责将该段从硬盘换回内存，并将P位置1。在多用户、多任务的系统中，这是一种常用的虚拟内存调度策略。当内存很小，运行的程序很多时，如果计算机的运行速度变慢，并伴随着繁忙的硬盘操作时，说明这种情况正在发生。</span><br><span class="line">D&#x2F;B位是“默认的操作数大小”（Default Operation Size）或者“默认的堆栈指针大小”（Default Stack Pointer Size），又或者“上部边界”（Upper Bound）标志。</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>安装存储器的段描述符并加载GDTR</p>
+</blockquote>
+<p>处于实模式下，在GDT中安装描述符，必须将GDT的线性地址转换成段地址和偏移地址。</p>
+<p>处理器规定，GDT中的第一个描述符必须是空描述符，或者叫哑描述符或NULL描述符。</p>
+<blockquote>
+<p>保护模式下的内存访问</p>
+</blockquote>
+<p>控制这达实模式和保护模式切换的开关是在一个叫CR0的寄存器。</p>
+<p>CR0是处理器内部的控制寄存器（Control Register，CR）。之所以有个“0”后缀，是因为还有CR1、CR2、CR3和CR4控制寄存器，甚至还有CR8。<br>        CR0是32位的寄存器，包含了一系列用于控制处理器操作模式和运行状态的标志位。它的第1位（位0）是保护模式允许位（Protection Enable，PE），是开启保护模式大门的门把手，如果把该位置“1”，则处理器进入保护模式，按保护模式的规则开始运行。</p>
+<p>保护模式下的中断机制和实模式不同，因此，原有的中断向量表不再适用，而且，必须要知道的是，在保护模式下，BIOS中断都不能再用，因为它们是实模式下的代码。在重新设置保护模式下的中断环境之前，必须关中断。</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cli                                ;保护模式下中断机制尚未建立，应 </span><br><span class="line">                                   ;禁止中断 </span><br><span class="line">mov eax,cr0</span><br><span class="line">or eax,1</span><br><span class="line">mov cr0,eax                        ;设置PE位</span><br><span class="line">      </span><br><span class="line">;以下进入保护模式... ...</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>在保护模式下访问一个段时，传送到段选择器的是段选择子。它由三部分组成，第一部分是描述符的索引号，用来在描述符表中选择一个段描述符。TI 是描述符表指示器（Table Indicator），TI＝0 时，表示描述符在GDT 中；TI＝1 时，描述符在LDT 中。LDT 也是一个描述符表，和GDT 类似。RPL 是请求特权级，表示给出当前选择子的那个程序的特权级别，正是该程序要求访问这个内存段。每个程序都有特权级别，</p>
+<blockquote>
+<p>清空流水线并串行化处理器</p>
+</blockquote>
+<p>即使是在实模式下，段寄存器的描述符高速缓存器也被用于访问内存，仅低20位有效，高12位是全零。当处理器进入保护模式后，不影响段寄存器的内容和使用，它们依然是有效的，程序可以继续执行。但是，在保护模式下，对段的解释是不同的，处理器会把段选择器里的内容看成是描述符选择子，而不是逻辑段地址。因此，比较安全的做法是尽快刷新CS、SS、DS、ES、FS和GS的内容，包括它们的段选择器和描述符高速缓存器。</p>
+<p>在进入保护模式前，有很多指令已经进入了流水线。因为处理器工作在实模式下，所以它们都是按16位操作数和16位地址长度进行译码的，即使是那些用bits 32编译的指令。进入保护模式后，由于对段地址的解释不同，对操作数和默认地址大小的解释也不同，有些指令的执行结果可能会不正确，所以必须清空流水线。同时，那些通过乱序执行得到的中间结果也是无效的，必须清理掉，让处理器串行化执行，即，重新按指令的自然顺序执行。</p>
+<p>使用32位远转移指令jmp或者远过程调用指令call。处理器最怕转移指令，遇到这种指令，一般会清空流水线，并串行化执行；另一方面，远转移会重新加载段选择器CS，并刷新描述符高速缓存器中的内容。唯一的问题是，这条指令必须在bits 16下编译，使得处理器能够在16位模式下正确译码；同时，还必须编译成32位操作数的指令，使处理器在刚进入保护模式时能正确执行。<strong>一个建议的方法是在设置了控制寄存器CR0的PE位之后，立即用jmp或者call转移到当前指令流的下一条指令上。</strong></p>
+<blockquote>
+<p>保护模式下的堆栈</p>
+</blockquote>
+<p>堆栈是向下扩展的，因此，描述符中的段界限，和向上扩展的段含义不同。对于向上扩展的段，段内偏移量是从0开始递增，偏移量的最大值是界限值和粒度的乘积；而对于向下扩展的段来说，因为它经常用做堆栈段，而堆栈是从高地址向低地址方向推进的，故段内偏移量的最小值是界限值和粒度的乘积加一。在32位代码中，是用ESP作为堆栈指针的。因此，这里的段界限，用来和段粒度一起，决定ESP寄存器所能具有的最小值。即，堆栈操作时，必须符合条件： </p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ESP ＞ 段界限×粒度值</span><br></pre></td></tr></table></figure></div>
+
+<p>对于描述符中G位是“0”的段来说，粒度值是1（字节）；而对于G位是“1”的段来说，粒度值是4096（4KB）。</p>
+<blockquote>
+<p>进入32位保护模式</p>
+</blockquote>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">;设置堆栈段和栈指针 </span><br><span class="line">mov eax,cs      </span><br><span class="line">mov ss,eax</span><br><span class="line">mov sp,0x7c00</span><br><span class="line">      </span><br><span class="line">;计算GDT所在的逻辑段地址</span><br><span class="line">mov eax,[cs:pgdt+0x7c00+0x02]      ;GDT的32位线性基地址 </span><br><span class="line">xor edx,edx</span><br><span class="line">mov ebx,16</span><br><span class="line">div ebx                            ;分解成16位逻辑地址 </span><br><span class="line"></span><br><span class="line">mov ds,eax                         ;令DS指向该段以进行操作</span><br><span class="line">mov ebx,edx                        ;段内起始偏移地址 </span><br><span class="line"></span><br><span class="line">;创建0#描述符，它是空描述符，这是处理器的要求</span><br><span class="line">mov dword [ebx+0x00],0x00000000</span><br><span class="line">mov dword [ebx+0x04],0x00000000  </span><br><span class="line"></span><br><span class="line">;创建1#描述符，这是一个数据段，对应0~4GB的线性地址空间</span><br><span class="line">mov dword [ebx+0x08],0x0000ffff    ;基地址为0，段界限为0xfffff</span><br><span class="line">mov dword [ebx+0x0c],0x00cf9200    ;粒度为4KB，存储器段描述符 </span><br><span class="line"></span><br><span class="line">;创建保护模式下初始代码段描述符</span><br><span class="line">mov dword [ebx+0x10],0x7c0001ff    ;基地址为0x00007c00，512字节 </span><br><span class="line">mov dword [ebx+0x14],0x00409800    ;粒度为1个字节，代码段描述符 </span><br><span class="line"></span><br><span class="line">;创建以上代码段的别名描述符</span><br><span class="line">mov dword [ebx+0x18],0x7c0001ff    ;基地址为0x00007c00，512字节</span><br><span class="line">mov dword [ebx+0x1c],0x00409200    ;粒度为1个字节，数据段描述符</span><br><span class="line"></span><br><span class="line">mov dword [ebx+0x20],0x7c00fffe</span><br><span class="line">mov dword [ebx+0x24],0x00cf9600</span><br><span class="line"></span><br><span class="line">;初始化描述符表寄存器GDTR</span><br><span class="line">mov word [cs: pgdt+0x7c00],39      ;描述符表的界限   </span><br><span class="line"> </span><br><span class="line">lgdt [cs: pgdt+0x7c00]</span><br><span class="line">      </span><br><span class="line">in al,0x92                         ;南桥芯片内的端口 </span><br><span class="line">or al,0000_0010B</span><br><span class="line">out 0x92,al                        ;打开A20</span><br><span class="line"></span><br><span class="line">cli                                ;中断机制尚未工作</span><br><span class="line"></span><br><span class="line">mov eax,cr0</span><br><span class="line">or eax,1</span><br><span class="line">mov cr0,eax                        ;设置PE位</span><br><span class="line">      </span><br><span class="line">;以下进入保护模式... ...</span><br></pre></td></tr></table></figure></div>
+
+
+
+<blockquote>
+<p>内核的结构</p>
+</blockquote>
+<p>内核分为四个部分，分别是初始化代码、内核代码段、内核数据段和内核例程段，主引导程序也是初始化代码的组成部分。</p>
+<p>初始化代码用于从BIOS那里接管处理器和计算机硬件的控制权，安装最基本的段描述符，初始化最初的执行环境。然后，从硬盘上读取和加载内核的剩余部分，创建组成内核的各个内存段。</p>
+<p>内核代码段用于分配内存，读取和加载用户程序，控制用户程序的执行。</p>
+<p>内核数据段提供了一段可读写的内存空间，供内核自己使用。<br>       内核例程段用于提供各种用途和功能的子过程以简化代码的编写。这些例程既可以用于内核，也供用户程序调用。</p>
+<p>内核文件还包括一个头部，记录了各个段的汇编位置，这些统计数<br>据用于告诉初始化代码如何加载内核。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/x86%E6%B1%87%E7%BC%96%E4%BB%8E%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">https://kabeor.github.io/x86%E6%B1%87%E7%BC%96%E4%BB%8E%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%80%86%E5%90%91/">逆向    </a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2018/07/16/5b4c62738308c.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/CVE-2012-0003%20MIDI%20%E6%96%87%E4%BB%B6%E5%A0%86%E6%BA%A2%E5%87%BA%E5%88%86%E6%9E%90/"><img class="prev_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c62738929d.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>CVE-2012-0003 MIDI 文件堆溢出分析</span></div></a></div><div class="next-post pull_right"><a href="/2019%E6%B9%96%E6%B9%98%E6%9D%AF%E7%BA%BF%E4%B8%8ARE%20WriteUp/"><img class="next_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c6273790c1.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>2019湖湘杯线上 RE WriteUp</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018.2 MOCTFcrackme2 WriteUp/" title="2018.2 MOCTFcrackme2 WriteUp"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">2018.2 MOCTFcrackme2 WriteUp</div></div></a></div><div class="relatedPosts_item"><a href="/Base-N算法及逆向初探/" title="Base-N算法及逆向初探"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c6273a0250.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-07</div><div class="relatedPosts_title">Base-N算法及逆向初探</div></div></a></div><div class="relatedPosts_item"><a href="/JCTF2014    RE200/" title="JCTF2014    RE200"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">JCTF2014    RE200</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
+var verify = true == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz',
+  appKey:'pSNnuMbRDkWAE7j44yChrEce',
+  placeholder:'都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By kabeor</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>

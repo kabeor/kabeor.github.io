@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>第3章 动态分析基础技术 | K's House</title><meta name="description" content="第3章 动态分析基础技术"><meta name="keywords" content="病毒分析"><meta name="author" content="kabeor"><meta name="copyright" content="kabeor"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="第3章 动态分析基础技术"><meta name="twitter:description" content="第3章 动态分析基础技术"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><meta property="og:type" content="article"><meta property="og:title" content="第3章 动态分析基础技术"><meta property="og:url" content="https://kabeor.github.io/%E7%AC%AC3%E7%AB%A0%20%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"><meta property="og:site_name" content="K's House"><meta property="og:description" content="第3章 动态分析基础技术"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/%E7%AC%AC3%E7%AB%A0%20%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"><link rel="prev" title="第1章 静态分析基础技术" href="https://kabeor.github.io/%E7%AC%AC1%E7%AB%A0%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"><link rel="next" title="第三届上海市大学生网络安全大赛crackme" href="https://kabeor.github.io/%E7%AC%AC%E4%B8%89%E5%B1%8A%E4%B8%8A%E6%B5%B7%E5%B8%82%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9Bcrackme/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113413523-1', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">K's House</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">118</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">62</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">28</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#第3章-动态分析基础技术"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">第3章 动态分析基础技术</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#3x1-沙箱：简便但粗糙的方法"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">3x1 沙箱：简便但粗糙的方法</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-使用恶意代码沙箱"><span class="toc_mobile_items-number">1.1.1.</span> <span class="toc_mobile_items-text">1. 使用恶意代码沙箱</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-沙箱的缺点"><span class="toc_mobile_items-number">1.1.2.</span> <span class="toc_mobile_items-text">2. 沙箱的缺点</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#潜在的缺点"><span class="toc_mobile_items-number">1.1.2.1.</span> <span class="toc_mobile_items-text">潜在的缺点</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#3x2-运行恶意代码"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">3x2 运行恶意代码</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#3x3-进程监视器"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">3x3 进程监视器</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-进程监视器的显示"><span class="toc_mobile_items-number">1.3.1.</span> <span class="toc_mobile_items-text">1. 进程监视器的显示</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-进程监视器中的过滤"><span class="toc_mobile_items-number">1.3.2.</span> <span class="toc_mobile_items-text">2. 进程监视器中的过滤</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#3x4-使用进程浏览器（-Process-Explorer-）来查看进程"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">3x4 使用进程浏览器（ Process Explorer ）来查看进程</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-进程浏览器的显示"><span class="toc_mobile_items-number">1.4.1.</span> <span class="toc_mobile_items-text">1. 进程浏览器的显示</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-使用验证选项"><span class="toc_mobile_items-number">1.4.2.</span> <span class="toc_mobile_items-text">2. 使用验证选项</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#3-比较字符串"><span class="toc_mobile_items-number">1.4.3.</span> <span class="toc_mobile_items-text">3. 比较字符串</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#4-使用依赖遍历器（-Dependency-Walker"><span class="toc_mobile_items-number">1.4.4.</span> <span class="toc_mobile_items-text">4. 使用依赖遍历器（ Dependency Walker )</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#5-分析恶意文档"><span class="toc_mobile_items-number">1.4.5.</span> <span class="toc_mobile_items-text">5. 分析恶意文档</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#3x5-使用Regshot来比较注册表快照"><span class="toc_mobile_items-number">1.5.</span> <span class="toc_mobile_items-text">3x5 使用Regshot来比较注册表快照</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#3x6-模拟网络"><span class="toc_mobile_items-number">1.6.</span> <span class="toc_mobile_items-text">3x6 模拟网络</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-使用ApateDNS"><span class="toc_mobile_items-number">1.6.1.</span> <span class="toc_mobile_items-text">1. 使用ApateDNS</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-使用Netcat进行监视"><span class="toc_mobile_items-number">1.6.2.</span> <span class="toc_mobile_items-text">2. 使用Netcat进行监视</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#3x7-使用Wireshark进行数据包监听"><span class="toc_mobile_items-number">1.7.</span> <span class="toc_mobile_items-text">3x7 使用Wireshark进行数据包监听</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#3x8-使用INetSim"><span class="toc_mobile_items-number">1.8.</span> <span class="toc_mobile_items-text">3x8 使用INetSim</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第3章-动态分析基础技术"><span class="toc-number">1.</span> <span class="toc-text">第3章 动态分析基础技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3x1-沙箱：简便但粗糙的方法"><span class="toc-number">1.1.</span> <span class="toc-text">3x1 沙箱：简便但粗糙的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-使用恶意代码沙箱"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 使用恶意代码沙箱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-沙箱的缺点"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 沙箱的缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#潜在的缺点"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">潜在的缺点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3x2-运行恶意代码"><span class="toc-number">1.2.</span> <span class="toc-text">3x2 运行恶意代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3x3-进程监视器"><span class="toc-number">1.3.</span> <span class="toc-text">3x3 进程监视器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-进程监视器的显示"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 进程监视器的显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-进程监视器中的过滤"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 进程监视器中的过滤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3x4-使用进程浏览器（-Process-Explorer-）来查看进程"><span class="toc-number">1.4.</span> <span class="toc-text">3x4 使用进程浏览器（ Process Explorer ）来查看进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-进程浏览器的显示"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 进程浏览器的显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用验证选项"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 使用验证选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-比较字符串"><span class="toc-number">1.4.3.</span> <span class="toc-text">3. 比较字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-使用依赖遍历器（-Dependency-Walker"><span class="toc-number">1.4.4.</span> <span class="toc-text">4. 使用依赖遍历器（ Dependency Walker )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-分析恶意文档"><span class="toc-number">1.4.5.</span> <span class="toc-text">5. 分析恶意文档</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3x5-使用Regshot来比较注册表快照"><span class="toc-number">1.5.</span> <span class="toc-text">3x5 使用Regshot来比较注册表快照</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3x6-模拟网络"><span class="toc-number">1.6.</span> <span class="toc-text">3x6 模拟网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-使用ApateDNS"><span class="toc-number">1.6.1.</span> <span class="toc-text">1. 使用ApateDNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用Netcat进行监视"><span class="toc-number">1.6.2.</span> <span class="toc-text">2. 使用Netcat进行监视</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3x7-使用Wireshark进行数据包监听"><span class="toc-number">1.7.</span> <span class="toc-text">3x7 使用Wireshark进行数据包监听</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3x8-使用INetSim"><span class="toc-number">1.8.</span> <span class="toc-text">3x8 使用INetSim</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png)"><div id="post-info"><div id="post-title"><div class="posttitle">第3章 动态分析基础技术</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2018-07-15<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-03-16</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/">病毒分析</a><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/%E3%80%8A%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%94%E8%AE%B0/">《恶意代码分析实战》笔记</a><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/%E3%80%8A%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%80%E7%AF%87-%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/">第一篇 静态分析</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">4.2k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 12 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="第3章-动态分析基础技术"><a href="#第3章-动态分析基础技术" class="headerlink" title="第3章 动态分析基础技术"></a>第3章 动态分析基础技术</h1><h2 id="3x1-沙箱：简便但粗糙的方法"><a href="#3x1-沙箱：简便但粗糙的方法" class="headerlink" title="3x1 沙箱：简便但粗糙的方法"></a>3x1 沙箱：简便但粗糙的方法</h2><p>沙箱是一种在安全环境里运行不信任程序的安全机制，不用担心伤害到 “真正的” 系统。沙箱包含一个虚拟环境，通过某种方式模拟网络服务，以确保被测试的软件或恶意代码能正常执行。</p>
+<h3 id="1-使用恶意代码沙箱"><a href="#1-使用恶意代码沙箱" class="headerlink" title="1. 使用恶意代码沙箱"></a>1. 使用恶意代码沙箱</h3><p>在计算机安全专业人士眼中， Norman沙箱、GFI沙箱（也就是以前的CWSandbox）是最受欢迎的。</p>
+<h3 id="2-沙箱的缺点"><a href="#2-沙箱的缺点" class="headerlink" title="2. 沙箱的缺点"></a>2. 沙箱的缺点</h3><blockquote>
+<p>沙箱只能简单地运行可执行程序，不能带有命令行选项。如果恶意代码需要一 些命令选项才能执行，在不提供选项的条件下，任何代码都不会被执行。另外，如果你分析的恶意程序样本是一 个后门程序，需要等待一条控制指令，才会启动特定行为，那么在沙箱中这个后门程序将无法被启动和分析。</p>
+</blockquote>
+<blockquote>
+<p> 沙箱也不能记录所有事件，因为不管是你或是沙箱，都不会等待足够长的时间让所有事件发生。</p>
+</blockquote>
+<h4 id="潜在的缺点"><a href="#潜在的缺点" class="headerlink" title="潜在的缺点"></a>潜在的缺点</h4><blockquote>
+<p>恶意代码经常检测它是否运行在一 个虚拟机里，并且如果检测到了虚拟机，恶意代码将会停止运行，或者表现异常。不是所有沙箱都能完善地考虑这一问题。</p>
+</blockquote>
+<blockquote>
+<p>一些恶意代码需要系统上拥有特定的注册表项或者文件才会执行，而这些在沙箱内是找不到的。这些就可能需要包含一 些合法数据，比如控制命令或者加密钥。</p>
+</blockquote>
+<blockquote>
+<p>如果恶意代码是一个DLL，一些导出函数可能不会被恰当地调用，因为一个DLL文件不像可执行文件那样容易运行。</p>
+</blockquote>
+<blockquote>
+<p>沙箱环境的操作系统对恶意代码来说可能不正确。例如，恶意代码在Windows XP上正常运行，而在Windows 7上跑不通。</p>
+</blockquote>
+<blockquote>
+<p>沙箱不能告诉你恶意代码做了什么。它能报告基本功能，但是它不能告诉你恶意代码是一个定制的SAM密文记录器，或是一个加密的键盘记录后门程序。这些结论需要你自己总结。</p>
+</blockquote>
+<h2 id="3x2-运行恶意代码"><a href="#3x2-运行恶意代码" class="headerlink" title="3x2 运行恶意代码"></a>3x2 运行恶意代码</h2><blockquote>
+<p>如何成功启动DLL文件，来进行动态分析。</p>
+</blockquote>
+<p>在所有的Windows 版本中都包含rundll32.exe程序，它提供了一 个运行DLL的平台，用下面的语法格式：<br><code>C:\&gt;rundll32.exe DLLname, Export arguments</code></p>
+<p>Export值必须是一个DLL文件导出函数表中的函数名或者序号。可以用PEview或者PE Explorer工具查看导出函数表。</p>
+<p>因为恶意的DLL文件通常在DLLMain （称作DLL函数入口点）执行它们的代码，因为无论DLL什么时候被加载，DLLMain函数总会被执行，这样你就总能通过使用rundll32.exe1J口载D LL，而动态地获取信息。除此之外，你甚至可以通过修改PE头部，并改变它的扩展名，使得Windows以一 种可执行文件的方式来加载DLL。</p>
+<p>我们可以使用如下方法来修改PE头部，就是从IMAGE_FILE_HEADER的特征域里擦除IMAGE_FILE_DLL (0x2000）标记。尽管这样的改变不会执行任何输入函数，但它会调用DLLMain方法，而且有可能造成恶意代码意想不到的崩溃或者终止。然而，只要你的修改能使恶意代码执行它的恶意部分，你就能为你的分析收集到信息，余下的就不重要了。</p>
+<p>DLL形态的恶意代码也可能需要被安装成一个服务，SerνiceName参数必须提供给恶意代码，让它能被安装并运行起来。而在Windows系统中启动指定的服务，可以使用net start命令。</p>
+<p>当你看见一个ServiceMain函数，没有像Install或InstallSer、vice这样方便地导出函数，你需妥手动地安装服务。你可以使用Windows系统下的SC命令，或者修改注册表为一个未使用服务进行手动安装，然后使用net start启动服务。Windows服务的注册表项位于HKLM\SYSTEM\CurrentControlSet\Serviceso</p>
+<h2 id="3x3-进程监视器"><a href="#3x3-进程监视器" class="headerlink" title="3x3 进程监视器"></a>3x3 进程监视器</h2><p>进程监视器（Process Monitor）是Windows系统下的高级监视工具，它提供一 种方式来监控注册表、文件系统、网络、进程和线程行为。它结合并增强了两种工具的功能：文件监视器FileMon和注册表监视器RegMon。</p>
+<blockquote>
+<p>由于进程监视器使用内存来记录事件，直到告知它停止捕获，这就可能因耗尽所有可用内存而使虚拟机崩溃。为了避免这样，运行进程监视器就需要限定一 个比较短的时间。为停止进程监视器捕获事件，选择File→Capture Events。在使用进程监视器进行分析之前，首先要清空当前所有截获的事件，通过选择Edit→Clear Display清除掉不相关数据，接下来再执行分析对象，开启监视器捕旗。几分钟之后，就可以终止事件捕获。</p>
+</blockquote>
+<h3 id="1-进程监视器的显示"><a href="#1-进程监视器的显示" class="headerlink" title="1. 进程监视器的显示"></a>1. 进程监视器的显示</h3><p>进程监视器展示了一个可配置栏，包含了每个事件的不同信息，如事件序列号、时间戳、引发事件的进程名、事件操作、事件使用的路径、事件结果等。这些详细的信息可能太长而不适合屏幕显示，或者可能难以清晰地阅读。如果你发现这种情况，可以通过双击该行，来查看这个事件的全部细节。</p>
+<h3 id="2-进程监视器中的过滤"><a href="#2-进程监视器中的过滤" class="headerlink" title="2. 进程监视器中的过滤"></a>2. 进程监视器中的过滤</h3><p>为了设置一 个过滤器，我们选择Filter→Filter打开过滤菜单。当设置一个过滤器时，首先通过左上角的下拉菜单（Reset按钮上面〉选择一栏。对恶意代码分析最重要的过滤栏是进程名、操作和细节。然后，选择一 个比较器，从is、contains、less than中选一项。最后，选择在过滤器里是包含还是排除。因为在默认情况下，过滤器要呈现所有系统调用，所以减少呈现结果的数量十分重要。</p>
+<blockquote>
+<p>进程监视器在工具栏里提供有用的自动过滤功能，它们通过以下四个分类进行过滤：注册表、文件系统、网络和进程行为。</p>
+</blockquote>
+<blockquote>
+<p>注册表：通过检查注册表操作，你能辨别一个恶意程序是怎样把自己添加到注册表中去的。</p>
+</blockquote>
+<blockquote>
+<p>文件系统：检查文件系统能显示恶意程序创建的所有文件，或它使用的配置文件。</p>
+</blockquote>
+<blockquote>
+<p>进程行为：检查进程行为能告诉你恶意程序是否启动了其他的进程。</p>
+</blockquote>
+<blockquote>
+<p>网络：识别网络连接能向你展示恶意程序监听的任意端口。</p>
+</blockquote>
+<blockquote>
+<p>所有的这四个过滤器都是默认选择的。如果要关闭过滤器，只需简单地单击工具栏上相应的图标即可。</p>
+</blockquote>
+<h2 id="3x4-使用进程浏览器（-Process-Explorer-）来查看进程"><a href="#3x4-使用进程浏览器（-Process-Explorer-）来查看进程" class="headerlink" title="3x4 使用进程浏览器（ Process Explorer ）来查看进程"></a>3x4 使用进程浏览器（ Process Explorer ）来查看进程</h2><p>进程浏览器（Process Explorer）是微软的免费产品，它是一 款非常强大的任务管理器，是进行动态分析时必备的工具。它能对当前系统上运行的进程提供非常有价值的洞察能力。</p>
+<p>你可以用进程浏览器来列出所有活跃的进程、被进程载入的DLL、、各种进程属性和整体系统信息。你也能用它杀死一 个进程、退出用户登录、启动与激活进程。</p>
+<h3 id="1-进程浏览器的显示"><a href="#1-进程浏览器的显示" class="headerlink" title="1. 进程浏览器的显示"></a>1. 进程浏览器的显示</h3><p>进程浏览器监视系统上执行的进程，以树状结构进行显示。</p>
+<p>进程浏览器显示了五栏：Process （进程名）、PID （进程号）、CPU (CPU使用率）、Description（进程描述〉、Company Name （软件公司名〉。视图每一 秒更新一次。默认情况下，服务以粉色高亮显示，进程显示为蓝色，新进程为绿色，被终止进程则为红色。绿色和红色的高亮显示是临时的，当进程被完全启动或终止后颜色就会改变。当分析恶意代码时，需要实时观察进程浏览器窗口中进程的改变或新建进程，保证能够完全地调查它们。</p>
+<h3 id="2-使用验证选项"><a href="#2-使用验证选项" class="headerlink" title="2. 使用验证选项"></a>2. 使用验证选项</h3><p>进程浏览器一个特别有用的功能就是镜像标签里的验证 （Verify）按钮。单击此按钮，可以验证磁盘上的镜像文件是否具有微软的签名认证。因为微软为大部分核心的可执行文件使用了数字签名。通过进程浏览器验证签名是否有效，你就能确定该文件是否确实是微软发布的可执行文件。这一功能对验证磁盘上Windows文件没有被破坏时尤其有用，因为恶意代码经常替换Windows认证文件，并且试图隐藏。</p>
+<p>验证按钮验证的是磁盘上的镜像文件，而不是内存中的，因此它可能会失效，如果一个攻击者使用进程替换技术process replacement，包括在系统上执行进程并用恶意代码重写内存空间，这时候这个功能就不再有用武之地了。进程替换技术为恶意代码提供了和其他进程同样的特权，恶意代码看起来就像一个合法执行的进程一样，但是它在内存中的镜像会和磁盘上的不一样。</p>
+<h3 id="3-比较字符串"><a href="#3-比较字符串" class="headerlink" title="3. 比较字符串"></a>3. 比较字符串</h3><p>一种识别进程替换的方法就是使用进程属性窗口的字符串 （Strings）标签，通过比较包含在磁盘上可执行文件的字符串与内存中同一个可执行文件的字符串，来看两者是否相同。可以用左下角的单选按钮在这两个字符串视图间切换。如果这两个字符串列表有很大不同，那么可能就发生了进程替换。</p>
+<h3 id="4-使用依赖遍历器（-Dependency-Walker"><a href="#4-使用依赖遍历器（-Dependency-Walker" class="headerlink" title="4. 使用依赖遍历器（ Dependency Walker )"></a>4. 使用依赖遍历器（ Dependency Walker )</h3><p>进程浏览器允许你在运行进程上启动depends.exe (Dependency Walker），通过右击进程名并选择Launch→Depends。它也能让你通过选择Find→ Find Handle or DLL找到一个句柄或D LL。</p>
+<p>Find DLL选项在有些时候特别有用，比如当你在磁盘上尝试发现一 个恶意的DLL，并且想知道是否有运行进程使用了这个DLL时。验证按钮验证磁盘上的EXE文件，但不会对所有动态时刻装载的DLL文件进行验证。为了判断一 个DLL是否被加载到进程，你可以比较进程浏览器中的DLL列表与在Dependency Walker工具中显示的导入DLL列表。</p>
+<h3 id="5-分析恶意文档"><a href="#5-分析恶意文档" class="headerlink" title="5. 分析恶意文档"></a>5. 分析恶意文档</h3><p>还可以使用进程浏览器来分析恶意文挡，比如PDF和Word文档。一种快速确定一个文档是否恶意的方法，就是打开进程浏览器，然后再打开文档。若文档启动了任意进程，你都能在进程浏览器中看到，并能通过属性窗口中的镜像Clmage）标签来定位恶意代码在磁盘上的位置。</p>
+<h2 id="3x5-使用Regshot来比较注册表快照"><a href="#3x5-使用Regshot来比较注册表快照" class="headerlink" title="3x5 使用Regshot来比较注册表快照"></a>3x5 使用Regshot来比较注册表快照</h2><p>Regshot是一个开源的注册表比较工具，它可以让你比较两个注册表的快照，发现差异。</p>
+<p>使用Regshot工具分析恶意代码，只要简单地单击1st Shot按钮进行第一次快照，然后运行恶意代码，等待它对系统做出改变，然后单击2nd Shot按钮进行第二次快照，最后单击Compare按钮比较这两次快照。</p>
+<h2 id="3x6-模拟网络"><a href="#3x6-模拟网络" class="headerlink" title="3x6 模拟网络"></a>3x6 模拟网络</h2><p>恶意代码经常会连接到命令与控制服务器。你需要采用一些模拟网络的基本步骤，用来快速获得网络资源，而不需要实际地连接互联网。这些资源可以包括DNS域名系统、IP地址和数据包记录器。</p>
+<p>为了能够成功模拟网络，你必须防止恶意代码探测到自己正运行在一个虚拟环境中 </p>
+<h3 id="1-使用ApateDNS"><a href="#1-使用ApateDNS" class="headerlink" title="1. 使用ApateDNS"></a>1. 使用ApateDNS</h3><p>ApateDNS是一款来自Mandiant公司的免费软件（<a href="http://www.mandiant.com/products/research/mandiant_apatedns/download），是用来查看" target="_blank" rel="noopener">www.mandiant.com/products/research/mandiant_apatedns/download），是用来查看</a> 恶意代码发出DNS请求最快速的方式。ApateDNS在本机上通过监听UDP的53端口，对用户指定的IP地址给出虚假的DNS响应。它用你指定的IP地址去响应DNS查询请求。ApateDNS可以使用十六进制和ASCII码来显示所有接收到的请求。</p>
+<p>为了使用ApateDNS，需要设置你想在DNS响应包中发出的IP地址，并选择接口。接下来，单击Start Server按钮，这将自动启动DNS服务，并修改DNS设置到localhost上。然后，运行你要分析的恶意代码，就可以在ApateDNS的窗口观察出现的DNS请求。</p>
+<h3 id="2-使用Netcat进行监视"><a href="#2-使用Netcat进行监视" class="headerlink" title="2. 使用Netcat进行监视"></a>2. 使用Netcat进行监视</h3><p>Netcat被称作 “TCP/IP协议枝瑞士军刀” ，可以被用在支持端口扫描、隧道、代理、端口转发等的对内对外连接上。在监听模式下，Netcat充当一个服务器，而在连接模式下作为一 个客户端。Netcat从标准输入得到数据进行网络传输，而它得到的数据，又可以通过标准输出显示到屏幕上。</p>
+<h2 id="3x7-使用Wireshark进行数据包监听"><a href="#3x7-使用Wireshark进行数据包监听" class="headerlink" title="3x7 使用Wireshark进行数据包监听"></a>3x7 使用Wireshark进行数据包监听</h2><p>Wireshark是一 个开源的嗅探器，是一个截获并记录网络数据包的工具。 Wireshark提供可视化、包一流分析和单个数据包的深入分析。</p>
+<blockquote>
+<p>Wireshark的界面显示有四部分</p>
+</blockquote>
+<blockquote>
+<p>过滤栏。用来过滤显示的数据包。<br>数据包列表显示了所有满足过滤条件的数据包。<br>数据包细节窗口显示了当前选中包的详细内容。<br>十六进制窗口。显示了当前数据包的十六进制内容，十六进制窗口和数据包细节窗口紧密关联，会高亮显示你所选择的任何域。</p>
+</blockquote>
+<h2 id="3x8-使用INetSim"><a href="#3x8-使用INetSim" class="headerlink" title="3x8 使用INetSim"></a>3x8 使用INetSim</h2><p>INetSim是一款基于Linux模拟常见网络服务的免费软件。</p>
+<p>INetSim是一 款提供 模 拟服 务最 好 的免 费工 具 ，它通 过 模拟 服 务 〈如Http、HTTPS、FTP、IRC、DNS、SMTP等），允许你分析未知恶意代码的网络行为。</p>
+<blockquote>
+<p>INetSim努力伪装得像一 台真正的服务器，有许多容易配置的特性来保证其成功。例如，若被扫描到，它会返回Microsoft IIS网络服务器的旗标。</p>
+<p>INetSim一 些最好的特性被融进了HTTP和HTTPS服务模拟中。例如，IN etSim 几乎能提供所有的文件请求服务：如果一 个恶意程序从一 个站点请求JPEG 以继续它的操作，IN etSim 就会回应一 个适当的JPEG。虽然这个图片可能不是恶意代码要找的，但服务器不至于给出404或者其他错误。这个响应即使不正确，仍能保证恶意代码继续运行。</p>
+<p>INetSim也可以记录所有的连入请求与连接，你会发现这个功能特别有用，比如可以判断一 个恶意代码是否连接到一 个标准服务，或是查看它所发出的请求。IN etSim 也非常容易配置，例如，你可以设置请求后返回一 个页面或者一 个项 目，因此如果你发现你分析的恶意代码在查找一 个特别的网页，然后才能继续执行，你就可以提供这个网页：你也能修改不同服务监听的端口号，这对恶意代码使用非标准端口时非常有用。 </p>
+</blockquote>
+<blockquote>
+<p>INetSim专为恶意代码分析而创建，所以它也提供了许多独特的优点，比如它的Dummy服务就记录了所有从客户端口收到的数据。Dummy服务在捕获所有从客户端向端口发出的数据时最有用，而不受制于其他服务模块。你可以使用它记录恶意代码连接的所有端口和发送数据。至少TCP握手会完整地进行，一些进一 步传输的额外数据也可以收集到。</p>
+</blockquote>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/%E7%AC%AC3%E7%AB%A0%20%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/">https://kabeor.github.io/%E7%AC%AC3%E7%AB%A0%20%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/">病毒分析    </a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/%E7%AC%AC1%E7%AB%A0%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"><img class="prev_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>第1章 静态分析基础技术</span></div></a></div><div class="next-post pull_right"><a href="/%E7%AC%AC%E4%B8%89%E5%B1%8A%E4%B8%8A%E6%B5%B7%E5%B8%82%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9Bcrackme/"><img class="next_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>第三届上海市大学生网络安全大赛crackme</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/第0章 恶意代码分析技术入门/" title="第0章 恶意代码分析技术入门"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">第0章 恶意代码分析技术入门</div></div></a></div><div class="relatedPosts_item"><a href="/第10章  使用WinDbg调试内核/" title="第10章  使用WinDbg调试内核"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c62735d971.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-02</div><div class="relatedPosts_title">第10章  使用WinDbg调试内核</div></div></a></div><div class="relatedPosts_item"><a href="/第11章  恶意代码行为/" title="第11章  恶意代码行为"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c6273790c1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-02</div><div class="relatedPosts_title">第11章  恶意代码行为</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
+var verify = true == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz',
+  appKey:'pSNnuMbRDkWAE7j44yChrEce',
+  placeholder:'都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By kabeor</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>堆溢出-Glibc堆结构 | K's House</title><meta name="description" content="堆溢出-Glibc堆结构"><meta name="keywords" content="Pwn"><meta name="author" content="kabeor"><meta name="copyright" content="kabeor"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="堆溢出-Glibc堆结构"><meta name="twitter:description" content="堆溢出-Glibc堆结构"><meta name="twitter:image" content="https://i.loli.net/2018/07/16/5b4c62739a683.png"><meta property="og:type" content="article"><meta property="og:title" content="堆溢出-Glibc堆结构"><meta property="og:url" content="https://kabeor.github.io/%E5%A0%86%E6%BA%A2%E5%87%BA-Glibc%E5%A0%86%E7%BB%93%E6%9E%84/"><meta property="og:site_name" content="K's House"><meta property="og:description" content="堆溢出-Glibc堆结构"><meta property="og:image" content="https://i.loli.net/2018/07/16/5b4c62739a683.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/%E5%A0%86%E6%BA%A2%E5%87%BA-Glibc%E5%A0%86%E7%BB%93%E6%9E%84/"><link rel="prev" title="堆溢出-Chunk Extend and Overlapping" href="https://kabeor.github.io/%E5%A0%86%E6%BA%A2%E5%87%BA-Chunk%20Extend%20and%20Overlapping/"><link rel="next" title="堆溢出-Off-By-One" href="https://kabeor.github.io/%E5%A0%86%E6%BA%A2%E5%87%BA-Off-By-One/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113413523-1', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">K's House</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">118</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">62</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">28</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#堆溢出-Glibc堆结构"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">堆溢出-Glibc堆结构</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#常见堆操作"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">常见堆操作</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#malloc-size-t-n"><span class="toc_mobile_items-number">1.1.1.</span> <span class="toc_mobile_items-text">malloc(size_t n)</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#free-void-p"><span class="toc_mobile_items-number">1.1.2.</span> <span class="toc_mobile_items-text">free(void* p)</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#s-brk"><span class="toc_mobile_items-number">1.1.3.</span> <span class="toc_mobile_items-text">(s)brk</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#mmap"><span class="toc_mobile_items-number">1.1.4.</span> <span class="toc_mobile_items-text">mmap</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#bin"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">bin</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Fast-Bin"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text">Fast Bin</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Small-Bin"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text">Small Bin</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Large-Bin"><span class="toc_mobile_items-number">1.2.3.</span> <span class="toc_mobile_items-text">Large Bin</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Unsorted-Bin"><span class="toc_mobile_items-number">1.2.4.</span> <span class="toc_mobile_items-text">Unsorted Bin</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#堆的基本实现功能"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">堆的基本实现功能</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#unlink"><span class="toc_mobile_items-number">1.3.1.</span> <span class="toc_mobile_items-text">unlink</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#malloc-printerr"><span class="toc_mobile_items-number">1.3.2.</span> <span class="toc_mobile_items-text">malloc_printerr</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#堆初始化"><span class="toc_mobile_items-number">1.3.3.</span> <span class="toc_mobile_items-text">堆初始化</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#申请内存块"><span class="toc_mobile_items-number">1.3.4.</span> <span class="toc_mobile_items-text">申请内存块</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#堆溢出-Glibc堆结构"><span class="toc-number">1.</span> <span class="toc-text">堆溢出-Glibc堆结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见堆操作"><span class="toc-number">1.1.</span> <span class="toc-text">常见堆操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-size-t-n"><span class="toc-number">1.1.1.</span> <span class="toc-text">malloc(size_t n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#free-void-p"><span class="toc-number">1.1.2.</span> <span class="toc-text">free(void* p)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#s-brk"><span class="toc-number">1.1.3.</span> <span class="toc-text">(s)brk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mmap"><span class="toc-number">1.1.4.</span> <span class="toc-text">mmap</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bin"><span class="toc-number">1.2.</span> <span class="toc-text">bin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fast-Bin"><span class="toc-number">1.2.1.</span> <span class="toc-text">Fast Bin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Small-Bin"><span class="toc-number">1.2.2.</span> <span class="toc-text">Small Bin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Large-Bin"><span class="toc-number">1.2.3.</span> <span class="toc-text">Large Bin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unsorted-Bin"><span class="toc-number">1.2.4.</span> <span class="toc-text">Unsorted Bin</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆的基本实现功能"><span class="toc-number">1.3.</span> <span class="toc-text">堆的基本实现功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#unlink"><span class="toc-number">1.3.1.</span> <span class="toc-text">unlink</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-printerr"><span class="toc-number">1.3.2.</span> <span class="toc-text">malloc_printerr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#堆初始化"><span class="toc-number">1.3.3.</span> <span class="toc-text">堆初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#申请内存块"><span class="toc-number">1.3.4.</span> <span class="toc-text">申请内存块</span></a></li></ol></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2018/07/16/5b4c62739a683.png)"><div id="post-info"><div id="post-title"><div class="posttitle">堆溢出-Glibc堆结构</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2020-01-03<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-03-16</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Pwn/">Pwn</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2.2k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 7 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="堆溢出-Glibc堆结构"><a href="#堆溢出-Glibc堆结构" class="headerlink" title="堆溢出-Glibc堆结构"></a>堆溢出-Glibc堆结构</h1><p>目前堆实现有如下几种</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dlmalloc  – General purpose allocator</span><br><span class="line">ptmalloc2 – glibc</span><br><span class="line">jemalloc  – FreeBSD and Firefox</span><br><span class="line">tcmalloc  – Google</span><br><span class="line">libumem   – Solaris</span><br></pre></td></tr></table></figure></div>
+
+<p>本来linux默认的是dlmalloc，但是由于其不支持多线程堆管理，所以后来被支持多线程的prmalloc2代替了。</p>
+<p>事实上在linux平台，*malloc本质上都是通过系统调用brk或者mmap实现的。</p>
+<p><a href="https://i.loli.net/2020/01/02/YK3BIow1uPDQgAf.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2020/01/02/YK3BIow1uPDQgAf.png" class="lazyload"></a></p>
+<p>在 glibc-2.3.x. 之后，glibc 中集成了 ptmalloc2。</p>
+<blockquote>
+<p>在内存分配与使用的过程中，Linux 有这样的一个基本内存管理思想，<strong>只有当真正访问一个地址的时候，系统才会建立虚拟页面与物理页面的映射关系</strong>。 所以虽然操作系统已经给程序分配了很大的一块内存，但是这块内存其实只是虚拟内存。只有当用户使用到相应的内存时，系统才会真正分配物理页面给用户使用。</p>
+</blockquote>
+<p>内存结构如下</p>
+<p><a href="https://i.loli.net/2020/01/02/IlP5E4GsKwoMuxJ.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2020/01/02/IlP5E4GsKwoMuxJ.png" class="lazyload"></a></p>
+<h2 id="常见堆操作"><a href="#常见堆操作" class="headerlink" title="常见堆操作"></a>常见堆操作</h2><h3 id="malloc-size-t-n"><a href="#malloc-size-t-n" class="headerlink" title="malloc(size_t n)"></a>malloc(size_t n)</h3><p>malloc 函数返回对应大小字节的内存块的指针。</p>
+<ul>
+<li>当 n=0 时，返回当前系统允许的堆的最小内存块。</li>
+<li>当 n 为负数时，由于在大多数系统上，<strong>size_t 是无符号数（这一点非常重要）</strong>，所以程序就会申请很大的内存空间，但通常来说都会失败，因为系统没有那么多的内存可以分配。</li>
+</ul>
+<h3 id="free-void-p"><a href="#free-void-p" class="headerlink" title="free(void* p)"></a>free(void* p)</h3><p>释放由 p 所指向的内存块。这个内存块有可能是通过 malloc 函数得到的，也有可能是通过相关的函数 realloc 得到的。</p>
+<ul>
+<li><strong>当 p 为空指针时，函数不执行任何操作。</strong></li>
+<li>当 p 已经被释放之后，再次释放会出现乱七八糟的效果，这其实就是 <code>double free</code>。</li>
+<li>除了被禁用 (mallopt) 的情况下，当释放很大的内存空间时，程序会将这些内存空间还给系统，以便于减小程序所使用的内存空间。</li>
+</ul>
+<h3 id="s-brk"><a href="#s-brk" class="headerlink" title="(s)brk"></a>(s)brk</h3><p>对于堆的操作，操作系统提供了 brk 函数，glibc 库提供了 sbrk 函数，我们可以通过增加 brk 的大小来向操作系统申请内存。</p>
+<p>初始时，堆的起始地址 start_brk 以及堆的当前末尾 brk 指向同一地址。根据是否开启 ASLR，两者的具体位置会有所不同</p>
+<ul>
+<li>不开启 ASLR 保护时，start_brk 以及 brk 会指向 data/bss 段的结尾。</li>
+<li>开启 ASLR 保护时，start_brk 以及 brk 也会指向同一位置，只是这个位置是在 data/bss 段结尾后的随机偏移处。</li>
+</ul>
+<h3 id="mmap"><a href="#mmap" class="headerlink" title="mmap"></a>mmap</h3><p>malloc 会使用 mmap 来创建独立的匿名映射段。匿名映射的目的主要是可以申请以 0 填充的内存，并且这块内存仅被调用进程所使用。</p>
+<h2 id="bin"><a href="#bin" class="headerlink" title="bin"></a>bin</h2><p>用户释放掉的 chunk 不会马上归还给系统，ptmalloc 会统一管理 heap 和 mmap 映射区域中的空闲的 chunk。当用户再一次请求分配内存时，ptmalloc 分配器会试图在空闲的 chunk 中挑选一块合适的给用户。这样可以避免频繁的系统调用，降低内存分配的开销。</p>
+<p>ptmalloc 采用分箱式方法对空闲的 chunk 进行管理。首先，它会根据空闲的 chunk 的大小以及使用状态将 chunk 初步分为 4 类：fast bins，small bins，large bins，unsorted bin。每类中仍然有更细的划分，相似大小的 chunk 会用双向链表链接起来。也就是说，在每类 bin 的内部仍然会有多个互不相关的链表来保存不同大小的 chunk。</p>
+<p>对于 small bins，large bins，unsorted bin 来说，ptmalloc 将它们维护在同一个数组中。</p>
+<h3 id="Fast-Bin"><a href="#Fast-Bin" class="headerlink" title="Fast Bin"></a>Fast Bin</h3><p>大多数程序经常会申请以及释放一些比较小的内存块。如果将一些较小的 chunk 释放之后发现存在与之相邻的空闲的 chunk 并将它们进行合并，那么当下一次再次申请相应大小的 chunk 时，就需要对 chunk 进行分割，这样就大大降低了堆的利用效率。<strong>因为我们把大部分时间花在了合并、分割以及中间检查的过程中。</strong>因此，ptmalloc 中专门设计了 fast bin，对应的变量就是 malloc state 中的 fastbinsY。</p>
+<p>为了更加高效地利用 fast bin，glibc 采用单向链表对其中的每个 bin 进行组织，并且<strong>每个 bin 采取 LIFO 策略</strong>，最近释放的 chunk 会更早地被分配，所以会更加适合于局部性。也就是说，当用户需要的 chunk 的大小小于 fastbin 的最大大小时， ptmalloc 会首先判断 fastbin 中相应的 bin 中是否有对应大小的空闲块，如果有的话，就会直接从这个 bin 中获取 chunk。如果没有的话，ptmalloc 才会做接下来的一系列操作。</p>
+<h3 id="Small-Bin"><a href="#Small-Bin" class="headerlink" title="Small Bin"></a>Small Bin</h3><p>small bins 中一共有 62 个循环双向链表，每个链表中存储的 chunk 大小都一致。比如对于 32 位系统来说，下标 2 对应的双向链表中存储的 chunk 大小为均为 16 字节。每个链表都有链表头结点，这样可以方便对于链表内部结点的管理。此外，<strong>small bins 中每个 bin 对应的链表采用 FIFO 的规则</strong>，所以同一个链表中先被释放的 chunk 会先被分配出去。</p>
+<h3 id="Large-Bin"><a href="#Large-Bin" class="headerlink" title="Large Bin"></a>Large Bin</h3><p>large bins 中一共包括 63 个 bin，每个 bin 中的 chunk 的大小不一致，而是处于一定区间范围内。此外，这 63 个 bin 被分成了 6 组，每组 bin 中的 chunk 大小之间的公差一致</p>
+<table>
+<thead>
+<tr>
+<th align="left">组</th>
+<th align="left">数量</th>
+<th align="left">公差</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">32</td>
+<td align="left">64B</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">512B</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">8</td>
+<td align="left">4096B</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">4</td>
+<td align="left">32768B</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">2</td>
+<td align="left">262144B</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">不限制</td>
+</tr>
+</tbody></table>
+<h3 id="Unsorted-Bin"><a href="#Unsorted-Bin" class="headerlink" title="Unsorted Bin"></a>Unsorted Bin</h3><p>unsorted bin 可以视为空闲 chunk 回归其所属 bin 之前的缓冲区。</p>
+<h2 id="堆的基本实现功能"><a href="#堆的基本实现功能" class="headerlink" title="堆的基本实现功能"></a>堆的基本实现功能</h2><h3 id="unlink"><a href="#unlink" class="headerlink" title="unlink"></a>unlink</h3><p>用来将一个双向链表（只存储空闲的 chunk）中的一个元素取出来。</p>
+<p>基本原理：</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">定义三个堆块 A-P-C用双链表连接，现在要取出P</span><br><span class="line"></span><br><span class="line">FD &#x3D; P-&gt;fd;  &#x2F;&#x2F;定义P的前驱</span><br><span class="line">BK &#x3D; P-&gt;bk;  &#x2F;&#x2F;定义P的后继</span><br><span class="line">FD-&gt;bk &#x3D; A; &#x2F;&#x2F;令P的后继节点的前驱为A</span><br><span class="line">BK-&gt;fd &#x3D; C; &#x2F;&#x2F;令P的前驱节点的后继为C</span><br><span class="line"></span><br><span class="line">合并一下其实就是如下关系</span><br><span class="line">P-&gt;fd-&gt;bk &#x3D; A</span><br><span class="line">P-&gt;bk-&gt;fd &#x3D; C</span><br><span class="line"></span><br><span class="line">最后结果</span><br><span class="line">A-C   P取出</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>unlink可能在以下地方使用：</p>
+<ul>
+<li><p>malloc</p>
+<ul>
+<li>从恰好大小合适的 large bin 中获取 chunk。<ul>
+<li><strong>这里需要注意的是 fastbin 与 small bin 就没有使用 unlink，这就是为什么漏洞会经常出现在它们这里的原因。</strong></li>
+<li>依次遍历处理 unsorted bin 时也没有使用 unlink 。</li>
+</ul>
+</li>
+<li>从比请求的 chunk 所在的 bin 大的 bin 中取 chunk。</li>
+</ul>
+</li>
+<li><p>free</p>
+<ul>
+<li>后向合并，合并物理相邻低地址空闲 chunk。</li>
+<li>前向合并，合并物理相邻高地址空闲 chunk（除了 top chunk）。</li>
+</ul>
+</li>
+<li><p>malloc_consolidate</p>
+<ul>
+<li>后向合并，合并物理相邻低地址空闲 chunk。</li>
+<li>前向合并，合并物理相邻高地址空闲 chunk（除了 top chunk）。</li>
+</ul>
+</li>
+<li><p>realloc</p>
+<ul>
+<li>前向扩展，合并物理相邻高地址空闲 chunk（除了 top chunk）。</li>
+</ul>
+</li>
+</ul>
+<p>unlink操作后，<strong>P 本身的 fd 和 bk 指针并没有发生变化</strong>，有时候可以使用这个方法来泄漏地址</p>
+<ul>
+<li><p>libc 地址</p>
+<ul>
+<li>P 位于双向链表头部，bk 泄漏</li>
+<li>P 位于双向链表尾部，fd 泄漏</li>
+<li>双向链表只包含一个空闲 chunk 时，P 位于双向链表中，fd 和 bk 均可以泄漏</li>
+</ul>
+</li>
+<li><p>泄漏堆地址，双向链表包含多个空闲 chunk</p>
+<ul>
+<li>P 位于双向链表头部，fd 泄漏</li>
+<li>P 位于双向链表中，fd 和 bk 均可以泄漏</li>
+<li>P 位于双向链表尾部，bk 泄漏</li>
+</ul>
+</li>
+<li><p>这里的头部指的是 bin 的 fd 指向的 chunk，即双向链表中最新加入的 chunk。</p>
+</li>
+<li><p>这里的尾部指的是 bin 的 bk 指向的 chunk，即双向链表中最先加入的 chunk。</p>
+</li>
+</ul>
+<h3 id="malloc-printerr"><a href="#malloc-printerr" class="headerlink" title="malloc_printerr"></a>malloc_printerr</h3><p>在 glibc malloc 时检测到错误的时候，会调用 <code>malloc_printerr</code> 函数。<br>       主要会调用 <code>__libc_message</code> 来执行<code>abort</code> 函数。<br>       在<code>abort</code> 函数里，在 glibc 还是 2.23 版本时，会 fflush stream。</p>
+<h3 id="堆初始化"><a href="#堆初始化" class="headerlink" title="堆初始化"></a>堆初始化</h3><p>堆初始化是在用户第一次申请内存时执行 malloc_consolidate 再执行 malloc_init_state 实现的。</p>
+<h3 id="申请内存块"><a href="#申请内存块" class="headerlink" title="申请内存块"></a>申请内存块</h3><p>一般我们会使用 malloc 函数来申请内存块，其实该函数真正调用的是 <strong>libc_malloc 函数。此外，</strong>libc_malloc 函数只是用来简单封装 _int_malloc 函数。_int_malloc 才是申请内存块的核心。</p>
+<p>需要了解的时候查<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/malloc-zh/" target="_blank" rel="noopener">ctf-wiki</a>就好，释放内存块类似</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/%E5%A0%86%E6%BA%A2%E5%87%BA-Glibc%E5%A0%86%E7%BB%93%E6%9E%84/">https://kabeor.github.io/%E5%A0%86%E6%BA%A2%E5%87%BA-Glibc%E5%A0%86%E7%BB%93%E6%9E%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pwn/">Pwn    </a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2018/07/16/5b4c62739a683.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/%E5%A0%86%E6%BA%A2%E5%87%BA-Chunk%20Extend%20and%20Overlapping/"><img class="prev_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c6273a0250.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>堆溢出-Chunk Extend and Overlapping</span></div></a></div><div class="next-post pull_right"><a href="/%E5%A0%86%E6%BA%A2%E5%87%BA-Off-By-One/"><img class="next_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c6273a0250.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>堆溢出-Off-By-One</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020HGAME Week1 Pwn WP/" title="2020HGAME Week1 Pwn WP"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c62f905db3.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-01-25</div><div class="relatedPosts_title">2020HGAME Week1 Pwn WP</div></div></a></div><div class="relatedPosts_item"><a href="/2020HGAME Week2 WP/" title="2020HGAME Week2 WP"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c62f907d03.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-02-08</div><div class="relatedPosts_title">2020HGAME Week2 WP</div></div></a></div><div class="relatedPosts_item"><a href="/CVE-2010-2553 CVDecompress堆溢出分析/" title="CVE-2010-2553 CVDecompress堆溢出分析"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c62738681b.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2019-12-31</div><div class="relatedPosts_title">CVE-2010-2553 CVDecompress堆溢出分析</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
+var verify = true == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz',
+  appKey:'pSNnuMbRDkWAE7j44yChrEce',
+  placeholder:'都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By kabeor</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
