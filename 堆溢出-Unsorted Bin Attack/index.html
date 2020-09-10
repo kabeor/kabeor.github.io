@@ -91,7 +91,7 @@ ga('send', 'pageview');
 
 
 
-<p><a href="https://i.loli.net/2020/01/15/wPq2HpQCOvultFA.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image.png" class="fancybox"><img alt="image.png" title="image.png" data-src="https://i.loli.net/2020/01/15/wPq2HpQCOvultFA.png" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2020/01/15/wPq2HpQCOvultFA.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image.png" class="fancybox"><img alt="image.png" data-src="https://i.loli.net/2020/01/15/wPq2HpQCOvultFA.png" class="lazyload" title="image.png"></a></p>
 <p><strong>初始状态时</strong><br>unsorted bin 的 fd 和 bk 均指向 unsorted bin 本身。</p>
 <p><strong>执行 free(p)</strong><br>由于释放的 chunk 大小不属于 fast bin 范围内，所以会首先放入到 unsorted bin 中。</p>
 <p><strong>修改 p[1]</strong><br>经过修改之后，原来在 unsorted bin 中的 p 的 bk 指针就会指向 target addr-16 处伪造的 chunk，即 Target Value 处于伪造 chunk 的 fd 处。</p>

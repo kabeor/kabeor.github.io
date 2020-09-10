@@ -83,7 +83,7 @@ ga('send', 'pageview');
 <blockquote>
 <p>利用反汇编库libdisasm，C实现基于线性反汇编算法的反汇编器</p>
 </blockquote>
-<p><a href="https://i.loli.net/2018/10/18/5bc8774662859.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2018/10/18/5bc8774662859.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/10/18/5bc8774662859.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2018/10/18/5bc8774662859.jpg" class="lazyload" title></a></p>
 <p>本例中,名为 buffer的数据缓冲区包含需要反汇编的指令。函数x86 disasm将会用刚刚反汇编过的具体指令填充一个数据结构,然后返回这个指令的大小。如果反汇编是一条合法指令,这个循环会用size值递增 position变量(如1所示),否则递增1(如2所示)</p>
 <p>这个代码片段中的许多指令拥有多个字节,恶意代码编写者利用线性反汇编算法的关键方法是植入能够组成多字节指令机器码的数据字节。例如,标准的本地ca11指令有5个字节,以机器码0xE8开头。如果16字节数据组成一个以值0xE8结尾的开关表,那么当反汇编器碰到Call指令的机器码时会将接下来的4个字节当作操作数对待,而不是当作下一个函数的开头。</p>
 <p>线性反汇编算法不能区分代码与数据,因此最容易被恶意代码挫败。</p>
@@ -97,23 +97,23 @@ ga('send', 'pageview');
 <h3 id="相同目标的跳转指令"><a href="#相同目标的跳转指令" class="headerlink" title="相同目标的跳转指令"></a>相同目标的跳转指令</h3><p>恶意代码中最常见的对抗反汇编技术是使用指向同一目的地址的两个连续条件跳转指令。</p>
 <p>如果jz1oc_512指令之后是jnz loc_512，则总是跳转到loc_512。jz指令与jnz指令的结合，在效果上等于无条件跳转指令jmp，因为反汇编器每次只反汇编一条指令，所以并不会意识到这种情况。当反汇编器遇到jnz指令时，依然会反汇编这个指令的false分支，尽管事实上这个分支永远不会执行。</p>
 <h3 id="固定条件的跳转指令"><a href="#固定条件的跳转指令" class="headerlink" title="固定条件的跳转指令"></a>固定条件的跳转指令</h3><p>在恶意代码中，另一种常见的对抗反汇编技术是由跳转条件总是相同的一条跳转指令构成的。</p>
-<p><a href="https://i.loli.net/2018/11/22/5bf6910ff2758.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2018/11/22/5bf6910ff2758.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/11/22/5bf6910ff2758.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2018/11/22/5bf6910ff2758.jpg" class="lazyload" title></a></p>
 <p>注意这段代码以xor eax，eax指令开头，这条指令的作用是将EAX寄存器置0，与此同时它也会设置标志寄存器的zero标志。下一条指令是条件跳转指令，如果标志寄存器zero标志被置位，它就会执行跳转。事实上，这根本不是条件跳转，因为在程序的这个位置，我们可以保证zero标志总是被置位的。</p>
 <blockquote>
 <p>xor指令与相邻jz指令的永假关系</p>
 </blockquote>
-<p><a href="https://i.loli.net/2018/11/22/5bf6917871865.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2018/11/22/5bf6917871865.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/11/22/5bf6917871865.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2018/11/22/5bf6917871865.jpg" class="lazyload" title></a></p>
 <h3 id="无效的反汇编指令"><a href="#无效的反汇编指令" class="headerlink" title="无效的反汇编指令"></a>无效的反汇编指令</h3><p>前面讨论的简单的对抗反汇编技术是巧妙地在条件跳转指令之后放一个字节，这种技术的思路是，从这个字节开始反汇编，阻止其后真正的指令被反汇编，因为插入的字节是一个多字节指令的机器码。我们称这样的字节为流氓字节，因为它不属于程序的一部分，只是用在代码段迷感反汇编器。</p>
 <p>但是，如果流氓字节不能被忽略，如果它是合法指令的一部分，且在运行时能够被正确执行怎么办？这里，我们碰到一个棘手的问题，所有给定字节都是多字节指令的一部分，而且它们都能够被执行。目前业内没有一个反汇编器能够将单个字节表示为两条指令的组成部分，然而处理器并没有这种限制。</p>
 <blockquote>
 <p>内部跳转的jmp指令</p>
 </blockquote>
-<p><a href="https://i.loli.net/2018/11/22/5bf69651b711b.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2018/11/22/5bf69651b711b.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/11/22/5bf69651b711b.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2018/11/22/5bf69651b711b.jpg" class="lazyload" title></a></p>
 <p>当试图表达这个反汇编序列时，会十分困惑，因为如果将字节FF作为jmp指令的一部分，那么就不能作为inc eax指令的开头来进行显示。字节FF同时作为两条实际运行指令的一部分，而现代反汇编器并没有办法表达这种情况。这4个字节序列首先递增EAX，然后递减EAX。实际上，这是一个复杂的NOP序列，几乎可以插入程序的任何位置，从而破坏有效的反汇编链。为了解决这个问题，恶意代码分析人员常使用IDC或者IDAPython脚本，调用PatchByte函数，用NOP指令序列替换这个字节序列，另一种办法是使用D键将这样的字符序列全部转换成数据，让这4个字节之后的反汇编恢复正常。</p>
 <blockquote>
 <p>多层内部调转序列</p>
 </blockquote>
-<p><a href="https://i.loli.net/2018/11/22/5bf697244514f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2018/11/22/5bf697244514f.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/11/22/5bf697244514f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2018/11/22/5bf697244514f.jpg" class="lazyload" title></a></p>
 <p>在字节序列中，第一条指令是4字节的mov指令，其最后2个字节被高亮显示，因为它既是mov指令的一部分，同时也作为随后运行的一条指令。第一条指令会用数据填充AX寄存器。第二条指令xor会归零这个寄存器，且将标志寄存器zero置0。第三条指令是一个条件跳转指令，当标志寄存器zero标志置位时，它执行跳转。实际上它不是一个条件跳转，因为它的前一条指令总是设置zero标志。反汇编器会反汇编紧跟jz的指令，该指令以字节0xE8开头，0xE8是一个5字节call指令的机器码。然而这条以0xE8开头的指令实际上永远不会执行。</p>
 <p>在这种情况下，反汇编器不能正确反汇编jz指令目标，因为这个字节已经被正确表达为mov指令的一部分。jz指令指向的代码总会被执行，因为jz指令运行时，zero标志总是被置位。指令z跳转到4字节的mov指令中间。mov指令的最后两个字节是存放在寄存器中的操作数。当单独反汇编或者运行这个操作数时，它又会组成一个jmp指令，这条jmp指令会从指令末尾向前跳转5个字节。</p>
 <blockquote>
@@ -136,7 +136,7 @@ ga('send', 'pageview');
 <p>EXCEPTION_REGISTRATION记录的第一个元素是一个指向前一个记录的指针。第二个元素则是一个指向异常处理函数的指针。</p>
 <p>从概念上讲，这个链表以栈的方式进行操作。第一个调用的是最后一个加入链表的记录。由于子进程的调用与嵌套的异常处理块的原因，SEH链的增长和缩小等同于程序中异常处理层的改变，所以SEH记录总是建在栈上。</p>
 <p>利用SEH实现变相控制程序流，并不需要在意当前异常处理链有多少个记录，只需要了解怎么将自己的异常处理添加到链表的头部</p>
-<p><a href="https://i.loli.net/2018/11/22/5bf69c4ebab61.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2018/11/22/5bf69c4ebab61.jpg" class="lazyload"></a>。</p>
+<p><a href="https://i.loli.net/2018/11/22/5bf69c4ebab61.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2018/11/22/5bf69c4ebab61.jpg" class="lazyload" title></a>。</p>
 <p>为了将一条记录添加到这个链中，我们需要在栈上构造一条新记录。因为记录结构由两个DWORD变量组成，所以使用两个push指令来完成。栈是向上增长的，所以第一个push进栈的是异常处理函数指针，第二个push进栈的是下一条记录的指针。当添加一条记录到链表的头部时，下一条记录需要完成的异常处理是当前的栈项，它由fs[e]指针给出。下面是实现这一功能的代码：</p>
 <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">push ExceptionHandler </span><br><span class="line">push fs:[0]</span><br><span class="line">mov fs:[0]，esp</span><br></pre></td></tr></table></figure></div>
 <p>异常发生时，将首先调用函数ExceptionHandler。这个动作会受到微软的软件数据执行保护机制（软件DEP，也被称为SafeSEH）的限制。</p>

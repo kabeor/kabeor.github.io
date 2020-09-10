@@ -119,7 +119,7 @@ ga('send', 'pageview');
 <p><code>ps -ef |grep b00ks</code>  查看进程号为4056</p>
 <p><code>cat /proc/进程号/maps</code>查看程序加载基址为0x555555554000</p>
 <p>之后设置断点时 <strong>基址+ida地址 = 实际运行的地址</strong>。</p>
-<p><a href="https://i.loli.net/2020/01/02/JIo8ebOl5jQPMVT.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2020/01/02/JIo8ebOl5jQPMVT.png" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2020/01/02/JIo8ebOl5jQPMVT.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2020/01/02/JIo8ebOl5jQPMVT.png" class="lazyload" title></a></p>
 <p>发现下不去断点，内存无法访问，后来发现是下断点使用<code>bp</code>命令的原因，用<code>break</code>就好了</p>
 <p>后来请教大师傅，得知gdb attch也可以</p>
 <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'DEBUG'</span></span><br><span class="line">p=process(<span class="string">'./b00ks'</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Enter author name: '</span>)</span><br><span class="line">p.sendline(<span class="string">'a'</span>*<span class="number">32</span>)                 <span class="comment">############   author name输入32位字符触发堆溢出</span></span><br><span class="line">gdb.attach(p)</span><br><span class="line">p.recvuntil(<span class="string">'\n1. Create a book'</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></div>
@@ -148,7 +148,7 @@ ga('send', 'pageview');
 
 <p>因为开启了Full RELRO因此无法利用赋写GOT表来实现劫持程序流，因此我们set，使用一个很大的尺寸，使得堆以 mmap 模式进行拓展。我们知道堆有两种拓展方式一种是 brk 会直接拓展原来的堆，另一种是 mmap 会单独映射一块内存。</p>
 <p>在这里我们申请一个超大的块，来使用 mmap 扩展内存。因为 mmap 分配的内存与 libc 之间存在固定的偏移因此可以推算出 libc 的基地址。</p>
-<p><a href="https://i.loli.net/2020/01/03/WBMUV8rqKfZJsu5.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2020/01/03/WBMUV8rqKfZJsu5.png" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2020/01/03/WBMUV8rqKfZJsu5.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2020/01/03/WBMUV8rqKfZJsu5.png" class="lazyload" title></a></p>
 <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">libcbase计算：</span><br><span class="line">libcbase &#x3D; book2_name_ptr - offset</span><br><span class="line">offset &#x3D; 0x00007ffff7da2010(book2_description_ptr) - 0x7ffff7de9000(libc基地址)</span><br><span class="line">在heap下面权限为r-xp的start部分的地址就是libc基地址</span><br></pre></td></tr></table></figure></div>
 
 <p>fake book构造为</p>

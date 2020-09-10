@@ -81,13 +81,13 @@ ga('send', 'pageview');
 
 <p>本来linux默认的是dlmalloc，但是由于其不支持多线程堆管理，所以后来被支持多线程的prmalloc2代替了。</p>
 <p>事实上在linux平台，*malloc本质上都是通过系统调用brk或者mmap实现的。</p>
-<p><a href="https://i.loli.net/2020/01/02/YK3BIow1uPDQgAf.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2020/01/02/YK3BIow1uPDQgAf.png" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2020/01/02/YK3BIow1uPDQgAf.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2020/01/02/YK3BIow1uPDQgAf.png" class="lazyload" title></a></p>
 <p>在 glibc-2.3.x. 之后，glibc 中集成了 ptmalloc2。</p>
 <blockquote>
 <p>在内存分配与使用的过程中，Linux 有这样的一个基本内存管理思想，<strong>只有当真正访问一个地址的时候，系统才会建立虚拟页面与物理页面的映射关系</strong>。 所以虽然操作系统已经给程序分配了很大的一块内存，但是这块内存其实只是虚拟内存。只有当用户使用到相应的内存时，系统才会真正分配物理页面给用户使用。</p>
 </blockquote>
 <p>内存结构如下</p>
-<p><a href="https://i.loli.net/2020/01/02/IlP5E4GsKwoMuxJ.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://i.loli.net/2020/01/02/IlP5E4GsKwoMuxJ.png" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2020/01/02/IlP5E4GsKwoMuxJ.png" target="_blank" rel="noopener" data-fancybox="group" data-caption class="fancybox"><img alt data-src="https://i.loli.net/2020/01/02/IlP5E4GsKwoMuxJ.png" class="lazyload" title></a></p>
 <h2 id="常见堆操作"><a href="#常见堆操作" class="headerlink" title="常见堆操作"></a>常见堆操作</h2><h3 id="malloc-size-t-n"><a href="#malloc-size-t-n" class="headerlink" title="malloc(size_t n)"></a>malloc(size_t n)</h3><p>malloc 函数返回对应大小字节的内存块的指针。</p>
 <ul>
 <li>当 n=0 时，返回当前系统允许的堆的最小内存块。</li>

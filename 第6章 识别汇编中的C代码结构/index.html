@@ -43,7 +43,7 @@ function activateLightMode(){
   if (document.querySelector('meta[name="theme-color"]') !== null){
   document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
   }
-}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/%E7%AC%AC6%E7%AB%A0%20%E8%AF%86%E5%88%AB%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84C%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84/"><link rel="prev" title="第5章 IDA Pro" href="https://kabeor.github.io/%E7%AC%AC5%E7%AB%A0%20IDA%20Pro/"><link rel="next" title="第4章 x86反汇编速成班" href="https://kabeor.github.io/%E7%AC%AC4%E7%AB%A0%20x86%E5%8F%8D%E6%B1%87%E7%BC%96%E9%80%9F%E6%88%90%E7%8F%AD/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/%E7%AC%AC6%E7%AB%A0%20%E8%AF%86%E5%88%AB%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84C%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84/"><link rel="prev" title="第5章 IDA Pro" href="https://kabeor.github.io/%E7%AC%AC5%E7%AB%A0%20IDA%20Pro/"><link rel="next" title="第7章 分析恶意Windows程序" href="https://kabeor.github.io/%E7%AC%AC7%E7%AB%A0%20%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
@@ -84,41 +84,41 @@ ga('send', 'pageview');
 <h2 id="6x2-反汇编算术操作"><a href="#6x2-反汇编算术操作" class="headerlink" title="6x2 反汇编算术操作"></a>6x2 反汇编算术操作</h2><blockquote>
 <p><strong>C代码</strong></p>
 </blockquote>
-<p><a href="https://i.loli.net/2018/07/19/5b501f7218cec.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f7218cec.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f7218cec.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f7218cec.jpg" class="lazyload" title="mark"></a></p>
 <blockquote>
 <p><strong>反汇编代码</strong></p>
 </blockquote>
-<p><a href="https://i.loli.net/2018/07/19/5b501f724a277.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f724a277.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f724a277.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f724a277.jpg" class="lazyload" title="mark"></a></p>
 <p>反汇编中，1<del>2行为赋值，3</del>5行为a=a+11，6<del>9行为a=a-b，10</del>12和13<del>15分别为a–和b++，16</del>19为b=a%3</p>
 <h2 id="6x3-识别if语句"><a href="#6x3-识别if语句" class="headerlink" title="6x3 识别if语句"></a>6x3 识别if语句</h2><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f7260e22.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f7260e22.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f7260e22.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f7260e22.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f72760c1.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f72760c1.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f72760c1.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f72760c1.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <p>cmp比较var_4是否等于var_8</p>
-<h3 id="1-用IDA-Pro图形化分析函数"><a href="#1-用IDA-Pro图形化分析函数" class="headerlink" title="1. 用IDA Pro图形化分析函数"></a>1. 用IDA Pro图形化分析函数</h3><p><a href="https://i.loli.net/2018/07/19/5b501f72992fc.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f72992fc.jpg" class="lazyload"></a></p>
+<h3 id="1-用IDA-Pro图形化分析函数"><a href="#1-用IDA-Pro图形化分析函数" class="headerlink" title="1. 用IDA Pro图形化分析函数"></a>1. 用IDA Pro图形化分析函数</h3><p><a href="https://i.loli.net/2018/07/19/5b501f72992fc.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f72992fc.jpg" class="lazyload" title="mark"></a></p>
 <h3 id="2-识别嵌套的if语句"><a href="#2-识别嵌套的if语句" class="headerlink" title="2. 识别嵌套的if语句"></a>2. 识别嵌套的if语句</h3><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f72ad72e.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f72ad72e.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f72ad72e.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f72ad72e.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f72d0602.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f72d0602.jpg" class="lazyload"></a><br><a href="https://i.loli.net/2018/07/19/5b501f72e9ab6.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f72e9ab6.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f72d0602.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f72d0602.jpg" class="lazyload" title="mark"></a><br><a href="https://i.loli.net/2018/07/19/5b501f72e9ab6.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f72e9ab6.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <h2 id="6x4-识别循环"><a href="#6x4-识别循环" class="headerlink" title="6x4 识别循环"></a>6x4 识别循环</h2><h3 id="1-找到for循环"><a href="#1-找到for循环" class="headerlink" title="1. 找到for循环"></a>1. 找到for循环</h3><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f7312652.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f7312652.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f7312652.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f7312652.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f7381097.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f7381097.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f7381097.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f7381097.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>IDA Pro图形化</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f86da225.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f86da225.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f86da225.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f86da225.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <p>汇编代码中，for循环可通过以下4个组件识别出来</p>
 <blockquote>
@@ -126,33 +126,33 @@ ga('send', 'pageview');
 </blockquote>
 <h3 id="2-找到while循环"><a href="#2-找到while循环" class="headerlink" title="2. 找到while循环"></a>2. 找到while循环</h3><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f8751178.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f8751178.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f8751178.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f8751178.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f8764b45.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f8764b45.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f8764b45.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f8764b45.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <p>汇编代码和for循环非常相似，唯一区别在于它缺少一个递增</p>
 <h2 id="6x5-理解函数调用约定"><a href="#6x5-理解函数调用约定" class="headerlink" title="6x5 理解函数调用约定"></a>6x5 理解函数调用约定</h2><blockquote>
 <p><strong>一个函数调用的伪代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f8779503.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f8779503.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f8779503.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f8779503.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <p>最常见的三个调用约定：cdecl，stdcall，fastcall</p>
-<h3 id="1-cdecl"><a href="#1-cdecl" class="headerlink" title="1. cdecl"></a>1. cdecl</h3><p><a href="https://i.loli.net/2018/07/19/5b501f879153f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f879153f.jpg" class="lazyload"></a></p>
+<h3 id="1-cdecl"><a href="#1-cdecl" class="headerlink" title="1. cdecl"></a>1. cdecl</h3><p><a href="https://i.loli.net/2018/07/19/5b501f879153f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f879153f.jpg" class="lazyload" title="mark"></a></p>
 <p>在cdecl约定中，参数从右到左按序被压入栈，当函数完成时由调用者清理栈。</p>
 <h3 id="2-stdcall"><a href="#2-stdcall" class="headerlink" title="2. stdcall"></a>2. stdcall</h3><p>stdcall是Windows API的标准调用约定。任何调用这些API的代码都不需要清理栈，清理栈由实现API函数代码的DLL程序所承担</p>
 <h3 id="3-fastcall"><a href="#3-fastcall" class="headerlink" title="3. fastcall"></a>3. fastcall</h3><p>在fastcall中，前面的一些参数被传到寄存器，备用的寄存器是EDX和ECX。如果需要，剩下的参数再以从右到左的次序被加载到栈上。<br>使用fastcall比其他约定更高效，因为代码不需要涉及过多的栈操作</p>
 <h3 id="4-压栈与移动"><a href="#4-压栈与移动" class="headerlink" title="4. 压栈与移动"></a>4. 压栈与移动</h3><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f87a906f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f87a906f.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f87a906f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f87a906f.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>adder函数汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f87c20db.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f87c20db.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f87c20db.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f87c20db.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>使用两种不同调用约定时一个函数调用的汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f87d5f2a.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f87d5f2a.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f87d5f2a.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f87d5f2a.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <h2 id="6x6-分析switch语句"><a href="#6x6-分析switch语句" class="headerlink" title="6x6 分析switch语句"></a>6x6 分析switch语句</h2><p>switch语句通常以两种方式被编译：</p>
 <ol>
@@ -161,61 +161,61 @@ ga('send', 'pageview');
 </ol>
 <h3 id="1-if样式"><a href="#1-if样式" class="headerlink" title="1. if样式"></a>1. if样式</h3><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f87e703c.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f87e703c.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f87e703c.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f87e703c.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f880c31f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f880c31f.jpg" class="lazyload"></a><br><a href="https://i.loli.net/2018/07/19/5b501f9daa16e.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9daa16e.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f880c31f.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f880c31f.jpg" class="lazyload" title="mark"></a><br><a href="https://i.loli.net/2018/07/19/5b501f9daa16e.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9daa16e.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>IDA Pro图形化</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f9dd4356.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9dd4356.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f9dd4356.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9dd4356.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <h3 id="2-跳转表"><a href="#2-跳转表" class="headerlink" title="2. 跳转表"></a>2. 跳转表</h3><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f9dece2d.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9dece2d.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f9dece2d.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9dece2d.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f9e12198.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e12198.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f9e12198.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e12198.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>IDA Pro图形化</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f9e36c12.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e36c12.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f9e36c12.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e36c12.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <h2 id="6x7-反汇编数组"><a href="#6x7-反汇编数组" class="headerlink" title="6x7 反汇编数组"></a>6x7 反汇编数组</h2><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f9e4d524.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e4d524.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f9e4d524.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e4d524.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f9e62590.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e62590.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f9e62590.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e62590.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <p>数组a的基地址对应var_14，数组b的基地址对应dword_40A000.</p>
 <p>ecx被作为索引使用，它被乘以4，来指明元素的大小，结果值与数组的基地址相加，来访问正确的数组元素。</p>
 <h2 id="6x8-识别结构体"><a href="#6x8-识别结构体" class="headerlink" title="6x8 识别结构体"></a>6x8 识别结构体</h2><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f9e7869e.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e7869e.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f9e7869e.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e7869e.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>main函数反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f9e8ef54.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e8ef54.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f9e8ef54.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9e8ef54.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>test函数反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501f9ea93bc.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501f9ea93bc.jpg" class="lazyload"></a><br><a href="https://i.loli.net/2018/07/19/5b501faf4c785.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501faf4c785.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501f9ea93bc.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501f9ea93bc.jpg" class="lazyload" title="mark"></a><br><a href="https://i.loli.net/2018/07/19/5b501faf4c785.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501faf4c785.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <p>arg_0是这个结构体的基地址，偏移0x14保存了结构中的字符，并且0x61对应ASCII中的字母a</p>
 <h2 id="6x9-分析链表遍历"><a href="#6x9-分析链表遍历" class="headerlink" title="6x9 分析链表遍历"></a>6x9 分析链表遍历</h2><blockquote>
 <p><strong>C代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501faf632ab.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501faf632ab.jpg" class="lazyload"></a><br><a href="https://i.loli.net/2018/07/19/5b501faf7be8b.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501faf7be8b.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501faf632ab.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501faf632ab.jpg" class="lazyload" title="mark"></a><br><a href="https://i.loli.net/2018/07/19/5b501faf7be8b.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501faf7be8b.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <blockquote>
 <p><strong>反汇编代码</strong></p>
-<p><a href="https://i.loli.net/2018/07/19/5b501faf96083.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501faf96083.jpg" class="lazyload"></a><br><a href="https://i.loli.net/2018/07/19/5b501fafb3fab.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" title="mark" data-src="https://i.loli.net/2018/07/19/5b501fafb3fab.jpg" class="lazyload"></a></p>
+<p><a href="https://i.loli.net/2018/07/19/5b501faf96083.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501faf96083.jpg" class="lazyload" title="mark"></a><br><a href="https://i.loli.net/2018/07/19/5b501fafb3fab.jpg" target="_blank" rel="noopener" data-fancybox="group" data-caption="mark" class="fancybox"><img alt="mark" data-src="https://i.loli.net/2018/07/19/5b501fafb3fab.jpg" class="lazyload" title="mark"></a></p>
 </blockquote>
 <p>var_C对应i，它是这个循环的计数。<br>var_8对应head变量。<br>var_4是一个指向拥有两个被赋值变量结构体的指针</p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/%E7%AC%AC6%E7%AB%A0%20%E8%AF%86%E5%88%AB%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84C%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84/">https://kabeor.github.io/%E7%AC%AC6%E7%AB%A0%20%E8%AF%86%E5%88%AB%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84C%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/">病毒分析    </a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2018/07/16/5b4c6273a0250.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/%E7%AC%AC5%E7%AB%A0%20IDA%20Pro/"><img class="prev_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c62f8ec294.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>第5章 IDA Pro</span></div></a></div><div class="next-post pull_right"><a href="/%E7%AC%AC4%E7%AB%A0%20x86%E5%8F%8D%E6%B1%87%E7%BC%96%E9%80%9F%E6%88%90%E7%8F%AD/"><img class="next_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c62f901955.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>第4章 x86反汇编速成班</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/第0章 恶意代码分析技术入门/" title="第0章 恶意代码分析技术入门"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">第0章 恶意代码分析技术入门</div></div></a></div><div class="relatedPosts_item"><a href="/第10章  使用WinDbg调试内核/" title="第10章  使用WinDbg调试内核"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c62735d971.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-02</div><div class="relatedPosts_title">第10章  使用WinDbg调试内核</div></div></a></div><div class="relatedPosts_item"><a href="/第11章  恶意代码行为/" title="第11章  恶意代码行为"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c6273790c1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-02</div><div class="relatedPosts_title">第11章  恶意代码行为</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/%E7%AC%AC6%E7%AB%A0%20%E8%AF%86%E5%88%AB%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84C%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84/">https://kabeor.github.io/%E7%AC%AC6%E7%AB%A0%20%E8%AF%86%E5%88%AB%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84C%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/">病毒分析    </a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2018/07/16/5b4c6273a0250.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/%E7%AC%AC5%E7%AB%A0%20IDA%20Pro/"><img class="prev_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c62f8ec294.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>第5章 IDA Pro</span></div></a></div><div class="next-post pull_right"><a href="/%E7%AC%AC7%E7%AB%A0%20%E5%88%86%E6%9E%90%E6%81%B6%E6%84%8FWindows%E7%A8%8B%E5%BA%8F/"><img class="next_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c62f909670.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>第7章 分析恶意Windows程序</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/第0章 恶意代码分析技术入门/" title="第0章 恶意代码分析技术入门"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">第0章 恶意代码分析技术入门</div></div></a></div><div class="relatedPosts_item"><a href="/第10章  使用WinDbg调试内核/" title="第10章  使用WinDbg调试内核"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c62735d971.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-02</div><div class="relatedPosts_title">第10章  使用WinDbg调试内核</div></div></a></div><div class="relatedPosts_item"><a href="/第11章  恶意代码行为/" title="第11章  恶意代码行为"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c6273790c1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-09-02</div><div class="relatedPosts_title">第11章  恶意代码行为</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
 var verify = true == true ? true : false;
 var GUEST_INFO = ['nick','mail','link'];
 var guest_info = 'nick,mail,link'.split(',').filter(function(item){
