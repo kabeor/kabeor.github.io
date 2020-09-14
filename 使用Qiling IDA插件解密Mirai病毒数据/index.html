@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>使用Qiling IDA插件解密Mirai病毒数据 | K's House</title><meta name="description" content="使用Qiling IDA插件解密Mirai病毒数据"><meta name="keywords" content="逆向"><meta name="author" content="kabeor"><meta name="copyright" content="kabeor"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="使用Qiling IDA插件解密Mirai病毒数据"><meta name="twitter:description" content="使用Qiling IDA插件解密Mirai病毒数据"><meta name="twitter:image" content="https://i.loli.net/2018/07/16/5b4c62735d971.png"><meta property="og:type" content="article"><meta property="og:title" content="使用Qiling IDA插件解密Mirai病毒数据"><meta property="og:url" content="https://kabeor.github.io/%E4%BD%BF%E7%94%A8Qiling%20IDA%E6%8F%92%E4%BB%B6%E8%A7%A3%E5%AF%86Mirai%E7%97%85%E6%AF%92%E6%95%B0%E6%8D%AE/"><meta property="og:site_name" content="K's House"><meta property="og:description" content="使用Qiling IDA插件解密Mirai病毒数据"><meta property="og:image" content="https://i.loli.net/2018/07/16/5b4c62735d971.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://kabeor.github.io/%E4%BD%BF%E7%94%A8Qiling%20IDA%E6%8F%92%E4%BB%B6%E8%A7%A3%E5%AF%86Mirai%E7%97%85%E6%AF%92%E6%95%B0%E6%8D%AE/"><link rel="prev" title="写在前面的话" href="https://kabeor.github.io/Top/"><link rel="next" title="IoT固件提取并使用qiling进行fuzz" href="https://kabeor.github.io/IoT%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96%E5%B9%B6%E4%BD%BF%E7%94%A8qiling%E8%BF%9B%E8%A1%8Cfuzz/"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113413523-1', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">K's House</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://kabeor.cn/img/avatarme.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">126</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">67</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">30</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#使用Qiling-IDA插件解密Mirai病毒数据"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">使用Qiling IDA插件解密Mirai病毒数据</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#介绍"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">介绍</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#安装"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">安装</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#安装Qiling"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text">安装Qiling</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#安装插件"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text">安装插件</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#支持状态"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">支持状态</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#使用Qiling-IDA插件解密Mirai"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">使用Qiling IDA插件解密Mirai</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#视频展示"><span class="toc_mobile_items-number">1.4.1.</span> <span class="toc_mobile_items-text">视频展示</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#样本分析"><span class="toc_mobile_items-number">1.4.2.</span> <span class="toc_mobile_items-text">样本分析</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#编写插件自定义脚本"><span class="toc_mobile_items-number">1.4.3.</span> <span class="toc_mobile_items-text">编写插件自定义脚本</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#初始化插件"><span class="toc_mobile_items-number">1.4.4.</span> <span class="toc_mobile_items-text">初始化插件</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#运行插件进行解密"><span class="toc_mobile_items-number">1.4.5.</span> <span class="toc_mobile_items-text">运行插件进行解密</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#总结"><span class="toc_mobile_items-number">1.5.</span> <span class="toc_mobile_items-text">总结</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Qiling-IDA插件解密Mirai病毒数据"><span class="toc-number">1.</span> <span class="toc-text">使用Qiling IDA插件解密Mirai病毒数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">1.2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Qiling"><span class="toc-number">1.2.1.</span> <span class="toc-text">安装Qiling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装插件"><span class="toc-number">1.2.2.</span> <span class="toc-text">安装插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#支持状态"><span class="toc-number">1.3.</span> <span class="toc-text">支持状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用Qiling-IDA插件解密Mirai"><span class="toc-number">1.4.</span> <span class="toc-text">使用Qiling IDA插件解密Mirai</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#视频展示"><span class="toc-number">1.4.1.</span> <span class="toc-text">视频展示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#样本分析"><span class="toc-number">1.4.2.</span> <span class="toc-text">样本分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写插件自定义脚本"><span class="toc-number">1.4.3.</span> <span class="toc-text">编写插件自定义脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化插件"><span class="toc-number">1.4.4.</span> <span class="toc-text">初始化插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行插件进行解密"><span class="toc-number">1.4.5.</span> <span class="toc-text">运行插件进行解密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.5.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2018/07/16/5b4c62735d971.png)"><div id="post-info"><div id="post-title"><div class="posttitle">使用Qiling IDA插件解密Mirai病毒数据</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2020-09-14<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-09-14</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%80%86%E5%90%91/">逆向</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2.1k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 7 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span><span class="post-meta__separator">|</span><i class="fa fa-comments-o post-meta__icon fa-fw" aria-hidden="true"></i><span>评论数:</span><a href="/%E4%BD%BF%E7%94%A8Qiling%20IDA%E6%8F%92%E4%BB%B6%E8%A7%A3%E5%AF%86Mirai%E7%97%85%E6%AF%92%E6%95%B0%E6%8D%AE/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/%E4%BD%BF%E7%94%A8Qiling%20IDA%E6%8F%92%E4%BB%B6%E8%A7%A3%E5%AF%86Mirai%E7%97%85%E6%AF%92%E6%95%B0%E6%8D%AE/" itemprop="commentCount"></span></a></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="使用Qiling-IDA插件解密Mirai病毒数据"><a href="#使用Qiling-IDA插件解密Mirai病毒数据" class="headerlink" title="使用Qiling IDA插件解密Mirai病毒数据"></a>使用Qiling IDA插件解密Mirai病毒数据</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><a href="https://www.qiling.io" target="_blank" rel="noopener">Qiling Framework</a> 基于Unicorn，能够在一个平台上模拟多个OS和架构的二进制文件，包括Linux、MacOS、Windows、FreeBSD、DOS、UEFI和MBR。它支持x86（16、32和64位）、ARM、ARM64和MIPS。因此，我们几乎不需要担心因为环境搭建困难及手头设备不足导致无法进行分析工作，尤其像基于ARM或MIPS的IoT固件，想要进行逆向分析和漏洞挖掘尤其不易。</p>
+<p>在<a href="https://bbs.pediy.com/user-home-751602.htm" target="_blank" rel="noopener">澪同学</a>的帖子<a href="https://bbs.pediy.com/thread-261862.htm" target="_blank" rel="noopener">用麒麟框架深入分析实模式二进制文件</a>中提到了Qiling能够进行gdb远程调试，这实际上是我为Qiling所贡献的第一个功能。将调试能力赋予Qiling，我们就能够在完全可控的环境中对二进制文件进行动态分析，不必担心病毒样本对主机造成影响，能够绕过检测，甚至能够只执行其中的一部分。</p>
+<p>但这样的调试还不够优雅，在这里我想要为大家介绍的是Qiling调试功能的全新模块：Qiling IDA插件。与当今最强大的反编译器结合，我们可以做很多很棒的事。不需要IDA remote server和虚拟机就能够轻松地在IDA上进行动态调试和反编译，实时查看寄存器，堆栈和内存，绘制代码的执行路径等。此外，结合自定义脚本，我们能够使用Qiling提供的全部功能。我们还有更高级的功能：自动分析并反ollvm控制流平坦化，这将在今后进行单独介绍。</p>
+<p>文章同步发表于我的<a href="https://kabeor.cn" target="_blank" rel="noopener">Blog</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="安装Qiling"><a href="#安装Qiling" class="headerlink" title="安装Qiling"></a>安装Qiling</h3><p>Qiling的安装方式在<a href="https://docs.qiling.io/en/latest/install/" target="_blank" rel="noopener">这里</a>，由于Qiling更新速度较快，想要获取最新版本请<code>git clone https://github.com/qilingframework/qiling/tree/dev</code>。</p>
+<p><strong>注意</strong> 请将Qiling安装在IDA所使用的Python3环境内。</p>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>插件的安装方式有两种</p>
+<ol>
+<li><p>作为一个IDA插件</p>
+<p>只需要建立一个Qiling插件与IDA plugin目录的符号链接。</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Linux</span><br><span class="line">ln -s &#x2F;absolute&#x2F;path&#x2F;to&#x2F;qiling&#x2F;extensions&#x2F;idaplugin&#x2F;qilingida.py &#x2F;path&#x2F;to&#x2F;your&#x2F;ida&#x2F;plugins&#x2F;</span><br><span class="line"></span><br><span class="line"># Macos</span><br><span class="line">ln -s &#x2F;absolute&#x2F;path&#x2F;to&#x2F;qiling&#x2F;extensions&#x2F;idaplugin&#x2F;qilingida.py &#x2F;Applications&#x2F;&lt;Your IDA&gt;&#x2F;ida.app&#x2F;Contents&#x2F;MacOS&#x2F;plugins&#x2F;</span><br><span class="line"></span><br><span class="line"># Windows</span><br><span class="line">mklink C:\absolute\path\to\IDA\plugins\qilingida.py D:\absolute\path\to\qiling\extensions\idaplugin\qilingida.py</span><br></pre></td></tr></table></figure></div>
+
+<p>IDA在启动时会自动加载Qiling插件。</p>
+</li>
+<li><p>作为一个脚本文件</p>
+<p>运行IDA，点击<code>File/Script file...</code>，定位插件所在位置(也可以在<a href="https://raw.githubusercontent.com/qilingframework/qiling/dev/qiling/extensions/idaplugin/qilingida.py" target="_blank" rel="noopener">此处</a>下载最新版本)，选择qilingida.py即可。</p>
+</li>
+</ol>
+<p>加载脚本后可以在<code>Edit-&gt;Plugins-&gt;Qiling Emulator</code>和右键菜单找到按钮。</p>
+<p>插件的具体用法请访问 <a href="https://docs.qiling.io/en/latest/ida/" target="_blank" rel="noopener">https://docs.qiling.io/en/latest/ida/</a></p>
+<h2 id="支持状态"><a href="#支持状态" class="headerlink" title="支持状态"></a>支持状态</h2><p><strong>插件支持IDA7.x &amp;&amp; Python3.6+, 当前建议使用环境macOS及Linux</strong></p>
+<p>插件支持环境如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>8086</th>
+<th>x86</th>
+<th>x86-64</th>
+<th>ARM</th>
+<th>ARM64</th>
+<th>MIPS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows (PE)</td>
+<td>-</td>
+<td>&#9745;</td>
+<td>&#9745;</td>
+<td>-</td>
+<td>&#9744;</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Linux (ELF)</td>
+<td>-</td>
+<td>&#9745;</td>
+<td>&#9745;</td>
+<td>&#9745;</td>
+<td>&#9745;</td>
+<td>&#9745;</td>
+</tr>
+<tr>
+<td>MacOS (MachO)</td>
+<td>-</td>
+<td>&#9744;</td>
+<td>&#9745;</td>
+<td>-</td>
+<td>&#9744;</td>
+<td>-</td>
+</tr>
+<tr>
+<td>BSD (ELF)</td>
+<td>-</td>
+<td>&#9744;</td>
+<td>&#9745;</td>
+<td>&#9744;</td>
+<td>&#9744;</td>
+<td>&#9744;</td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td>-</td>
+<td>&#9745;</td>
+<td>&#9745;</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DOS (COM)</td>
+<td>&#9745;</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>MBR</td>
+<td>&#9745;</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<ul>
+<li>- : 不适用.</li>
+<li>&#9744;: 不支持.</li>
+<li>&#9745;: 支持.</li>
+</ul>
+<h2 id="使用Qiling-IDA插件解密Mirai"><a href="#使用Qiling-IDA插件解密Mirai" class="headerlink" title="使用Qiling IDA插件解密Mirai"></a>使用Qiling IDA插件解密Mirai</h2><p>配置好插件后我们就可以开始分析本次的示例Mirai了。</p>
+<h3 id="视频展示"><a href="#视频展示" class="headerlink" title="视频展示"></a>视频展示</h3><p>为此我录制了视频来展示整体流程：</p>
+<p>bilibili版本</p>
+<iframe src="//player.bilibili.com/player.html?aid=884476758&bvid=BV1FK4y1a7SH&cid=229025475&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+<p>Youtube版本<br><a href="https://www.youtube.com/watch?v=ZWMWTq2WTXk" target="_blank" rel="noopener"><img alt="Qiling&#39;s IDA Plugin: Instrument and Decrypt Mirai&#39;s Secret" data-src="https://i.ytimg.com/vi/ZWMWTq2WTXk/0.jpg" class="lazyload"></a></p>
+<h3 id="样本分析"><a href="#样本分析" class="headerlink" title="样本分析"></a>样本分析</h3><p>本次使用的样本是ARM架构的IoT僵尸网络病毒Mirai。</p>
+<p>通过分析我们可以在0xFC50处发现一些被加密的字符串，程序会把它们添加到一个table，而这个table事实上是病毒用来爆破ssh的字典。</p>
+<p><a href="https://i.loli.net/2020/09/14/HjKdvfAbBEqcNJX.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="HjKdvfAbBEqcNJX" class="fancybox"><img alt="HjKdvfAbBEqcNJX" title="HjKdvfAbBEqcNJX" data-src="https://i.loli.net/2020/09/14/HjKdvfAbBEqcNJX.png" class="lazyload"></a></p>
+<p>定位到0x12A20，我们会发现该函数正是用来加解密table的。</p>
+<p><a href="https://i.loli.net/2020/09/14/2V4PvaYnJI6hwZe.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="2V4PvaYnJI6hwZe" class="fancybox"><img alt="2V4PvaYnJI6hwZe" title="2V4PvaYnJI6hwZe" data-src="https://i.loli.net/2020/09/14/2V4PvaYnJI6hwZe.png" class="lazyload"></a></p>
+<p>使用F5进行反编译，可以看到加解密算法为异或key，因此我们只需要将加密数据输入该函数即可得到解密后的明文。</p>
+<p><a href="https://i.loli.net/2020/09/14/CWZUQcMqz6I5XxO.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="CWZUQcMqz6I5XxO" class="fancybox"><img alt="CWZUQcMqz6I5XxO" title="CWZUQcMqz6I5XxO" data-src="https://i.loli.net/2020/09/14/CWZUQcMqz6I5XxO.png" class="lazyload"></a></p>
+<p>分析解密循环的反汇编，我们可以得知，LR寄存器存放了待解密buffer的内存地址，因此我们只需要将加密数据写入该内存区域然后运行到循环结束就可以得到结果。</p>
+<p><a href="https://i.loli.net/2020/09/14/sOLk6chqexmPobM.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="sOLk6chqexmPobM" class="fancybox"><img alt="sOLk6chqexmPobM" title="sOLk6chqexmPobM" data-src="https://i.loli.net/2020/09/14/sOLk6chqexmPobM.png" class="lazyload"></a></p>
+<p>由于读写寄存器及内存的操作需要循环多次，我们手工操作会非常繁琐，因此Qiling IDA插件的自定义脚本就派上了用场。</p>
+<h3 id="编写插件自定义脚本"><a href="#编写插件自定义脚本" class="headerlink" title="编写插件自定义脚本"></a>编写插件自定义脚本</h3><p>自定义脚本的基本结构如下：</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QILING_IDA</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">custom_prepare</span><span class="params">(self, ql)</span>:</span>   <span class="comment"># Qiling初始化时调用</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">custom_continue</span><span class="params">(self, ql:Qiling)</span>:</span>  <span class="comment"># 点击“Continue”按钮时调用</span></span><br><span class="line">        hook = []</span><br><span class="line">        <span class="keyword">return</span> hook</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">custom_step</span><span class="params">(self, ql:Qiling, stepflag)</span>:</span>  <span class="comment"># 点击“Step”按钮时调用</span></span><br><span class="line">        hook = []</span><br><span class="line">        <span class="keyword">return</span> hook</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>对于本样例，脚本如下，脚本分析在注释中说明</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="keyword">from</span> qiling <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_encode_string_memory_address</span><span class="params">(ql:Qiling)</span>:</span></span><br><span class="line">    <span class="comment"># 显示待解密buffer所在地址</span></span><br><span class="line">    memory_address_bytes = bytes(ql.mem.read(ql.reg.read(<span class="string">'LR'</span>), <span class="number">0x4</span>))</span><br><span class="line">    memory_address = hex(struct.unpack(<span class="string">'&lt;I'</span>, memory_address_bytes)[<span class="number">0</span>])</span><br><span class="line">    print(<span class="string">'encode_string_memory_address at: '</span>+memory_address)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hook_LR</span><span class="params">(ql:Qiling, encoded_message_ascii)</span>:</span></span><br><span class="line">    encode_string_length=len(encoded_message_ascii)</span><br><span class="line">    encode_bytes_length=encode_string_length.to_bytes(length=<span class="number">1</span>, byteorder=<span class="string">'big'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 在内存中覆写待解密buffer的长度</span></span><br><span class="line">    ql.mem.write(ql.reg.read(<span class="string">'LR'</span>)+<span class="number">0x4</span>, encode_bytes_length)</span><br><span class="line"></span><br><span class="line">    memory_address_bytes = bytes(ql.mem.read(ql.reg.read(<span class="string">'LR'</span>), <span class="number">0x4</span>))</span><br><span class="line">    memory_address = hex(struct.unpack(<span class="string">'&lt;I'</span>, memory_address_bytes)[<span class="number">0</span>])</span><br><span class="line">    memory_address = int(memory_address, <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将待解密buffer中的值替换为我们需要解密的数据</span></span><br><span class="line">    new_encode=<span class="string">b''</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> encoded_message_ascii:</span><br><span class="line">        new_encode += x.to_bytes(length=<span class="number">1</span>, byteorder=<span class="string">'big'</span>)</span><br><span class="line">    ql.mem.write(memory_address, new_encode)</span><br><span class="line">    print(<span class="string">'Encode: '</span>, bytes(ql.mem.read(memory_address, len(encoded_message_ascii))))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode_show</span><span class="params">(ql, encoded_message_ascii)</span>:</span></span><br><span class="line">    <span class="comment"># 读取待解密buffer中的值</span></span><br><span class="line">    encode_string_length=len(encoded_message_ascii)</span><br><span class="line">    memory_address_bytes = bytes(ql.mem.read(ql.reg.read(<span class="string">'LR'</span>), <span class="number">0x4</span>))</span><br><span class="line">    memory_address = hex(struct.unpack(<span class="string">'&lt;I'</span>, memory_address_bytes)[<span class="number">0</span>])</span><br><span class="line">    memory_address = int(memory_address, <span class="number">16</span>)</span><br><span class="line">    print(<span class="string">'Decode: '</span>, bytes(ql.mem.read(memory_address, encode_string_length)).replace(<span class="string">b'T'</span>, <span class="string">b' '</span>))</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QILING_IDA</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">custom_prepare</span><span class="params">(self, ql)</span>:</span></span><br><span class="line">        ql.patch(<span class="number">0xF58C</span>, <span class="string">b'\x90\x90\x90\x90\x90'</span>)  <span class="comment"># 将该地址的clock函数nop，否则无法继续模拟</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 读取加密数据，转换格式</span></span><br><span class="line">        encoded_message_bytes = bytes(ql.mem.read(<span class="number">0x1393C</span>, <span class="number">0x1395B</span><span class="number">-0x1393C</span>))</span><br><span class="line">        encoded_message_ascii = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> encoded_message_bytes:</span><br><span class="line">            encoded_message_ascii.append(i)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 显示待解密buffer所在地址，便于在内存中查看结果</span></span><br><span class="line">        ql.hook_address(show_encode_string_memory_address, <span class="number">0x12A68</span>)</span><br><span class="line">        <span class="comment"># 将加密数据写入LR指向的内存地址</span></span><br><span class="line">        ql.hook_address(hook_LR, <span class="number">0x12A70</span>, user_data=encoded_message_ascii)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">custom_continue</span><span class="params">(self, ql:Qiling)</span>:</span></span><br><span class="line">        <span class="comment"># 读取加密数据，转换格式</span></span><br><span class="line">        encoded_message = bytes(ql.mem.read(<span class="number">0x1393C</span>, <span class="number">0x1395B</span><span class="number">-0x1393C</span>))</span><br><span class="line">        encoded_message_ascii = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> encoded_message:</span><br><span class="line">            encoded_message_ascii.append(i)</span><br><span class="line">		</span><br><span class="line">        <span class="comment"># 显示每循环一次后当前内存的解密状态</span></span><br><span class="line">        decode_show_hook = ql.hook_address(decode_show, <span class="number">0x12AC8</span>, user_data=encoded_message_ascii)</span><br><span class="line">        <span class="comment"># 返回该hook的handle，插件将自动处理</span></span><br><span class="line">        hook = [decode_show_hook]</span><br><span class="line">        <span class="keyword">return</span> hook</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">custom_step</span><span class="params">(self, ql:Qiling, stepflag)</span>:</span></span><br><span class="line">        hook = []</span><br><span class="line">        <span class="keyword">return</span> hook</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="初始化插件"><a href="#初始化插件" class="headerlink" title="初始化插件"></a>初始化插件</h3><ol>
+<li><p>右键-Qiling Emulator-Setup</p>
+</li>
+<li><p>设置rootfs(即环境根目录，Qiling会加载其中的lib，一般建议使用qiling/example/rootfs下对应环境的文件夹路径作为rootfs)，本次分析样本还需要将<code>ld-uClibc.so.0</code>放置在rootfs/lib目录下。</p>
+</li>
+<li><p>设置自定义脚本文件的路径。</p>
+</li>
+</ol>
+<p><a href="https://i.loli.net/2020/09/14/TWn7x9i8UQopdXD.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="TWn7x9i8UQopdXD" class="fancybox"><img alt="TWn7x9i8UQopdXD" title="TWn7x9i8UQopdXD" data-src="https://i.loli.net/2020/09/14/TWn7x9i8UQopdXD.png" class="lazyload"></a></p>
+<p>如果Qiling初始化和加载自定义脚本成功，则IDA输出窗口显示如下内容</p>
+<p><a href="https://i.loli.net/2020/09/14/zerJ3cawnti1XqO.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="zerJ3cawnti1XqO" class="fancybox"><img alt="zerJ3cawnti1XqO" title="zerJ3cawnti1XqO" data-src="https://i.loli.net/2020/09/14/zerJ3cawnti1XqO.png" class="lazyload"></a></p>
+<p><strong>提示</strong> 在IDA 反汇编界面的基址位置会显示该文件所依赖的lib。</p>
+<p><a href="https://i.loli.net/2020/09/14/AZYagoMuCR7V3Qx.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="AZYagoMuCR7V3Qx" class="fancybox"><img alt="AZYagoMuCR7V3Qx" title="AZYagoMuCR7V3Qx" data-src="https://i.loli.net/2020/09/14/AZYagoMuCR7V3Qx.png" class="lazyload"></a></p>
+<h3 id="运行插件进行解密"><a href="#运行插件进行解密" class="headerlink" title="运行插件进行解密"></a>运行插件进行解密</h3><p>回到加解密函数，我们在解密循环前设置断点，用于访问内存地址，并在循环结束后设置断点，因为不必继续模拟。</p>
+<p><a href="https://i.loli.net/2020/09/14/ZqDMjOE1U5d9Vum.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="ZqDMjOE1U5d9Vum" class="fancybox"><img alt="ZqDMjOE1U5d9Vum" title="ZqDMjOE1U5d9Vum" data-src="https://i.loli.net/2020/09/14/ZqDMjOE1U5d9Vum.png" class="lazyload"></a></p>
+<p>点击右键-Qiling Emulator-Continue，Qiling将模拟到第一个断点</p>
+<p><a href="https://i.loli.net/2020/09/14/jWl3ILKydSF54be.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="jWl3ILKydSF54be" class="fancybox"><img alt="jWl3ILKydSF54be" title="jWl3ILKydSF54be" data-src="https://i.loli.net/2020/09/14/jWl3ILKydSF54be.png" class="lazyload"></a></p>
+<p>我们得到了待解密buffer起始地址为0x1E258</p>
+<p>右键-Qiling Emulator-View Memory，输入地址及要查看的内存大小，即可查看实时内存</p>
+<p><a href="https://i.loli.net/2020/09/14/1JysKVLMeAZmRid.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="1JysKVLMeAZmRid" class="fancybox"><img alt="1JysKVLMeAZmRid" title="1JysKVLMeAZmRid" data-src="https://i.loli.net/2020/09/14/1JysKVLMeAZmRid.png" class="lazyload"></a></p>
+<p>同样的，在右键-Qiling Emulator中点击 View Register和View Stack可以查看寄存器及堆栈。整理窗口位置后如下</p>
+<p><a href="https://i.loli.net/2020/09/14/ru8KUFs1iYePxph.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="ru8KUFs1iYePxph" class="fancybox"><img alt="ru8KUFs1iYePxph" title="ru8KUFs1iYePxph" data-src="https://i.loli.net/2020/09/14/ru8KUFs1iYePxph.png" class="lazyload"></a></p>
+<p>可以看出当前内存中已经写入了我们要解密的数据，在寄存器R2中则存储着将要异或的key。</p>
+<p>再次点击Continue，进行解密</p>
+<p><a href="https://i.loli.net/2020/09/14/xpnhOwdZBHgARt3.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="xpnhOwdZBHgARt3" class="fancybox"><img alt="xpnhOwdZBHgARt3" title="xpnhOwdZBHgARt3" data-src="https://i.loli.net/2020/09/14/xpnhOwdZBHgARt3.png" class="lazyload"></a></p>
+<p>内存窗口中黄色字符串即为发生变化的内存，右侧输出窗口也实时显示了解密结果(动态效果参见视频)。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本次我使用了一个较为简单的例子向大家演示了Qiling IDA插件的功能，但它的潜力远不仅此。未来我们也会继续添加更多可用功能，使其更加完整。</p>
+<p>当然，在开发过程中也不可避免会出现bug，请到<a href="https://github.com/qilingframework/qiling/issues提issue。" target="_blank" rel="noopener">https://github.com/qilingframework/qiling/issues提issue。</a></p>
+<p>同时我们也欢迎各位参与到开发中，提出pr。</p>
+<p>如果有更多问题和想法，欢迎到<a href="https://gitter.im/qilingframework/community" target="_blank" rel="noopener">gitter</a>或QQ群: 486812017 进行交流。</p>
+<p><a href="https://i.loli.net/2020/09/14/lRavQ2S57zxfoBd.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="lRavQ2S57zxfoBd" class="fancybox"><img alt="lRavQ2S57zxfoBd" title="lRavQ2S57zxfoBd" data-src="https://i.loli.net/2020/09/14/lRavQ2S57zxfoBd.png" class="lazyload"></a></p>
+<p>觉得项目不错的话就请给个<a href="https://github.com/qilingframework/qiling" target="_blank" rel="noopener">star</a>吧～</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">kabeor</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kabeor.github.io/%E4%BD%BF%E7%94%A8Qiling%20IDA%E6%8F%92%E4%BB%B6%E8%A7%A3%E5%AF%86Mirai%E7%97%85%E6%AF%92%E6%95%B0%E6%8D%AE/">https://kabeor.github.io/%E4%BD%BF%E7%94%A8Qiling%20IDA%E6%8F%92%E4%BB%B6%E8%A7%A3%E5%AF%86Mirai%E7%97%85%E6%AF%92%E6%95%B0%E6%8D%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kabeor.github.io">K's House</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%80%86%E5%90%91/">逆向    </a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2018/07/16/5b4c62735d971.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/Top/"><img class="prev_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c6341ac665.png" onerror="onerror=null;src='/img/404.png'"><div class="label">上一篇</div><div class="prev_info"><span>写在前面的话</span></div></a></div><div class="next-post pull_right"><a href="/IoT%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96%E5%B9%B6%E4%BD%BF%E7%94%A8qiling%E8%BF%9B%E8%A1%8Cfuzz/"><img class="next_cover lazyload" data-src="https://i.loli.net/2018/07/16/5b4c6341c0e72.png" onerror="onerror=null;src='/img/404.png'"><div class="label">下一篇</div><div class="next_info"><span>IoT固件提取并使用qiling进行fuzz</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/001_Acid_burn.exe 算法分析/" title="001_Acid_burn.exe 算法分析"><img class="relatedPosts_cover lazyload"data-src="https://i.loli.net/2018/07/16/5b4c62738308c.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-08-03</div><div class="relatedPosts_title">001_Acid_burn.exe 算法分析</div></div></a></div><div class="relatedPosts_item"><a href="/001_Acid_burn.exe/" title="001_Acid_burn.exe"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-25</div><div class="relatedPosts_title">001_Acid_burn.exe</div></div></a></div><div class="relatedPosts_item"><a href="/2018.2 MOCTFcrackme2 WriteUp/" title="2018.2 MOCTFcrackme2 WriteUp"><img class="relatedPosts_cover lazyload"data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-07-15</div><div class="relatedPosts_title">2018.2 MOCTFcrackme2 WriteUp</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = true == true ? true : false;
+var verify = true == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz',
+  appKey:'pSNnuMbRDkWAE7j44yChrEce',
+  placeholder:'请到 https://gitter.im/K-s-House/community 进行评论(╯‵□′)╯︵┻━┻',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" style="background-image: url(https://i.loli.net/2018/07/16/5b4c62735d971.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By kabeor</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
